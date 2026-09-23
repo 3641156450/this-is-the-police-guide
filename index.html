@@ -1,0 +1,5076 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>《这是警察》完全攻略 · 数据解包版</title>
+<style>
+:root{
+  --bg:#f4f6f8; --card:#ffffff; --ink:#2b3038; --ink-soft:#5a6472;
+  --head:#161a20; --line:#e3e7ed; --line-soft:#eef1f5;
+  --accent:#b03a2e; --accent-soft:#fdf2f0; --blue:#2c5f8a; --blue-soft:#eef4f9;
+  --green:#2f7a4d; --green-soft:#eef7f1; --amber:#8a5a12; --amber-soft:#fdf6e9;
+  --code-bg:#f7f8fa;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:"Source Han Sans SC","Noto Sans CJK SC","PingFang SC","Microsoft YaHei",
+              "Hiragino Sans GB",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:16px; line-height:1.85; -webkit-font-smoothing:antialiased;
+}
+/* ---------- 布局 ---------- */
+.wrap{display:flex; max-width:1400px; margin:0 auto; align-items:flex-start}
+.side{
+  position:sticky; top:53px; width:290px; flex:0 0 290px; height:calc(100vh - 53px);
+  overflow-y:auto; padding:28px 14px 60px 22px; border-right:1px solid var(--line);
+  background:#fafbfc;
+}
+.main{flex:1 1 auto; min-width:0; padding:34px 44px 100px}
+.side h4{
+  margin:0 0 12px; font-size:12px; letter-spacing:.14em; color:var(--ink-soft);
+  font-weight:700; text-transform:uppercase;
+}
+#tocFilter{
+  width:100%; padding:7px 10px; margin-bottom:14px; font-size:13px;
+  border:1px solid var(--line); border-radius:7px; background:#fff; color:var(--ink);
+  font-family:inherit;
+}
+#tocFilter:focus{outline:2px solid var(--blue-soft); border-color:var(--blue)}
+.toc{display:flex; flex-direction:column; gap:1px}
+.toc a{
+  display:block; padding:5px 9px; border-radius:6px; text-decoration:none;
+  color:var(--ink-soft); font-size:13.5px; line-height:1.5;
+  border-left:2px solid transparent;
+}
+.toc a:hover{background:var(--blue-soft); color:var(--blue)}
+.toc a.toc-l1{font-weight:700; color:var(--head); font-size:14px; margin-top:11px}
+.toc a.toc-l2{padding-left:18px}
+.toc a.toc-l3{padding-left:30px; font-size:12.5px; color:#7c8794}
+.toc a.hide{display:none}
+/* ---------- 标题 ---------- */
+h1,h2,h3{color:var(--head); line-height:1.4; scroll-margin-top:66px}
+h1{
+  font-size:26px; margin:52px 0 20px; padding:0 0 12px;
+  border-bottom:3px solid var(--accent); letter-spacing:.01em;
+}
+h1:first-of-type{
+  margin-top:0; font-size:32px; border-bottom:none; padding-bottom:0;
+}
+h2{font-size:20px; margin:38px 0 14px; padding-left:12px; border-left:4px solid var(--blue)}
+h3{font-size:16.5px; margin:28px 0 10px; color:var(--blue)}
+p{margin:12px 0}
+hr{border:none; border-top:1px solid var(--line); margin:44px 0}
+strong{color:var(--head); font-weight:700}
+em{color:var(--ink-soft)}
+a{color:var(--blue)}
+/* ---------- 引用块（原文引语） ---------- */
+blockquote{
+  margin:16px 0; padding:12px 18px; background:#fafbfc;
+  border-left:4px solid var(--accent); border-radius:0 8px 8px 0; color:#3d444f;
+}
+blockquote p{margin:6px 0}
+blockquote strong{color:var(--accent)}
+/* ---------- 代码块 ---------- */
+code{
+  background:var(--code-bg); border:1px solid var(--line-soft); border-radius:5px;
+  padding:1px 5px; font-size:.9em; color:var(--accent);
+  font-family:"JetBrains Mono","Cascadia Code",Consolas,"Courier New",monospace;
+}
+pre{
+  background:var(--code-bg); border:1px solid var(--line); border-radius:9px;
+  padding:16px 18px; overflow-x:auto; margin:16px 0; line-height:1.6;
+}
+pre code{background:none; border:none; padding:0; color:#37414f; font-size:13.5px}
+/* ---------- 表格 ---------- */
+.tw{overflow-x:auto; margin:18px 0; border:1px solid var(--line); border-radius:10px; background:var(--card)}
+table{border-collapse:collapse; width:100%; font-size:14.5px}
+th,td{padding:9px 13px; border-bottom:1px solid var(--line-soft); text-align:left; vertical-align:top}
+thead th{
+  background:#f0f3f7; color:var(--head); font-weight:700; font-size:13.5px;
+  border-bottom:2px solid var(--line); white-space:nowrap;
+}
+tbody tr:nth-child(even){background:#fbfcfd}
+tbody tr:hover{background:var(--blue-soft)}
+tbody tr:last-child td{border-bottom:none}
+td strong{color:var(--accent)}
+/* ---------- 列表 ---------- */
+ul,ol{padding-left:26px; margin:12px 0}
+li{margin:5px 0}
+li>ul,li>ol{margin:4px 0}
+/* ---------- 顶部/工具 ---------- */
+.topbar{
+  background:#fff; border-bottom:1px solid var(--line); padding:14px 26px;
+  display:flex; align-items:baseline; gap:14px; flex-wrap:wrap;
+  position:sticky; top:0; z-index:50;
+}
+.topbar .t{font-size:15px; font-weight:700; color:var(--head)}
+.topbar .s{font-size:12.5px; color:var(--ink-soft)}
+#toTop{
+  position:fixed; right:26px; bottom:30px; width:44px; height:44px; border-radius:50%;
+  background:var(--accent); color:#fff; border:none; cursor:pointer; font-size:18px;
+  box-shadow:0 4px 14px rgba(176,58,46,.32); display:none; z-index:60;
+}
+#toTop:hover{background:#963227}
+#menuBtn{
+  display:none; position:fixed; left:16px; bottom:30px; z-index:60;
+  background:var(--blue); color:#fff; border:none; border-radius:22px;
+  padding:9px 16px; font-size:13px; cursor:pointer; font-family:inherit;
+}
+@media (max-width:980px){
+  .side{
+    position:fixed; left:0; top:0; bottom:0; z-index:70; transform:translateX(-100%);
+    transition:transform .22s ease; box-shadow:6px 0 24px rgba(0,0,0,.12);
+  }
+  .side.open{transform:translateX(0)}
+  .main{padding:22px 18px 90px}
+  h1{font-size:22px} h1:first-of-type{font-size:24px} h2{font-size:18px}
+  #menuBtn{display:block}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="t">《这是警察》完全攻略 · 数据解包版</span>
+  <span class="s">全部数值与原文来自本机游戏文件解包 · IL 反汇编验证 · 共 25 章</span>
+</div>
+
+<div class="wrap">
+  <nav class="side" id="side">
+    <h4>目录</h4>
+    <input id="tocFilter" placeholder="筛选章节…" autocomplete="off">
+    <div class="toc" id="toc">
+<a class="toc-l1" href="#sec-0">第一章 开局必背的 15 件事</a>
+<a class="toc-l1" href="#sec-1">第二章 一天怎么过（核心循环）</a>
+<a class="toc-l2" href="#sec-2">2.1 时间轴</a>
+<a class="toc-l2" href="#sec-3">2.2 每天固定会发生的事</a>
+<a class="toc-l2" href="#sec-4">2.3 一个反直觉但很重要的点</a>
+<a class="toc-l1" href="#sec-5">第三章 请假系统（最详细）</a>
+<a class="toc-l2" href="#sec-6">3.1 完整判定链【全部已验证】</a>
+<a class="toc-l2" href="#sec-7">3.2 决策树（照着这个走就行）</a>
+<a class="toc-l2" href="#sec-8">3.3 43 条请假理由全表（中文原文，按严重度）</a>
+<a class="toc-l3" href="#sec-9">Severity 1 — 扯淡理由（19 条）· 拒绝只 −1，放心拒</a>
+<a class="toc-l3" href="#sec-10">Severity 2 — 中等理由（12 条）· 拒绝 −7，看 TL 余量</a>
+<a class="toc-l3" href="#sec-11">Severity 3 — 大事（12 条）· 必须批，拒绝 −10</a>
+<a class="toc-l2" href="#sec-12">3.4 懒惰值（Laziness）的完整来源</a>
+<a class="toc-l1" href="#sec-13">第四章 钱：从哪来、怎么花</a>
+<a class="toc-l2" href="#sec-14">4.1 收入</a>
+<a class="toc-l2" href="#sec-15">4.2 支出</a>
+<a class="toc-l2" href="#sec-16">4.3 赃物价目表【数值】</a>
+<a class="toc-l2" href="#sec-17">4.4 商店价格</a>
+<a class="toc-l1" href="#sec-18">第五章 三条忠诚条（完整增减表）</a>
+<a class="toc-l2" href="#sec-19">5.1 团队忠诚 TL（弟兄对 Jack 的忠诚）</a>
+<a class="toc-l2" href="#sec-20">5.2 市政厅忠诚 CHL</a>
+<a class="toc-l2" href="#sec-21">5.3 黑帮忠诚 ML</a>
+<a class="toc-l1" href="#sec-22">第六章 警员管理</a>
+<a class="toc-l2" href="#sec-23">6.1 编制</a>
+<a class="toc-l2" href="#sec-24">6.2 警员属性（314 人在库）</a>
+<a class="toc-l2" href="#sec-25">6.3 专业度（Professionalism，下限 5）</a>
+<a class="toc-l2" href="#sec-26">6.4 状态惩罚</a>
+<a class="toc-l2" href="#sec-27">6.5 晋升</a>
+<a class="toc-l1" href="#sec-28">第七章 心理测试（PsychoTest）</a>
+<a class="toc-l2" href="#sec-29">7.1 心理测试（第 7 / 8 / 9 天）【数值 + 原文】</a>
+<a class="toc-l2" href="#sec-30">7.2 触发时间</a>
+<a class="toc-l2" href="#sec-31">7.3 计分规则</a>
+<a class="toc-l2" href="#sec-32">7.4 通过后果（"结果良好！"）</a>
+<a class="toc-l2" href="#sec-33">7.5 失败后果（"情况不妙"）</a>
+<a class="toc-l1" href="#sec-34">第八章 出警、现场处置、调查</a>
+<a class="toc-l2" href="#sec-35">8.1 JP（Job Points，工作点数）与 SRM（成功率修正）</a>
+<a class="toc-l2" href="#sec-36">8.2 现场处置问答原文（QUEST，190 场 / 307 个步骤）【原文】</a>
+<a class="toc-l2" href="#sec-37">8.3 时间与距离</a>
+<a class="toc-l2" href="#sec-38">8.4 调查（65 条调查链 / 1366 条文本）</a>
+<a class="toc-l3" href="#sec-39">8.4.1 证据帧图像池（RGI，5 组 / 90 条文本）【原文】</a>
+<a class="toc-l3" href="#sec-40">8.4.2 调查文本长什么样（INVEST0001 原文）【原文】</a>
+<a class="toc-l2" href="#sec-41">8.5 剧本犯罪长什么样（CRIME，900 条 / 1800 条文本）【原文】</a>
+<a class="toc-l1" href="#sec-42">第九章 记者会：38 场全原文 + 全数值</a>
+<a class="toc-l2" href="#sec-43">9.1 第 1 天 · 通用池（PRESS0001–0007）【原文 + 数值】</a>
+<a class="toc-l3" href="#sec-44">通用池速查</a>
+<a class="toc-l2" href="#sec-45">9.2 连环杀手 · 开场（PRESS0008–0014）【原文】</a>
+<a class="toc-l2" href="#sec-46">9.3 连环杀手 · 失败（PRESS0015–0020）【原文】</a>
+<a class="toc-l2" href="#sec-47">9.4 连环杀手 · 成功（PRESS0021–0026 / 0027–0032）【原文】</a>
+<a class="toc-l2" href="#sec-48">9.5 第 58 天（Jack 遇袭后）· PRESS0033–0038【原文 + 数值】</a>
+<a class="toc-l1" href="#sec-49">第十章 市政厅派差（SEND，48 条）</a>
+<a class="toc-l1" href="#sec-50">第十一章 特殊指派（SPECIAL，8 条）</a>
+<a class="toc-l1" href="#sec-51">第十二章 支线任务（SideQuest，32 条）</a>
+<a class="toc-l2" href="#sec-52">12.1 机制总览</a>
+<a class="toc-l2" href="#sec-53">12.2 属性变化字段含义</a>
+<a class="toc-l2" href="#sec-54">12.3 全部 32 个支线任务一览（编号 / 委托人 / 警力 / 报酬 / 后果）</a>
+<a class="toc-l2" href="#sec-55">委托原文与结果（32 条）</a>
+<a class="toc-l2" href="#sec-56">12.4 个性化极端后果（IL 实锤）</a>
+<a class="toc-l2" href="#sec-57">12.5 委托人请求原文精要</a>
+<a class="toc-l1" href="#sec-58">第十三章 黑帮（Mafia）核心机制与刺杀触发</a>
+<a class="toc-l2" href="#sec-59">13.1 忠诚值（Loyalty）系统</a>
+<a class="toc-l2" href="#sec-60">13.2 黑帮任务（MafiaAssignment）成败</a>
+<a class="toc-l2" href="#sec-61">13.3 赃物（Loot）买卖</a>
+<a class="toc-l2" href="#sec-62">13.4 不满（Dissatisfaction）与警告</a>
+<a class="toc-l2" href="#sec-63">13.5 刺杀触发：三大条件（IL 验证）</a>
+<a class="toc-l2" href="#sec-64">13.6 刺杀发生与解除</a>
+<a class="toc-l2" href="#sec-65">13.7 黑帮任务报酬表（23 条剧本任务）【数值】</a>
+<a class="toc-l2" href="#sec-66">13.8 黑帮能买的服务</a>
+<a class="toc-l2" href="#sec-67">13.9 黑帮战争（第 13 天开始，持续 15 天）</a>
+<a class="toc-l2" href="#sec-68">13.10 黑帮派差原文（SEND0035–0048）【原文】</a>
+<a class="toc-l1" href="#sec-69">第十四章 帮派悬赏与审讯</a>
+<a class="toc-l2" href="#sec-70">14.1 帮派悬赏【数值】</a>
+<a class="toc-l2" href="#sec-71">14.2 帮派成员档案（GANG 原文）【原文】</a>
+<a class="toc-l2" href="#sec-72">14.3 审讯问答（INTERQ，52 组）【原文】</a>
+<a class="toc-l1" href="#sec-73">第十五章 黑帮火并（WAR，60 场）</a>
+<a class="toc-l1" href="#sec-74">第十六章 听证会与特殊事件 EVENT</a>
+<a class="toc-l2" href="#sec-75">16.1 听证会的整体结构</a>
+<a class="toc-l2" href="#sec-76">16.2 六大事件（原文，群体名已替换）</a>
+<a class="toc-l2" href="#sec-77">16.3 每个事件长什么样</a>
+<a class="toc-l2" href="#sec-78">16.4 选择的真实后果（来自 SpecialEventData）</a>
+<a class="toc-l2" href="#sec-79">16.5 六起事件完整原文</a>
+<a class="toc-l2" href="#sec-80">16.6 六个关键证词（认罪的代价）【数值】</a>
+<a class="toc-l2" href="#sec-81">16.7 关键证词的四个选项原文【原文】</a>
+<a class="toc-l2" href="#sec-82">16.8 非关键题原文（24 题，全部 0 惩罚）【原文】</a>
+<a class="toc-l2" href="#sec-83">16.9 听证会的通用打法</a>
+<a class="toc-l1" href="#sec-84">第十七章 连环杀手（第 66–80 天）</a>
+<a class="toc-l2" href="#sec-85">17.1 数值【数值】</a>
+<a class="toc-l2" href="#sec-86">17.2 五起谋杀 + 杀手来信（MURDER 原文）【原文】</a>
+<a class="toc-l1" href="#sec-87">第十八章 终局（第 165–178 天）</a>
+<a class="toc-l2" href="#sec-88">18.1 数值【数值】</a>
+<a class="toc-l2" href="#sec-89">18.2 终局人物证词（CLIMAX，33 人）【原文】</a>
+<a class="toc-l3" href="#sec-90">沙菲餐厅 / 屠宰场线</a>
+<a class="toc-l3" href="#sec-91">市政府线</a>
+<a class="toc-l3" href="#sec-92">16.3 终局布阵答案表（16 个槽位 · 已解出）</a>
+<a class="toc-l3" href="#sec-93">16.4 终局胜负判定（阈值 8 / 10）</a>
+<a class="toc-l1" href="#sec-94">第十九章 失败与成功结局全解</a>
+<a class="toc-l2" href="#sec-95">19.1 入狱结局（"你已入狱。"）</a>
+<a class="toc-l2" href="#sec-96">19.2 死亡结局（"杰克已死。"）</a>
+<a class="toc-l2" href="#sec-97">19.3 袭击失败结局（"袭击失败"）</a>
+<a class="toc-l2" href="#sec-98">19.4 两条成功结局（对照）</a>
+<a class="toc-l1" href="#sec-99">第二十章 沙盒模式</a>
+<a class="toc-l1" href="#sec-100">第二十一章 剧情时间线 &amp; 关键 deadline</a>
+<a class="toc-l1" href="#sec-101">附录 A：数值速查总表</a>
+<a class="toc-l2" href="#sec-102">A.1 出警相关</a>
+<a class="toc-l2" href="#sec-103">A.2 警员相关</a>
+<a class="toc-l2" href="#sec-104">A.3 忠诚条</a>
+<a class="toc-l1" href="#sec-105">附录 B：数据可信度说明</a>
+<a class="toc-l1" href="#sec-106">附录 C：解出来的东西清单</a>
+<a class="toc-l2" href="#sec-107">C.1 数值数据库（26 个，来自 resources.assets）</a>
+<a class="toc-l2" href="#sec-108">C.2 文本库（10236 条 × 8 语言，中文 = 第 6 列）</a>
+<a class="toc-l1" href="#sec-109">附录 D：彩蛋 &amp; 杂项</a>
+    </div>
+  </nav>
+
+  <main class="main">
+<h1 id="sec-0">第一章 开局必背的 15 件事</h1>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>结论</th>
+<th>数据依据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>批准请假不扣忠诚</strong>，只让这人变懒</td>
+<td><code>Employee::SendHome</code> 里根本没碰 TL【已验证】</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>拒绝扯淡理由只扣 1 点 TL</strong>，拒绝正当理由扣 10 点</td>
+<td>−1 / −7 / −10【已验证】</td>
+</tr>
+<tr>
+<td>3</td>
+<td>他精力 ≤2 时你拒绝 → 一律 <strong>−10</strong></td>
+<td><code>EmployeeTiredExcuseEnergyLevel = 2</code>【已验证】</td>
+</tr>
+<tr>
+<td>4</td>
+<td>他<strong>喝醉了</strong>你拒绝 → <strong>不扣任何 TL</strong></td>
+<td><code>if (!IsDrunk)</code> 是整个惩罚的外层条件【已验证】</td>
+</tr>
+<tr>
+<td>5</td>
+<td>第 <strong>7</strong> 天黑帮找上门，<strong>接受合作</strong>忠诚 100，<strong>拒绝</strong>直接砍到 <strong>50</strong></td>
+<td><code>MafiaLoyaltyIfRefuse = 50</code> 是<strong>赋值</strong>不是减法【已验证】</td>
+</tr>
+<tr>
+<td>6</td>
+<td>拒绝/搞砸黑帮<strong>调查类</strong>任务 <strong>−50</strong>，犯罪类 <strong>−30</strong></td>
+<td><code>MafiaAssignment::Fail</code>【已验证】</td>
+</tr>
+<tr>
+<td>7</td>
+<td>完成黑帮任务才 +10 / +20 —— <strong>拒绝一次调查类 = 白干 2.5 次犯罪类</strong></td>
+<td>同上</td>
+</tr>
+<tr>
+<td>8</td>
+<td>听证会上<strong>认罪的代价是 CHL −450</strong>（上限才 150）</td>
+<td><code>HearingDatabase</code> 关键项【数值】</td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>非法解雇 TL −50</strong>，这是游戏里最大的单点 TL 惩罚之一</td>
+<td><code>IllegalFireTLPenalty</code>【数值】</td>
+</tr>
+<tr>
+<td>10</td>
+<td>分赃给弟兄 <strong>TL +20</strong>，不分 <strong>−10</strong></td>
+<td><code>LootShareTLBonus</code> / <code>LootNoShareTLPenalty</code>【数值】</td>
+</tr>
+<tr>
+<td>11</td>
+<td>每起犯罪 CHL 基准 <strong>+5</strong>，但<strong>平民死亡 ×−5</strong>、<strong>罪犯逃跑 ×−3</strong></td>
+<td><code>CrimeCHLX</code> 系列【数值】</td>
+</tr>
+<tr>
+<td>12</td>
+<td>完成调查 <strong>CHL +20</strong>，是刷市政厅忠诚最快的方式</td>
+<td><code>InvestigationCHLX</code>【数值】</td>
+</tr>
+<tr>
+<td>13</td>
+<td>刑讯代价：拷问 −20，拷到昏厥 −40，<strong>拷死 −60</strong></td>
+<td><code>TortureCHLPenalty</code> 系列【数值】</td>
+</tr>
+<tr>
+<td>14</td>
+<td>主线一共 <strong>180 天</strong>，1985 年 7 月 15 日开局</td>
+<td><code>NumDays</code>【数值】</td>
+</tr>
+<tr>
+<td>15</td>
+<td>连环杀手第 <strong>66–80</strong> 天，破案 <strong>+175000</strong>，失败 <strong>−70000</strong> 且薪水 −80%</td>
+<td><code>SerialKiller*</code>【数值】</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h1 id="sec-1">第二章 一天怎么过（核心循环）</h1>
+<h2 id="sec-2">2.1 时间轴</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>天数</th>
+<th>游戏内时间</th>
+<th>真实秒数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>短日程</td>
+<td>第 1–5 天</td>
+<td>10:00 起，10 小时</td>
+<td><strong>95 秒</strong></td>
+</tr>
+<tr>
+<td>完整日程</td>
+<td>第 6 天起</td>
+<td>07:00 起，19 小时</td>
+<td><strong>180 秒</strong></td>
+</tr>
+<tr>
+<td>终局日程</td>
+<td>第 157 天起</td>
+<td>11:00 起，15 小时</td>
+<td><strong>145 秒</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>20:00 进夜晚。犯罪有 <strong>20 秒警告</strong>、<strong>10 秒紧急</strong>窗口——过了就黄。</p>
+<h2 id="sec-3">2.2 每天固定会发生的事</h2>
+<ol>
+<li><strong>上班前结算</strong>：每个警员掷骰 <code>Random(0,100) &lt; 他的 Laziness</code> → 决定是否开口请假（详见第三章）</li>
+<li><strong>派警</strong>：出警路上耗时 10 / 15 / 20 秒（按距离 1.125 / 1.875），现场执行 3 秒。
+   所以<strong>远处的案子要提前派人</strong>，别等警告亮了才动。</li>
+<li><strong>现场处置问答</strong>（20% 概率触发，见 8.2）——这时候才轮到文本选项登场</li>
+<li><strong>处理黑帮任务 / 市政厅请求</strong>（每 5 天一次市政厅）</li>
+<li><strong>下班结算</strong>：工资累计、精力、酗酒、政治观点变化（每天 5% 概率改立场）</li>
+</ol>
+<h2 id="sec-4">2.3 一个反直觉但很重要的点</h2>
+<p><strong>警员的精力（Energy）是消耗品，而请假是他自己补精力的手段。</strong>
+精力 ≤2 时被拒绝 → TL −10。所以与其硬留一个累垮的人，不如批了（代价只是他 Laziness +7/+5/+3/+2）。</p>
+<hr />
+<h1 id="sec-5">第三章 请假系统（最详细）</h1>
+<h2 id="sec-6">3.1 完整判定链【全部已验证】</h2>
+<pre><code>每天上班前，对每个警员：
+
+① 他会不会开口？
+   掷骰 = Random(0, 100)
+   若 掷骰 &lt; 他的 Laziness  →  开口请假
+   （Laziness=5 的人约 5%，Laziness=20 的人约 20%）
+
+② 摇到什么级别的理由？
+   r = Random(0, 100)
+   r &lt; 50          → Severity 1（扯淡）  50%
+   50 ≤ r &lt; 80     → Severity 2（中等）  30%
+   r ≥ 80          → Severity 3（大事）  20%
+   摇到 3 级 = 必定请假，不再判定
+
+③ 你批准（SendHome）：
+   TL 不变
+   该警员 Laziness +=  +7 / +5 / +3 / +2（按 0/1/2/3 枚警徽）
+   精力重置为 5
+
+④ 你拒绝（DenyGoingHome）：
+   if (!他喝醉) {
+       if (他精力 ≤ 2)   TL += −10
+       else switch(理由级别) {
+            1级 → TL += −1
+            2级 → TL += −7
+            3级 → TL += −10
+       }
+   }
+   该警员 Laziness +=  −7 / −5 / −4 / −5（按警徽数，变老实）
+</code></pre>
+<h2 id="sec-7">3.2 决策树（照着这个走就行）</h2>
+<pre><code>他来请假
+ ├─ 理由 Severity 3（葬礼/车祸/孩子结婚/房子烧了…）
+ │     → 【批准】 拒绝要 −10 TL，批准只涨 +2~+7 Laziness，血亏 vs 血赚
+ ├─ 理由 Severity 2（邻居死了/焦虑发作/抗抑郁药吃光…）
+ │     → 【看 TL 余量】 拒绝 −7。TL 高（&gt;100）可以拒，TL 吃紧就批
+ ├─ 理由 Severity 1（狗狗生日/商场大促/忘喂鱼/想看完小说…）
+ │     → 【随便拒】 只 −1，还能让他 Laziness −7 变勤快
+ └─ 他精力 ≤2（累垮了）
+       → 【批准】 拒绝就是 −10，而且他状态也不适合出警
+</code></pre>
+<p><strong>进阶技巧</strong>：主动把高警徽的人派去"扯淡理由"的场景拒绝他——3 徽的警员 Laziness 基数低，拒绝还能倒扣 5 点，把他养成不爱请假的好员工。</p>
+<h2 id="sec-8">3.3 43 条请假理由全表（中文原文，按严重度）</h2>
+<h3 id="sec-9">Severity 1 — 扯淡理由（19 条）· 拒绝只 −1，放心拒</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>理由原文</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0001</td>
+<td>今天我家狗狗过生日，我想陪她在公园待一天。可以请假一天吗？</td>
+</tr>
+<tr>
+<td>0002</td>
+<td>我家水管爆了，我得在家等工人来修。今天可以请假吗？</td>
+</tr>
+<tr>
+<td>0003</td>
+<td>我今天早上烧心特别严重。要是能回家卧床休息就好了……</td>
+</tr>
+<tr>
+<td>0004</td>
+<td>我上楼梯的时候有些眩晕。今天可以请假吗？</td>
+</tr>
+<tr>
+<td>0005</td>
+<td>今天有一场新电影发布会，主演是我最喜欢的演员！我可以请假去参加吗？</td>
+</tr>
+<tr>
+<td>0006</td>
+<td>我得把车开到店里去修。今天可以请假吗？</td>
+</tr>
+<tr>
+<td>0007</td>
+<td>我一整夜都没合眼，现在开始耳鸣了。今天可以请假吗？</td>
+</tr>
+<tr>
+<td>0008</td>
+<td>今天商场大促，我真的不想错过。今天可以请假吗？</td>
+</tr>
+<tr>
+<td>0009</td>
+<td>我拿到了电视节目录制入场券。我一直都特别想上电视。今天可以请假吗？</td>
+</tr>
+<tr>
+<td>0010</td>
+<td>据说今天会下雨，我免疫能力这么低，肯定会生病的。我可以请假躲过这场雨吗？</td>
+</tr>
+<tr>
+<td>0011</td>
+<td>今天市里所有博物馆都免费开放。我特别热爱艺术。今天可以请假吗？</td>
+</tr>
+<tr>
+<td>0012</td>
+<td>我好像忘了喂鱼。今天可以请假吗？</td>
+</tr>
+<tr>
+<td>0013</td>
+<td>我养的猫吃了过期食品，整夜拉稀。虽然现在有所好转，但我想回去照顾它们。</td>
+</tr>
+<tr>
+<td>0014</td>
+<td>今天门卫没来打扫厕所。我不知道你怎么想，但我特别在乎内衣的干净程度。</td>
+</tr>
+<tr>
+<td>0015</td>
+<td>我整夜都在读侦探小说《海神的最后诱惑》，但结局还没来得及看。我几乎可以确定凶手就是特派员哈罗德……</td>
+</tr>
+<tr>
+<td>0016</td>
+<td>……我几乎可以确定凶手就是克莱门斯夫人……</td>
+</tr>
+<tr>
+<td>0017</td>
+<td>……我几乎可以确定凶手就是销售员的鬼魂……</td>
+</tr>
+<tr>
+<td>0018</td>
+<td>……我几乎可以确定凶手就是那只名叫"将军"的家猫……</td>
+</tr>
+<tr>
+<td>0019</td>
+<td>我准备上班时不小心把镜子打碎了，我爸说这会带来七年厄运，但我知道这是迷信！其实只有七小时而已！</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>0015–0018 是同一个梗的四个变体，是这游戏最著名的彩蛋之一。</p>
+</blockquote>
+<h3 id="sec-10">Severity 2 — 中等理由（12 条）· 拒绝 −7，看 TL 余量</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>理由原文</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0020</td>
+<td>我邻居死了，他妻子想请我帮忙安排葬礼。今天可以请假吗？</td>
+</tr>
+<tr>
+<td>0021</td>
+<td>今天家里来了一些亲戚。他们从国外过来，之前从没和我见过面。</td>
+</tr>
+<tr>
+<td>0022</td>
+<td>我的小孩又惹麻烦了，我得去学校一趟。我可以请假处理吗？</td>
+</tr>
+<tr>
+<td>0023</td>
+<td>几个朋友叫我去动物收容所帮忙。他们实在是缺人手。</td>
+</tr>
+<tr>
+<td>0024</td>
+<td>我所在的乐队要为患病儿童办一场慈善音乐会。</td>
+</tr>
+<tr>
+<td>0025</td>
+<td>我的狗昨天去世，我真是伤心极了。今天可以请假回家吗？</td>
+</tr>
+<tr>
+<td>0026</td>
+<td>我的朋友刚刚在十字路口撞了车，她惊慌不已。我可以请假去帮她吗？</td>
+</tr>
+<tr>
+<td>0027</td>
+<td>今天我女儿在附近城市的一间高档画廊开个人展览。</td>
+</tr>
+<tr>
+<td>0028</td>
+<td>我爸喝多了，又打我妈了。这次看起来尤其严重。我想去看看他们。</td>
+</tr>
+<tr>
+<td>0029</td>
+<td>我最近焦虑发作，做任何事都无法专心。今天可以请假回家吗？</td>
+</tr>
+<tr>
+<td>0030</td>
+<td>这几个月，我每天都要吃三次抗抑郁药物，但今天药吃光了。药店明天才有货……</td>
+</tr>
+<tr>
+<td>0031</td>
+<td>我昨晚倒垃圾的时候，不小心碰到了毒葛。今天早晨发现脚上起泡了……</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="sec-11">Severity 3 — 大事（12 条）· <strong>必须批</strong>，拒绝 −10</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>理由原文</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0032</td>
+<td>今天是我父亲的葬礼。我可以请假参加吗？</td>
+</tr>
+<tr>
+<td>0033</td>
+<td>昨天我输了赌局，吞了一把汽车钥匙。当晚就便血了。我最好是去趟医院。</td>
+</tr>
+<tr>
+<td>0034</td>
+<td>老大，我儿子病得特别严重，我还是请假回去吧。抱歉。</td>
+</tr>
+<tr>
+<td>0035</td>
+<td>我母亲刚出车祸。她已经住进医院，正在与死神抗争。我应该和她在一起。</td>
+</tr>
+<tr>
+<td>0036</td>
+<td>今天我女儿结婚！真是个伟大的日子！我无论如何都要出席婚礼！</td>
+</tr>
+<tr>
+<td>0037</td>
+<td>我儿子出车祸了！医生正在努力抢救。我今天是没法工作了。</td>
+</tr>
+<tr>
+<td>0038</td>
+<td>我家房子昨晚发生火灾，而我可怜的老父亲当时就在里面。我们不得不着手计划葬礼……</td>
+</tr>
+<tr>
+<td>0039</td>
+<td>我弟弟去丛林徒步，到现在都没有回来。我想参加搜寻。</td>
+</tr>
+<tr>
+<td>0040</td>
+<td>就我孩子的监护权一案，法庭今天便会宣判结果。他们不停地哭……</td>
+</tr>
+<tr>
+<td>0041</td>
+<td>因为当官的犯了一些错误，市政官员想拆我家房子。要是我今天不解决这个问题，全家都得找新的住处。</td>
+</tr>
+<tr>
+<td>0042</td>
+<td>我女儿的学校起火了，她烧伤很严重，正在重症监护室。我可以请假去陪她吗？</td>
+</tr>
+<tr>
+<td>0043</td>
+<td>我的祖父患有癫痫，最近情况恶化……医生说他急需一种特殊的新药，只有镇子外面才能买到。我是家里唯一会开车的人。</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="sec-12">3.4 懒惰值（Laziness）的完整来源</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>事件</th>
+<th>0 徽</th>
+<th>1 徽</th>
+<th>2 徽</th>
+<th>3 徽</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>批准请假</td>
+<td><strong>+7</strong></td>
+<td>+5</td>
+<td>+3</td>
+<td>+2</td>
+</tr>
+<tr>
+<td>拒绝请假</td>
+<td><strong>−7</strong></td>
+<td>−5</td>
+<td>−4</td>
+<td>−5</td>
+</tr>
+</tbody>
+</table></div>
+<p>数据库里警员初始 Laziness 主要两档：<strong>5</strong>（勤快）和 <strong>20</strong>（爱偷懒）。
+<strong>注意：批准 0 徽警员的假 = 他的请假概率从 5% 直接涨到 12%，涨得最凶。</strong></p>
+<hr />
+<h1 id="sec-13">第四章 钱：从哪来、怎么花</h1>
+<h2 id="sec-14">4.1 收入</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>来源</th>
+<th>金额</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Jack 周薪</td>
+<td><strong>1200</strong>（每 5 天发一次，<code>PayDay = 5</code>）</td>
+</tr>
+<tr>
+<td>开局存款</td>
+<td><strong>2400</strong></td>
+</tr>
+<tr>
+<td>赃物</td>
+<td>见 5.3，<strong>你只拿 50%</strong>（另外 50% 分给弟兄，分了 TL +20）</td>
+</tr>
+<tr>
+<td>黑帮任务</td>
+<td>500 – 8000</td>
+</tr>
+<tr>
+<td>支线任务</td>
+<td>最高 <strong>80000</strong></td>
+</tr>
+<tr>
+<td>帮派悬赏</td>
+<td>最高 <strong>45000</strong></td>
+</tr>
+<tr>
+<td>连环杀手破案</td>
+<td><strong>175000</strong></td>
+</tr>
+<tr>
+<td>死魂灵（吃空饷）</td>
+<td>分成 50%</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="sec-15">4.2 支出</h2>
+<p><strong>工资【已验证】</strong>：</p>
+<pre><code class="language-csharp">// Employee::EarnSalary
+multiplier = GetSalaryMultiplier();          // 这个发薪周期的出勤天数
+switch (Badges) {
+    case 0: MoneyMade += 200 * multiplier;
+    case 1: MoneyMade += 250 * multiplier;
+    case 2: MoneyMade += 300 * multiplier;
+    case 3: MoneyMade += 350 * multiplier;
+}
+</code></pre>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>警徽</th>
+<th>日薪</th>
+<th>加班费</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td><strong>200</strong></td>
+<td>20</td>
+</tr>
+<tr>
+<td>1</td>
+<td><strong>250</strong></td>
+<td>25</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>300</strong></td>
+<td>30</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>350</strong></td>
+<td>35</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>每 5 天发一次</strong>（<code>PayDay = 5</code>），金额 = 日薪 × 出勤天数倍率。</li>
+<li><strong>旷工</strong>：工资 <strong>−100</strong>，加班 <strong>−30</strong>。</li>
+<li>16 个警员全满、全是 0 徽、干满 5 天：<strong>16 × 200 × 5 = 16000 / 发薪周期</strong>。这是最大的固定支出。</li>
+</ul>
+<p><strong>其他支出</strong>：线人 500（每天付，且每天被杀概率 +1%）；商店价格见 4.4。</p>
+<h2 id="sec-16">4.3 赃物价目表【数值】</h2>
+<p>（管制品名称按发布要求做了替换，括号内是它在数据里的 ID）</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>赃物</th>
+<th>数据 ID</th>
+<th>价格区间</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>珠宝</td>
+<td>LOOT_JEWELRY</td>
+<td>10000 – 13000</td>
+<td>最值钱</td>
+</tr>
+<tr>
+<td>H 类违禁品</td>
+<td>LOOT_HEROIN</td>
+<td>8000 – 12000</td>
+<td></td>
+</tr>
+<tr>
+<td>爆炸物</td>
+<td>LOOT_EXPLOSIVE</td>
+<td>7000 – 10000</td>
+<td></td>
+</tr>
+<tr>
+<td>C 类违禁品</td>
+<td>LOOT_COCAINE</td>
+<td>5000 – 8000</td>
+<td></td>
+</tr>
+<tr>
+<td>现金</td>
+<td>LOOT_MONEY</td>
+<td>1000 – 10000</td>
+<td>波动最大</td>
+</tr>
+<tr>
+<td>自动武器</td>
+<td>LOOT_AUTOWEAPON</td>
+<td>2500 – 5000</td>
+<td></td>
+</tr>
+<tr>
+<td>非自动武器</td>
+<td>LOOT_WEAPON</td>
+<td>1000 – 2500</td>
+<td></td>
+</tr>
+<tr>
+<td>药品</td>
+<td>LOOT_PHARMACEUTICALS</td>
+<td>500 – 2000</td>
+<td></td>
+</tr>
+<tr>
+<td>M 类违禁品</td>
+<td>LOOT_MARIJUANA</td>
+<td>300 – 1000</td>
+<td></td>
+</tr>
+<tr>
+<td>烈酒</td>
+<td>LOOT_ALCOHOL</td>
+<td>50 – 500</td>
+<td></td>
+</tr>
+<tr>
+<td>榕树盆景</td>
+<td>LOOT_FICUS</td>
+<td><strong>2 – 10</strong></td>
+<td>彩蛋，别浪费人手</td>
+</tr>
+</tbody>
+</table></div>
+<p>出手延迟 <strong>2 天</strong>。分给弟兄 <strong>50%</strong>（TL +20），不分（TL −10）。</p>
+<h2 id="sec-17">4.4 商店价格</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>类别</th>
+<th>项目</th>
+<th>价格</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>警局</td>
+<td>警校（成功率 65%，2 天，TL +20/失败 −5）</td>
+<td>1300</td>
+</tr>
+<tr>
+<td></td>
+<td>烧烤（3 个名额，TL +10）</td>
+<td>3500</td>
+</tr>
+<tr>
+<td></td>
+<td>雇线人</td>
+<td>3000</td>
+</tr>
+<tr>
+<td></td>
+<td>买名字</td>
+<td>2500</td>
+</tr>
+<tr>
+<td></td>
+<td>封口</td>
+<td>12000</td>
+</tr>
+<tr>
+<td></td>
+<td>顾问侦探</td>
+<td>50000</td>
+</tr>
+<tr>
+<td></td>
+<td>压投诉</td>
+<td>2500</td>
+</tr>
+<tr>
+<td>Atticus</td>
+<td>大派对</td>
+<td>5000</td>
+</tr>
+<tr>
+<td></td>
+<td>安全解雇</td>
+<td>1500</td>
+</tr>
+<tr>
+<td></td>
+<td>警员槽 / 侦探槽</td>
+<td>22500 / 22500</td>
+</tr>
+<tr>
+<td>教会</td>
+<td>祝福</td>
+<td>25000</td>
+</tr>
+<tr>
+<td></td>
+<td>赦罪</td>
+<td>17500</td>
+</tr>
+<tr>
+<td></td>
+<td>葬礼</td>
+<td>14000（缺席葬礼 13800）</td>
+</tr>
+<tr>
+<td></td>
+<td>祈祷</td>
+<td>19600</td>
+</tr>
+<tr>
+<td></td>
+<td>布道</td>
+<td>13000</td>
+</tr>
+<tr>
+<td></td>
+<td>触摸圣物</td>
+<td>4300</td>
+</tr>
+<tr>
+<td>工会</td>
+<td>改政治观点</td>
+<td>9500</td>
+</tr>
+<tr>
+<td></td>
+<td>不做市政任务</td>
+<td>45000</td>
+</tr>
+<tr>
+<td></td>
+<td>非法解雇</td>
+<td>500</td>
+</tr>
+<tr>
+<td></td>
+<td>雇线人</td>
+<td>4750</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>工会"非法解雇"只要 500</strong> —— 正常非法解雇是 TL −50，工会这条是绕过代价的通道。</p>
+<p>支线任务是极易遗漏的大额收入来源（最高单笔 80000），完整数值与后果见第十二章。</p>
+</blockquote>
+<h1 id="sec-18">第五章 三条忠诚条（完整增减表）</h1>
+<h2 id="sec-19">5.1 团队忠诚 TL（弟兄对 Jack 的忠诚）</h2>
+<p>初始 <strong>100</strong>，上限 <strong>150</strong>。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>事件</th>
+<th>变化</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>分赃给弟兄</td>
+<td><strong>+20</strong></td>
+</tr>
+<tr>
+<td>不分赃</td>
+<td><strong>−10</strong></td>
+</tr>
+<tr>
+<td><strong>非法解雇</strong></td>
+<td><strong>−50</strong></td>
+</tr>
+<tr>
+<td>死魂灵（吃空饷）分钱</td>
+<td><strong>+20</strong></td>
+</tr>
+<tr>
+<td>送警校成功 / 失败</td>
+<td><strong>+20</strong> / −5</td>
+</tr>
+<tr>
+<td>办烧烤</td>
+<td><strong>+10</strong></td>
+</tr>
+<tr>
+<td>拒绝请假</td>
+<td>−1 / −7 / −10（或精力≤2 时 −10）</td>
+</tr>
+<tr>
+<td>支线任务</td>
+<td>见第十二章（支线任务一览表）（+5 ~ +50，或 −10 ~ −20）</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>阈值与后果</strong>：</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>TL</th>
+<th>后果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>≤ 50</td>
+<td>出现<strong>告密者警告</strong></td>
+</tr>
+<tr>
+<td>≤ 40</td>
+<td><strong>第一次投诉</strong></td>
+</tr>
+<tr>
+<td>≤ 20</td>
+<td><strong>第二次投诉</strong></td>
+</tr>
+<tr>
+<td>过低</td>
+<td>全体 JP <strong>−20%</strong></td>
+</tr>
+<tr>
+<td>极低</td>
+<td>薪水 −50% 或 <strong>−90%</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>攻略</strong>：TL 是全队 JP 的乘数。掉到 40 以下全队效率 −20%，基本进入死亡螺旋。
+<strong>保 TL 三件套</strong>：每次都分赃（+20）、多派正面支线、别非法解雇。</p>
+<h2 id="sec-20">5.2 市政厅忠诚 CHL</h2>
+<p>初始 <strong>100</strong>，上限 <strong>150</strong>。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>事件</th>
+<th>变化</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>每起出警的犯罪</td>
+<td>基准 <strong>+5</strong></td>
+</tr>
+<tr>
+<td>罪犯逃跑</td>
+<td>× <strong>−3</strong> 倍</td>
+</tr>
+<tr>
+<td><strong>平民死亡</strong></td>
+<td>× <strong>−5</strong> 倍</td>
+</tr>
+<tr>
+<td><strong>完成调查</strong></td>
+<td><strong>+20</strong></td>
+</tr>
+<tr>
+<td>刑讯</td>
+<td>−20</td>
+</tr>
+<tr>
+<td>拷问到昏厥</td>
+<td>−40</td>
+</tr>
+<tr>
+<td><strong>拷死</strong></td>
+<td><strong>−60</strong></td>
+</tr>
+<tr>
+<td>记者会选项</td>
+<td>−20 ~ +20（见第九章）</td>
+</tr>
+<tr>
+<td><strong>听证会认罪</strong></td>
+<td><strong>−450</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>阈值</strong>：</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>CHL</th>
+<th>后果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>≤ 65</td>
+<td>解锁第 4 个请求</td>
+</tr>
+<tr>
+<td>≤ 60 / 55 / 50</td>
+<td>解锁第 3 / 2 / 1 个请求</td>
+</tr>
+<tr>
+<td>≤ 45</td>
+<td><strong>上报纸</strong>（负面新闻）</td>
+</tr>
+<tr>
+<td>≤ 15</td>
+<td>触发处罚</td>
+</tr>
+<tr>
+<td>关系差持续 3 天</td>
+<td>来<strong>查账</strong>，罚钱 <strong>−25%</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>市政厅请求每 <strong>5 天</strong>来一次。</p>
+<p><strong>攻略</strong>：
+- <strong>完成调查 +20 是刷 CHL 最快的方式</strong>，比出警（+5）快 4 倍。
+- <strong>平民死亡 ×−5 是最痛的</strong>，出人命的案子宁可不派满人。
+- <strong>永远别拷死人</strong>（−60），代价太大。</p>
+<h2 id="sec-21">5.3 黑帮忠诚 ML</h2>
+<p>见第十三章（黑帮）。初始 100（拒绝合作 50），上限 150，不满线 25。</p>
+<hr />
+<h1 id="sec-22">第六章 警员管理</h1>
+<h2 id="sec-23">6.1 编制</h2>
+<p>初始 <strong>16 个警员槽</strong>、<strong>6 个侦探槽</strong>、<strong>2 枚初始警徽</strong>。
+候选人每 <strong>5 天</strong>刷新，最多同时 5 名警员 + 3 名侦探候选。</p>
+<p>姓名库：<strong>241 个警员姓名</strong>（COP0001–0241，名 + 姓分开存）、<strong>73 个侦探姓名</strong>（DET0001–0073）。
+侦探里有几个明显的彩蛋性名字：弗兰克·德雷彬（DET0061）、山姆·和田（DET0042）、秀平·鹿内（DET0043）、文斯·克洛索（DET0052）。</p>
+<h2 id="sec-24">6.2 警员属性（314 人在库）</h2>
+<p>每人：<code>Professionalism</code>（专业度）、<code>Badges</code>（警徽）、<code>Energy</code>（精力）、<code>Alcoholism</code>（酗酒值）、
+<code>AlcoholismTendency</code>（酗酒倾向）、<code>PoliticalViews</code>（政治观点）、<code>Gender</code>、<code>Race</code>、<code>Laziness</code>（懒惰）。</p>
+<p>样例：
+- COP0001（维克托·布坦斯基）：专业度 90 / 0 徽 / 精力 3 / 酗酒 50 / 倾向 15 / 观点 1 / <strong>懒惰 20</strong>
+- COP0002（马丁·罗宾斯）：专业度 <strong>150</strong> / 0 徽 / 精力 5 / 酗酒 5 / 倾向 5 / 观点 2 / 懒惰 5</p>
+<h2 id="sec-25">6.3 专业度（Professionalism，下限 5）</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>事件</th>
+<th>变化</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>犯罪处理成功 / 失败</td>
+<td><strong>+10 / −10</strong></td>
+</tr>
+<tr>
+<td>支援到位 / 没到位</td>
+<td>+5 / −5</td>
+</tr>
+<tr>
+<td>调查中逮捕</td>
+<td>+20 / −20</td>
+</tr>
+<tr>
+<td>结案</td>
+<td>+20 / −20</td>
+</tr>
+<tr>
+<td><strong>结案且是主导侦探</strong></td>
+<td><strong>+100</strong> / −20</td>
+</tr>
+<tr>
+<td>序列完成</td>
+<td>+20 / +40</td>
+</tr>
+<tr>
+<td>每起犯罪改变的酗酒值</td>
+<td>+10</td>
+</tr>
+<tr>
+<td>每起犯罪的死亡倾向</td>
+<td>+30</td>
+</tr>
+<tr>
+<td>晋升</td>
+<td>+50（3 徽时额外 +50）</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>攻略</strong>：让侦探主导调查并结案 = +100 专业度，这是最快把侦探堆到高专业度的方式。晋升直接 +50。
+专业度高 → JP 高 → 破案率高 → 良性循环。</p>
+<h2 id="sec-26">6.4 状态惩罚</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>喝醉</strong></td>
+<td>JP <strong>−70%</strong>（最狠的一条）</td>
+</tr>
+<tr>
+<td><strong>疲劳</strong></td>
+<td>JP <strong>−30%</strong></td>
+</tr>
+<tr>
+<td><strong>政治观点不同</strong></td>
+<td>JP <strong>−50%</strong>（每天还有 5% 概率自己改立场）</td>
+</tr>
+<tr>
+<td>精力耗尽时出车祸</td>
+<td><strong>33%</strong></td>
+</tr>
+<tr>
+<td>喝醉时出车祸</td>
+<td><strong>33%</strong></td>
+</tr>
+<tr>
+<td>劣质汽油</td>
+<td>5%</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>攻略</strong>：酗酒是隐形杀手——醉酒直接砍 70% 的 JP，还会 33% 撞车。看到 Alcoholism 高的人（如 COP0001 的 50）尽早送警校或控制。</p>
+<h2 id="sec-27">6.5 晋升</h2>
+<ul>
+<li>晋升专业度 <strong>+50</strong>，3 徽时额外 <strong>+50</strong>。</li>
+<li>2 徽无倾向需要 <strong>30 天</strong>（<code>Promotion2BadgesNoTendencyDays</code>）。</li>
+<li>每枚警徽给 JP <strong>+10%</strong>，同时工资从 200 涨到 350。</li>
+</ul>
+<blockquote>
+<p>心理测试的完整题目、计分与通过/失败后果见第七章。</p>
+</blockquote>
+<h1 id="sec-28">第七章 心理测试（PsychoTest）</h1>
+<h2 id="sec-29">7.1 心理测试（第 7 / 8 / 9 天）【数值 + 原文】</h2>
+<p>数据库一共 <strong>10 题</strong>，每题是"墨迹图"式的三选一：<strong>GOOD1 / GOOD2 / BAD</strong>。
+选 GOOD 加分，选 BAD 是精神状态不正常的答案。题目内容本身是这游戏最著名的黑色幽默之一：</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>选项 A（GOOD1）</th>
+<th>选项 B（GOOD2）</th>
+<th>选项 C（BAD）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>粮仓里，一名男子手拿一把药片</td>
+<td>两名土著在击鼓</td>
+<td>多个头颅飞离身体</td>
+</tr>
+<tr>
+<td>2</td>
+<td>一名男子回到家中</td>
+<td>一只蝴蝶</td>
+<td>一名钟表脸男子</td>
+</tr>
+<tr>
+<td>3</td>
+<td>一名女子在装扮圣诞树</td>
+<td>一名女孩在跳舞</td>
+<td>一个蓝色外星人在强暴一只猪</td>
+</tr>
+<tr>
+<td>4</td>
+<td>一名男子在给一名女子一个圣诞饰品</td>
+<td>一座山丘上有一座塔</td>
+<td>一个长有蜘蛛触肢的婴儿</td>
+</tr>
+<tr>
+<td>5</td>
+<td>女子扔掉了圣诞饰品</td>
+<td>一场车祸</td>
+<td>一棵长有人肺的树</td>
+</tr>
+<tr>
+<td>6</td>
+<td>圣诞饰品的碎片洒满地板</td>
+<td>一支冰淇淋蛋卷</td>
+<td>行进的锤子</td>
+</tr>
+<tr>
+<td>7</td>
+<td>男子在向女子叫喊</td>
+<td>一枚车</td>
+<td>一名犀牛头男子</td>
+</tr>
+<tr>
+<td>8</td>
+<td>女子在掌掴男子</td>
+<td>一辆侧翻的卡车</td>
+<td>一只巨大的刺猬正在吃人</td>
+</tr>
+<tr>
+<td>9</td>
+<td>男子在推女子</td>
+<td>钥匙链上的一把钥匙</td>
+<td>一只八爪鱼在弹钢琴</td>
+</tr>
+<tr>
+<td>10</td>
+<td>女子压倒了圣诞树</td>
+<td>一堆秋叶</td>
+<td>一名身着虫皮大衣的女子</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>1–6 题和 7–10 题是两组：第一组围绕"圣诞饰品 / 家庭场景"，第二组围绕"冲突与交通事故"。
+全选 GOOD 就满分；<strong>BAD 选项是纯乐子，选了会拉低评分</strong>。</p>
+</blockquote>
+<hr />
+<blockquote>
+<p>基于 <code>Jack::DoPsychoTest</code> / <code>Jack::get_IsUnderScrutiny</code> / <code>Jack::get_PsychoTestPassed</code> IL 与文本库 <code>PsychoTest*</code> 核对。</p>
+</blockquote>
+<h2 id="sec-30">7.2 触发时间</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>值</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PsychoTestDay</code></td>
+<td>8</td>
+<td>第 8 天收到"心理测试"邀请信（沃特伯里医生）</td>
+</tr>
+<tr>
+<td><code>PsychoTestResultDay</code></td>
+<td>9</td>
+<td>第 9 天出结果</td>
+</tr>
+<tr>
+<td><code>PsychoTestMinScore</code></td>
+<td>5</td>
+<td>通过分数线</td>
+</tr>
+<tr>
+<td><code>PsychoTestObedienceLastDay</code></td>
+<td>31</td>
+<td>失败后被监视 / 服从期的截止日</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="sec-31">7.3 计分规则</h2>
+<ul>
+<li>共 10 道题（墨迹测验 <code>PSYCHO0001</code>–<code>PSYCHO0010</code>），每题 3 个选项：<code>GOOD1</code> / <code>GOOD2</code>（正常描述）/ <code>BAD</code>（扭曲 / 暴力描述）。</li>
+<li>初始分 <code>PsychoTestScore = 10</code>（<code>Jack::.ctor</code> 里 <code>ldc.i4.s 10</code>）。</li>
+<li>每选一个 <code>BAD</code>（扭曲）答案扣分，<strong>最终需 ≥ 5 才通过</strong> → 最多只能答错 5 题。</li>
+<li>判定：<code>Jack::get_PsychoTestPassed = (PsychoTestScore &gt;= PsychoTestMinScore)</code>。</li>
+</ul>
+<h2 id="sec-32">7.4 通过后果（"结果良好！"）</h2>
+<ul>
+<li>文案 <code>PsychoTestGoodResultMessageText</code>：医生认为你心理很健康，只建议多听贝多芬缓解压力。</li>
+<li><strong>无任何惩罚</strong>，且 <strong>不会被监视</strong>（<code>IsUnderScrutiny</code> 返回 false）。</li>
+</ul>
+<h2 id="sec-33">7.5 失败后果（"情况不妙"）</h2>
+<ul>
+<li>文案 <code>PsychoTestBadResultMessageText</code>：市政厅（市长）震惊，本想立刻免你的职、送你进精神病院，改为<strong>把你置于监视之下</strong>，并勒令你必须完成交代的所有任务以"证明没疯"。</li>
+<li><strong>被监视期</strong>：<code>Jack::get_IsUnderScrutiny</code> 在「未通过 且 第 9 天 ≤ 当前天 ≤ 第 31 天」时返回 true。这正好是入狱路径之一的 <strong><code>ArrestReason</code>（心理测试失败）</strong>——监视期内任何把柄都会触发逮捕（结局文案「你已入狱」）。</li>
+<li>同时影响 <code>ShiftWindow::DoResignations</code>：测试未过时警员辞职逻辑也会参考此标志（人事动荡）。</li>
+<li>第 31 天之后监视自动解除（你"挺过来了"）。</li>
+</ul>
+<blockquote>
+<p>实战：墨迹测验尽量选正常描述（GOOD1/GOOD2）。一旦选了 ≥6 个扭曲答案就挂，直接进"被监视 → 易入狱"的恶性循环，直到第 31 天。</p>
+</blockquote>
+<hr />
+<h1 id="sec-34">第八章 出警、现场处置、调查</h1>
+<h2 id="sec-35">8.1 JP（Job Points，工作点数）与 SRM（成功率修正）</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>项</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>每枚警徽</td>
+<td>JP <strong>+10%</strong></td>
+</tr>
+<tr>
+<td><strong>主导侦探</strong></td>
+<td>JP <strong>+20%</strong></td>
+</tr>
+<tr>
+<td>SWAT 出勤</td>
+<td>JP <strong>200</strong>，SRM <strong>+20%</strong>，效能升级 +50</td>
+</tr>
+<tr>
+<td>囚车（Paddy Wagon）</td>
+<td>JP <strong>×2</strong></td>
+</tr>
+<tr>
+<td>喝醉</td>
+<td><strong>−70%</strong></td>
+</tr>
+<tr>
+<td>疲劳</td>
+<td><strong>−30%</strong></td>
+</tr>
+<tr>
+<td><strong>政治观点不同</strong></td>
+<td><strong>−50%</strong></td>
+</tr>
+<tr>
+<td>TL 过低</td>
+<td><strong>−20%</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>SRM 范围</strong>：犯罪 <strong>90% – 130%</strong>，调查 <strong>80% – 150%</strong>。
+文字问答选对 / 选错：SRM <strong>±35%</strong>——这是玩家唯一能直接干预成功率的地方。</p>
+<h2 id="sec-36">8.2 现场处置问答原文（QUEST，190 场 / 307 个步骤）【原文】</h2>
+<p>文本库里 <strong>QUEST 一共 190 场、1228 条文本</strong>（每步 = 场景描述 DESC + 正确选项 RIGHT + 错误选项 WRONG + 中性选项 NEUTRAL）。
+触发概率 <strong>20%</strong>。每步选 RIGHT 加成功率、WRONG 减、NEUTRAL 不动。</p>
+<p>下面是从库里取出的真实例子（原文，一字未改）：</p>
+<p><strong>QUEST5001 · 脱衣舞俱乐部打架</strong>（2 步）</p>
+<blockquote>
+<p>第 1 步：两名脱衣舞娘正在舞台上厮打，已经不是吵架，而是真的在打了。门卫正在酣睡，显然无法掌控局面。顾客们醉醺醺的，正在开心观战。
+- ✅ 关掉音乐，把灯打开。
+- ⚪ "听好了姑娘们，别胡闹了，不然就动真格的了。"
+- ❌ 拔出手枪。</p>
+<p>第 2 步：两个脱衣舞娘继续厮打，没有发现警察到来。
+- ✅ 向调酒师要一桶冰水，泼向台上打架的两人。
+- ⚪ 走上台，尝试把两个女孩拉开。
+- ❌ 不插手，看着两个脱衣舞娘继续厮打。</p>
+</blockquote>
+<p><strong>QUEST5002 · 便利店劫匪 + 人质</strong>（3 步）</p>
+<blockquote>
+<p>第 1 步：店内有两扇门，有些人已经跑出来了。
+- ✅ 从后门偷偷进去。
+- ⚪ 从店铺正门进去。
+- ❌ 开着警车，冲破店铺正面的玻璃窗进去。</p>
+<p>第 2 步：劫匪发现警察到来，便绑架了一名收银员做人质……
+- ✅ "阿卜杜勒，安静点！你这样只会让情况更复杂。"
+- ⚪ 不说话，只是用枪瞄准劫匪。
+- ❌ "戴着面具的那个，乖乖闭嘴，把枪扔在地上。"</p>
+<p>第 3 步：劫匪明显紧张起来。"别开枪！求你了！我只是需要点钱，拿了就走，不会伤人的。"
+- ✅ "要走出这里，只有两种方式。一种是戴上手铐，活着出去；一种是在收尸袋里，被人抬着出去。"
+- ⚪ "你放了人质，就让你活着出去。"
+- ❌ 朝劫匪开枪。</p>
+</blockquote>
+<p><strong>QUEST5003 · 入室</strong></p>
+<blockquote>
+<p>房屋周围没有发现犯罪分子的踪迹。正门被人损坏，门内有阴影潜伏。
+- ✅ 绕到后门进入。　⚪ "举起手出来！"　❌ 从正门进入。</p>
+</blockquote>
+<p><strong>QUEST5004 · 银行</strong></p>
+<blockquote>
+<p>第 1 步：该银行位于市中心，车流量大，来往行人也很多。
+- ✅ 在门口找到合适的射击位置，等待时机。
+- ⚪ 悄悄爬上银行大楼正面的窗户，偷偷往里面看。
+- ❌ 用巡逻车挡住银行大门。</p>
+<p>第 2 步：银行里传来一名女子的喊声。
+- ✅ 等待劫匪自己出来。
+- ⚪ 用扩音器喊："里面的人注意！你已经被包围了！"
+- ❌ 进行突袭。</p>
+</blockquote>
+<p><strong>QUEST5005 · 炸弹</strong></p>
+<blockquote>
+<p>第 1 步：180B 房位于酒店顶层。房门把手上挂着一枚红色的球，上面写着："找拆弹小组来。"
+- ✅ 去拿房间钥匙。　⚪ 从酒店房顶进入该房间。　❌ 破门而入。</p>
+<p>第 2 步：里面是一间标准酒店房……一个女孩坐在床上，身上绑着爆炸物。炸弹上有两根突起的线，分别是红色和黄色的。
+- ✅ <strong>剪断红线。</strong>　⚪ 走出房间，疏散酒店住户，等待拆弹小组前来。　❌ 剪断黄线。</p>
+</blockquote>
+<p><strong>规律总结</strong>：
+1. <strong>正确答案几乎总是"最不英雄、最程序化"的那个</strong>——等时机、绕后门、拿钥匙、喊对名字。
+2. <strong>错误答案几乎总是"最帅的那个"</strong>——撞玻璃、破门、拔枪、突袭、剪错线。
+3. <strong>中性答案（⚪）永远不亏也不赚</strong>——拿不准就选它，别赌。
+4. 有一类题是<strong>叫对名字就赢</strong>（QUEST5002 第 2 步喊"阿卜杜勒"），这说明线索文本里出现过的人名要认真看。</p>
+<h2 id="sec-37">8.3 时间与距离</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>项</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>出警路上耗时</td>
+<td>10 / 15 / 20 秒</td>
+</tr>
+<tr>
+<td>对应距离</td>
+<td>1.125 / 1.875</td>
+</tr>
+<tr>
+<td>现场执行</td>
+<td>3 秒</td>
+</tr>
+<tr>
+<td>犯罪警告窗口</td>
+<td><strong>20 秒</strong></td>
+</tr>
+<tr>
+<td>犯罪紧急窗口</td>
+<td><strong>10 秒</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>攻略</strong>：远的案子（20 秒路程）必须在警告亮起前就派人，否则 10 秒紧急窗口根本来不及。</p>
+<h2 id="sec-38">8.4 调查（65 条调查链 / 1366 条文本）</h2>
+<ul>
+<li>逮捕期限 <strong>4 天</strong>（<code>InvestigationArrestDeadline</code>）。</li>
+<li>无线索时失败率 <strong>33%</strong>。</li>
+<li>调查有证据帧（<code>NumFrames</code>）和正确顺序（<code>CorrectOrder</code>），<strong>排错顺序会失败</strong>。</li>
+<li>例：INVEST0001 需要 6 帧，正确顺序 <strong>[1, 3, 4]</strong>，1 名嫌疑人，侦探<strong>可能死亡</strong>。</li>
+<li>数据库共 900 条剧本犯罪 + 完整调查链。</li>
+</ul>
+<h3 id="sec-39">8.4.1 证据帧图像池（RGI，5 组 / 90 条文本）【原文】</h3>
+<p>调查里让你"按顺序摆证据"的那些小图，全部来自这个池子。每组 16 张，两两成对（对/错版本）：</p>
+<p><strong>RGI0001 持械抢劫</strong>——发生恶性持械抢劫事件。犯罪分子抢了一大笔现金后逃离现场。</p>
+<blockquote>
+<p>车辆 / 乌兹冲锋枪 / 装满现金的运动包 / 戴着曲棍球面罩的劫匪 / 一名双手抱头的女性 / 一具倒在血泊中的女尸 / 一个毁坏的监控摄像头 / 黑色皮革手套
+——以及它们的"错误对照版"：吉普车 / 霰弹枪 / 装满现金的背包 / 戴着兜帽和墨镜的劫匪 / 一名双手抱头的男性 / 一具倒在血泊中的男尸 / 完好的监控摄像头 / 白色医用手套</p>
+</blockquote>
+<p><strong>RGI0002 大规模暴乱</strong>——街上出现大规模暴乱。暴乱的煽动者已逃跑。</p>
+<blockquote>
+<p>砖头 / 一名头缠围巾的集会头目 / 抗议者在踢打特警的盾牌 / 燃烧的垃圾桶 / 砸毁的店面 / 抢了一台电视机的劫匪 / 抗议者正在推翻一辆警车 / 绘有无政府主义标志的海报 / 汽油弹
+——对照版：一名露脸的集会头目 / 抗议者正用棒球棍击打特警的盾牌 / ……</p>
+</blockquote>
+<h3 id="sec-40">8.4.2 调查文本长什么样（INVEST0001 原文）【原文】</h3>
+<blockquote>
+<p><strong>标题</strong>：杀人
+<strong>案情</strong>：黑人活动家龙尼·穆尔在家门口遭到枪击。</p>
+<p><strong>嫌疑人 1</strong>：特拉维斯·霍顿 —— 人尽皆知的种族主义者，有前科。（在港口做搬运工）</p>
+<p><strong>目击者证词</strong>：
+- 埃里克·格兰姆，醉酒的目击者："他们乘黑色轿车过来，用机关枪一样的武器突突突地射击，我只看到这些了。"
+- 葛兰·克莱顿，邻居："我只听到几声闷响。"
+- 劳伦斯·卡尔，邻居："他真是罪有应得！他一直都是个祸害，最近还口出狂言，行为轻率。"
+- 斯泰茜·科布，目击者："我不记得有车来过，街坊近邻也很安静，没有听到什么枪声。"
+- 达里尔·卡彭特，邻居："警察这几天一定要做些什么啊！我自己也差点儿丧命！我当时正去买药，但被一个蠢货的车给撞了！"</p>
+<p><strong>玩法要点</strong>：五份证词里明显互相矛盾（有人说黑色轿车 + 连发武器，有人说什么都没听见）。
+正确顺序 <strong>[1, 3, 4]</strong> 意味着你要挑出互相印证的三帧，把"醉汉的夸张证词"和"完全否认的证词"排除掉。</p>
+</blockquote>
+<h2 id="sec-41">8.5 剧本犯罪长什么样（CRIME，900 条 / 1800 条文本）【原文】</h2>
+<p>每条犯罪有 <code>DESC</code>（报警描述）和 <code>REPORT</code>（后续报告，可能是假警报的揭穿）。示例：</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>报警描述（DESC）</th>
+<th>报告（REPORT）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CRIME0001</td>
+<td>一名男生被冰激凌车撞倒。救护车迅速赶到现场，但该男孩当场宣布死亡。附近居民义愤填膺，要求严惩货车司机……</td>
+<td>—</td>
+</tr>
+<tr>
+<td>CRIME0002</td>
+<td>剧院经理报警称，《公民凯恩》放映期间，一醉酒男子试图强行进入剧院内，该人员携有一块印有 "Rosebud" 字样的滑雪板……</td>
+<td>—</td>
+</tr>
+<tr>
+<td>CRIME0003</td>
+<td>港口仓库发出警报，该区域的保安没有做出反应……该仓库用于存储冷冻鱼类产品。</td>
+<td><strong>假警报</strong>：警报系由鸟群触发。该保安当时处于醉酒状态，身旁有一名性工作者。</td>
+</tr>
+<tr>
+<td>CRIME0005</td>
+<td>某名为艾伯特·拉米莱兹的连环杀手在法庭宣判时抢夺法警配枪，枪杀数名证人，劫持了一名年轻的速记员……</td>
+<td>—</td>
+</tr>
+<tr>
+<td>CRIME0016</td>
+<td>一名年轻 DJ 遇到一身穿红黑长袍、相貌古怪的男子。该男子打翻 DJ 手中的能量饮料，向他讲述喝人血的益处……两人发生肢体冲突，DJ 被咬伤。</td>
+<td>—</td>
+</tr>
+<tr>
+<td>CRIME0018</td>
+<td>一位名为米拉的服务生报警称，其今晨在电视上看到的危险性罪犯在餐厅内现身，点了一份好吃鸡排、一个汉堡和一瓶健怡可乐……</td>
+<td><strong>假警报</strong>：该服务生将退休警察弗兰克·涅罗看成了在逃罪犯。</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>900 条里相当一部分是这种黑色幽默。第一条 CRIME0001 的数据是：第 10 天 8:20，地点 LOC0001，
+得分档 600/525/450/375/300/225，类型"4-10a"，持续 25 分钟，最多 1 人，<strong>是假警报</strong>。</p>
+</blockquote>
+<hr />
+<h1 id="sec-42">第九章 记者会：38 场全原文 + 全数值</h1>
+<p>数据库 <code>PressConferenceDatabase</code> 共 <strong>38 场</strong>，按触发条件分成 6 组。
+<strong>通用池（第 1 天）和第 58 天那组几乎题题带数值</strong>；连环杀手的四组共 26 题里<strong>只有 5 题带数值</strong>
+（PRESS0010 的 −10、0019 / 0025 / 0031 的 ±20、0023 的 +10），其余 20 题全是纯剧情。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>组</th>
+<th>场次</th>
+<th>触发</th>
+<th>数值影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>通用池</td>
+<td>PRESS0001–0007</td>
+<td>第 1 天起</td>
+<td><strong>有</strong>（−20 ~ +10）</td>
+</tr>
+<tr>
+<td>MANIACSTART</td>
+<td>PRESS0008–0014</td>
+<td>连环杀手开场</td>
+<td>仅 0010 有 −10</td>
+</tr>
+<tr>
+<td>MANIACFAIL</td>
+<td>PRESS0015–0020</td>
+<td>连环杀手失败</td>
+<td>仅 0019 有 ±20</td>
+</tr>
+<tr>
+<td>MANIACSUCCESS</td>
+<td>PRESS0021–0026</td>
+<td>连环杀手成功</td>
+<td>仅 0023/0025 有 ±10/±20</td>
+</tr>
+<tr>
+<td>MANIACSUCCESS2</td>
+<td>PRESS0027–0032</td>
+<td>连环杀手成功（变体）</td>
+<td>仅 0031 有 ±20</td>
+</tr>
+<tr>
+<td>第 58 天</td>
+<td>PRESS0033–0038</td>
+<td>Jack 遇袭之后</td>
+<td><strong>有</strong>（−5/−10/−20）</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>每组的 0001 / 0007 / 0008 / 0014 这种首尾场次是"大家早上好！"和"谢谢大家！"，没有选项。</p>
+</blockquote>
+<h2 id="sec-43">9.1 第 1 天 · 通用池（PRESS0001–0007）【原文 + 数值】</h2>
+<p><strong>PRESS0002</strong></p>
+<blockquote>
+<p>记者：市长办公室昨天正式宣布了您即将离职的消息。这件事您事先是否已经获悉？还是在您的意料之外？
+① <code>CHL −5</code> <strong>意料之外。</strong>「我原本以为自己还能再干个五到十年。我只是想再为大家服务几年，完全没有想到会发生这样的事情。」
+② <code>CHL +5</code> <strong>市长和我商量过这件事。</strong>「罗杰斯市长告诉我他希望弗里堡警察局长的位置上能有一张新面孔，所以这件事在我的意料之中。」
+③ <code>CHL −20</code> <strong>我早就等着市长大人来这一手了。</strong>「罗杰斯卑鄙下流，贪污腐败。他一直在寻找机会把我赶走。」
+④ <code>CHL 0</code> <strong>有分别吗？</strong>「已经知道了能怎么样？意料之外又能怎么样？这件事情不需要你们操心。」</p>
+</blockquote>
+<p><strong>PRESS0003</strong></p>
+<blockquote>
+<p>记者：您是否已经知道下任局长是谁？
+① <code>CHL −3</code> 我不清楚。　② <code>CHL +3</code> <strong>我估计会是个新人。</strong>　③ <code>CHL −3</code> 我估计会是局里的老人。　④ <code>CHL 0</code> 跟我有什么关系？
+对应全文：②「他应该会带进来一些新鲜血液。新的头脑，看问题也会有新的视角。」④「我该做的都已经做到了……抽抽雪茄，听听爵士就行了。我其实不在乎谁来接我的班。」</p>
+</blockquote>
+<p><strong>PRESS0004</strong></p>
+<blockquote>
+<p>记者：最近的贪污丑闻之后，您的副手弗朗西斯·肯德里克表示他正在准备辞职。假设局长让他接替您的位置，请问您觉得他会回心转意么？
+① <code>CHL 0</code> 没准。　② <code>CHL 0</code> 不可能。　③ <code>CHL −3</code> 那不挺好的嘛。　④ <code>CHL 0</code> 跟我有什么关系？</p>
+</blockquote>
+<p><strong>PRESS0005（全游戏唯一的 ML 记者会选项）</strong></p>
+<blockquote>
+<p>记者：虽然肯德里克已经被解除职位，很多人仍然认为警方与黑手党存在合作关系。您对此有什么看法？
+① <code>ML −10</code> <strong>狗屁。</strong>「不好意思，这种说法真的是空穴来风。警方和黑手党合作？那他们是不是和外星人也有瓜葛？警方不会和黑手党这些肮脏龌龊的犯罪分子有牵连。可不可以提一个有意义的问题。」
+② <code>CHL −5</code> 我不清楚。「我是从来没有帮过黑手党，但是这话我没法替局里的所有人说。我不可能白天黑夜地跟着他们。」
+③ <code>CHL −10 &amp; ML −10</code> <strong>如果有助于警方工作，也无可厚非。</strong>「如果我们和黑手党的短期合作能够帮助我们破案或预防犯罪，我们当然会想办法充分利用这种关系。」
+④ <code>CHL +3</code> <strong>无可奉告。</strong>「通常情况下，我都是有问必答。但是今天这个问题，我只能说：'无可奉告。'」</p>
+</blockquote>
+<p><strong>PRESS0006</strong></p>
+<blockquote>
+<p>记者：您离职退休是否和您与市长私下的关系有关？
+① <code>CHL −5</code> 必然的。　② <code>CHL +10</code> <strong>当然没有。</strong>　③ <code>CHL −3</code> 有可能。　④ <code>CHL 0</code> 我怎么知道？
+②的全文是本机最谄媚的一句：「八竿子打不着的事情。罗杰斯市长做事非常认真，他的决定都经过深思熟虑。我们在工作上没有发生过不愉快的事情。」</p>
+</blockquote>
+<h3 id="sec-44">通用池速查</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>场次</th>
+<th>选项1</th>
+<th>选项2</th>
+<th>选项3</th>
+<th>选项4</th>
+<th>最优</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRESS0002</td>
+<td>CHL −5</td>
+<td><strong>CHL +5</strong></td>
+<td>CHL <strong>−20</strong></td>
+<td>CHL 0</td>
+<td><strong>2</strong></td>
+</tr>
+<tr>
+<td>PRESS0003</td>
+<td>CHL −3</td>
+<td><strong>CHL +3</strong></td>
+<td>CHL −3</td>
+<td>CHL 0</td>
+<td><strong>2</strong></td>
+</tr>
+<tr>
+<td>PRESS0004</td>
+<td>CHL 0</td>
+<td>CHL 0</td>
+<td>CHL −3</td>
+<td>CHL 0</td>
+<td>1/2/4</td>
+</tr>
+<tr>
+<td>PRESS0005</td>
+<td>ML −10</td>
+<td>CHL −5</td>
+<td><strong>CHL −10 &amp; ML −10</strong></td>
+<td><strong>CHL +3</strong></td>
+<td><strong>4</strong></td>
+</tr>
+<tr>
+<td>PRESS0006</td>
+<td>CHL −5</td>
+<td><strong>CHL +10</strong></td>
+<td>CHL −3</td>
+<td>CHL 0</td>
+<td><strong>2</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>规律</strong>：
+1. <strong>选项 2（强硬 / 自信 / 给市长面子）通常是正分</strong>（+3 / +5 / +10）。
+2. <strong>选项 3（甩锅 / 摊牌 / 说实话）通常是大负分</strong>（−20），<strong>永远别选</strong>。
+3. <strong>PRESS0005 选项 3 是全游戏最差的单一个选项</strong>（CHL −10 且 ML −10，两头都得罪）。
+4. 如果你要走黑帮线，PRESS0005 只能选 ④（+3 且 ML 不动）；选 ① 会掉 10 点 ML。</p>
+<h2 id="sec-45">9.2 连环杀手 · 开场（PRESS0008–0014）【原文】</h2>
+<p><strong>PRESS0009</strong> 记者：博伊德局长，您这次是因为什么原因召开新闻发布会？</p>
+<blockquote>
+<p>① 有一个突发状况。「一名在逃连环杀人犯进入我市。这名犯罪分子联邦调查局已追捕多年。该男子狡猾，谨慎，也非常危险。」
+② 有一个重要通知。「我作为警察局长，有义务告知弗里堡市民，一名凶手已进入我市，作案对象均为年轻女性。」
+③ 有一个紧急情况。「我们预计弗里堡将连续有多人遇害，希望所有人保持警惕，注意人身安全。」</p>
+</blockquote>
+<p><strong>PRESS0010</strong> 记者：有消息称，市内已发生两起谋杀案，凶手均为一名人称"牙医"的杀人狂魔。您为什么现在才告知公众这一情况？</p>
+<blockquote>
+<p>① <code>CHL 0</code> 要怪就怪联邦调查局。　② <code>CHL −10</code> <strong>要怪就怪市长办公室。</strong>　③ <code>CHL 0</code> 无可奉告。</p>
+</blockquote>
+<p><strong>PRESS0011</strong> 记者：既然"牙医"只是单枪匹马，弗里堡警察局难道应付不了这样一个只身作案的疯子吗？</p>
+<blockquote>
+<p>① 应付不了，我们警力单薄。　② 胡扯。「我们愿意全天候追捕这个混蛋。」　③ 没你想得那么简单。</p>
+</blockquote>
+<p><strong>PRESS0012</strong> 记者：您认为只有年轻女性有可能遇害吗？</p>
+<blockquote>
+<p>① 是的。　② 不是。　③ 谨慎一点总没有错。「建议年轻女性不要穿着挑逗性服装，避免浓妆艳抹。」</p>
+</blockquote>
+<p><strong>PRESS0013</strong> 记者：警方目前是否已掌握凶手身份的相关信息？</p>
+<blockquote>
+<p>① 我们已绘出罪犯的模拟画像。「"牙医"是一名白人男性，大约 50 岁……」　② 说不准。　③ 就是这样。</p>
+</blockquote>
+<h2 id="sec-46">9.3 连环杀手 · 失败（PRESS0015–0020）【原文】</h2>
+<p><strong>PRESS0016</strong> 记者：联邦调查局的工作人员已在我市抓获"牙医"，然而弗里堡警方并未有实质性参与。请问警方因为何种原因不作为？</p>
+<blockquote>
+<p>① 扯淡。　② 跟联邦调查局那帮人交流真的很困难，「他们习惯按照自己的方法做事，所以他们也不和地方警务沟通。」　③ 这个问题可太没有水平了。</p>
+</blockquote>
+<p><strong>PRESS0017</strong> 记者：有消息称警方隐瞒证据，没有协助联邦调查局的工作。对此，您可否解释一下？</p>
+<blockquote>
+<p>① 我有我自己的雄心壮志，「我想成为英雄。我的工作生涯即将结束，我要画一个大大的句号。」
+② 我有我的担心。「"牙医"私下跟我联系过，他说如果我协助联邦调查局，他就杀我全家。」
+③ 这种胡说八道不值得评论。</p>
+</blockquote>
+<p><strong>PRESS0018</strong> 记者："牙医"是一名女性，此事是否在您的意料之外？</p>
+<blockquote>
+<p>① 我非常意外。　② 算不上意外。「女人也可以和男人一样邪恶。」　③ 不意外。</p>
+</blockquote>
+<p><strong>PRESS0019</strong> 记者：有谣言称罗杰斯市长与弗里堡五起"牙医"谋杀案的受害人均有染，对此您有什么看法？</p>
+<blockquote>
+<p>① <code>CHL +20</code> <strong>一派胡言！</strong>「市长与受害女性有染是其政治对手杜撰的事情。他们处心积虑利用这几起惨剧，只为谋求一己私利。」
+② <code>CHL −20</code> <strong>我会留意这一情况。</strong>「法律面前，人人平等，即便是罗杰斯市长，也不例外。我们将对这一信息展开调查。」
+③ <code>CHL 0</code> 无可奉告。</p>
+<p>这一题在 MANIACFAIL / MANIACSUCCESS / MANIACSUCCESS2 三组里<strong>重复出现了三次</strong>
+（PRESS0019 / 0025 / 0031），数值完全一样。所以"给市长面子"这条线贯穿整个连环案。</p>
+</blockquote>
+<h2 id="sec-47">9.4 连环杀手 · 成功（PRESS0021–0026 / 0027–0032）【原文】</h2>
+<p><strong>PRESS0022</strong> 记者：恭喜您完成了警察生涯中最高调的一次抓捕行动。今天，您是弗里堡名副其实的英雄。</p>
+<blockquote>
+<p>① 谢谢大家！　② 过奖了，「我只是在履行自己应尽的职责。」　③ 这话说得还有点早，「我的职业生涯离结束还早着呢。」</p>
+</blockquote>
+<p><strong>PRESS0023</strong> 记者：你们怎么找到"牙医"的？</p>
+<blockquote>
+<p>① 大家齐心协力，一起把他揪了出来。　② 我发挥了自己聪明才智。「我逐渐摸出了凶手的思维逻辑，预测出了他的行动。」
+③ <code>CHL +10</code> <strong>罗杰斯市长向我们提供了帮助。</strong>「市长为协助调查，积极提供了各种必要的资源，最终我们才得以抓获"牙医"。」</p>
+</blockquote>
+<p><strong>PRESS0028</strong>（成功变体组）记者：弗里堡在杀人狂魔的阴影里提心吊胆地过了两个星期，你们却无动于衷。假设联邦调查局的工作人员没有来将"牙医"抓获，弗里堡将会发生什么样的事情？</p>
+<blockquote>
+<p>① 局面当时都在掌握之中。　② 警方当时正要开展抓捕行动。　③ <strong>你们知道个屁！</strong></p>
+</blockquote>
+<p><strong>PRESS0030</strong> 记者：任何自尊自重的警察，出现了如此严重的渎职，都会引咎辞职。您接下来有什么打算？</p>
+<blockquote>
+<p>① 我哪里都不去。　② 我要继续与犯罪分子作斗争。　③ 弗里堡需要我。</p>
+</blockquote>
+<h2 id="sec-48">9.5 第 58 天（Jack 遇袭后）· PRESS0033–0038【原文 + 数值】</h2>
+<p><strong>PRESS0034</strong> 记者：博伊德局长，这是您的新发型吗？</p>
+<blockquote>
+<p>① <code>CHL 0</code> 没错。　② <code>CHL 0</code> 你眼花了。　③ <code>CHL 0</code> 是不是新发型都没关系。</p>
+</blockquote>
+<p><strong>PRESS0035</strong> 记者：您认识袭击您的那个人吗？</p>
+<blockquote>
+<p>① <code>CHL 0</code> 不认识。　② <code>CHL 0</code> 说不准。　③ <code>CHL 0</code> 我需要时间恢复。</p>
+</blockquote>
+<p><strong>PRESS0036</strong> 记者：市政府目前尚未就您是否会继续工作做出明确表态。您认为罗杰斯会支持您继续担任局长职位吗？</p>
+<blockquote>
+<p>① <code>CHL −5</code> 是的。　② <code>CHL −10</code> 当然。　③ <code>CHL −20</code> <strong>无论他什么态度，都无所谓。</strong></p>
+</blockquote>
+<p><strong>PRESS0037</strong> 记者：您觉得这件事是否对您造成了影响？</p>
+<blockquote>
+<p>① <code>CHL 0</code> 到时候就知道了。</p>
+<p>这组是全游戏唯一<strong>三个选项全负</strong>的场次，最好情况也要 −5。别指望在这里捞分。</p>
+</blockquote>
+<hr />
+<h1 id="sec-49">第十章 市政厅派差（SEND，48 条）</h1>
+<p>市政厅每 5 天给你派活，你也可以拒。前 34 条是市政厅的（SEND0001–0034），
+第 35–48 条是黑帮打来的（见第十二章（支线任务原文）（黑帮派差原文））。下面是从库里取出的市政厅原文：</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>原文</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SEND0001</td>
+<td>市政府的接待活动安保人手不足，市长要你立刻增派警力。</td>
+</tr>
+<tr>
+<td>SEND0002</td>
+<td>市长办公室新闻发言人的夫人热爱合唱。今天是她的生日，所以派几个嗓子好的男士前往现场。</td>
+</tr>
+<tr>
+<td>SEND0003</td>
+<td>今天气温很高，很多人准备到海滩游泳。上周，共有四人在海滩溺亡，引起媒体一片哗然。请派人到各个海滩维持秩序。</td>
+</tr>
+<tr>
+<td>SEND0004</td>
+<td>今天，弗里堡将举办《回到未来》的首映仪式。发行方希望市政府在剧场入口处安排一名警察，防止观众携带手持摄影摄像设备进入。</td>
+</tr>
+<tr>
+<td>SEND0006</td>
+<td>弗里堡最近犯罪事件频发，新闻媒体议论纷纷……派一个手下去和媒体沟通，告诉他们基层警察能够确保弗里堡市民的安全。</td>
+</tr>
+<tr>
+<td>SEND0007</td>
+<td>今天，弗里堡将要组织废纸和废塑料瓶的收集活动，抗击全球变暖那些乱七八糟的东西。我们需要三个人帮忙分拣废品。</td>
+</tr>
+<tr>
+<td>SEND0011</td>
+<td>最近，市场区扒窃案件数量增加，媒体正在对此进行猛烈抨击。你们必须派两名警察到这里，加大对犯罪分子的震慑。</td>
+</tr>
+<tr>
+<td>SEND0014</td>
+<td>今天，艾迪汉堡店将举行年度吃薯条锦标赛。现场需要一名警察。</td>
+</tr>
+<tr>
+<td>SEND0015</td>
+<td>市政府大楼的外墙上又被几个流氓乱涂乱画了。警察如果不能做好分内的工作……那他们也可以在当班的时候来把这墙粉刷干净。</td>
+</tr>
+<tr>
+<td>SEND0021</td>
+<td>本地一所高中最近案件频发。得有人去学校做个讲座，讲一讲违禁品的危害和犯罪分子艰难危险的生活。</td>
+</tr>
+<tr>
+<td>SEND0022</td>
+<td>弗里堡在公园里搭了一个台子，每周举行博彩活动。上一次活动，参与人员最后发生了严重冲突。</td>
+</tr>
+<tr>
+<td>SEND0023</td>
+<td>市政府接到威胁电话，对方称武装分子将闯进大楼，杀死楼内所有人。我们每个月都能收到几个这样的威胁，所以已经司空见惯。</td>
+</tr>
+<tr>
+<td>SEND0025</td>
+<td>动物园里跑出来几只动物，我们需要警察协助捕捉。</td>
+</tr>
+<tr>
+<td>SEND0029</td>
+<td>最近，市内交通违规和交通事故数量急剧增加……随便在路边的盘查点安排几辆警车，提醒市民注意安全。还有，拍照录像的时候别忘了微笑。</td>
+</tr>
+<tr>
+<td>SEND0031</td>
+<td>今天，公园将举办枕头大战。去年，两名女孩在混乱中不幸遇难，咱们不能弄得好像什么措施都没采取一样。</td>
+</tr>
+<tr>
+<td>SEND0033</td>
+<td>今天，市政府大楼将举办一场内部表彰大会……大楼的安保人员到时候肯定会喝酒，所以现场应该有警察保障安全。</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>SEND 派差的惩罚字段</strong> <code>Penalty</code> 是 −5 / −15 / −20 三档。数量级与 CHL 变化一致、与钱的数量级（几百上千）不符，
+我判断是"拒绝市政厅派差的 CHL 惩罚"，但<strong>没追 IL</strong>，不敢打包票（见附录 B）。</p>
+</blockquote>
+<hr />
+<h1 id="sec-50">第十一章 特殊指派（SPECIAL，8 条）</h1>
+<p><code>SpecialAssignmentDatabase</code> 里 15 条槽位，<strong>只有前 8 条有文本</strong>。全部是：
+<strong>Reward +30 / Penalty −50</strong>（我判断是 CHL，同样未追 IL）。</p>
+<blockquote>
+<p>本章内容涉及族裔与性别配额，按发布要求做了替换；机制与期限一字未改。</p>
+</blockquote>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>触发天</th>
+<th>期限</th>
+<th>标题</th>
+<th>内容原文（已替换群体名）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SPECIAL0001</td>
+<td><strong>4</strong></td>
+<td><strong>2 天</strong></td>
+<td>解雇所有某少数族裔警员</td>
+<td>「最近，市内有一个极端排外团伙到处生事。他们抓住该族裔居民，并殴打致死……我们不想再让警察牺牲，何况再过几个月就是大选了。<strong>由于关系紧张，你必须在 2 天内解雇所有该族裔的警察。</strong>」</td>
+</tr>
+<tr>
+<td>SPECIAL0002</td>
+<td><strong>10</strong></td>
+<td><strong>3 天</strong></td>
+<td>照顾英雄</td>
+<td>「{0}今天从河中勇救溺水的参议员华莱士·格林，成为英雄……确保这位警官安全，让他顺利出席授奖仪式并领奖，不要出什么乱子。」（有男女两个版本）</td>
+</tr>
+<tr>
+<td>SPECIAL0003</td>
+<td><strong>24</strong></td>
+<td><strong>2 天</strong></td>
+<td>解雇所有老年警察</td>
+<td>「州长希望降低公务员的平均年龄，至少降 5 岁。很快就会有人来市里检查。请尽快解雇警察局所有的老年雇员。」</td>
+</tr>
+<tr>
+<td>SPECIAL0004</td>
+<td><strong>19</strong></td>
+<td><strong>3 天</strong></td>
+<td>雇佣亚裔警察</td>
+<td>「有位日本企业家很快将造访弗里堡……他将于 {0} 参观警察局。<strong>请确保当天至少有 3 名亚裔警察在班。</strong>」</td>
+</tr>
+<tr>
+<td>SPECIAL0005</td>
+<td>帮派触发</td>
+<td><strong>4 天</strong></td>
+<td>端掉红面具帮派</td>
+<td>「梁宝在多次访问中，就红面具帮派的凶残罪行做出回答。她将实际情况做了许多美化，掩盖了真相。<strong>如果你不想让市民恐慌，就必须在接下来 4 天内端掉这个帮派。</strong>」</td>
+</tr>
+<tr>
+<td>SPECIAL0006</td>
+<td><strong>15</strong></td>
+<td><strong>3 天</strong></td>
+<td>雇佣女警察</td>
+<td>「鉴于近期发生的事件，我们不得不做出一些让步。<strong>你要确保警察局至少有一半警察是女性。你有 3 天时间。</strong>」</td>
+</tr>
+<tr>
+<td>SPECIAL0007</td>
+<td><strong>87</strong></td>
+<td><strong>2 天</strong></td>
+<td>送警员重返警校</td>
+<td>「弗里堡警察局雇佣成绩最差的警校毕业生。这对你和整座城市来说都是奇耻大辱。<strong>2 天内，你必须将至少 4 名警察送回警校重新训练。</strong>」</td>
+</tr>
+<tr>
+<td>SPECIAL0008</td>
+<td><strong>67</strong></td>
+<td><strong>7 天</strong></td>
+<td>更换警探</td>
+<td>「著名的连环杀手出现在我市，弗里堡警察局却一无所知，你们的警探明显不称职。<strong>给你 7 天时间，彻底更换所有警探。</strong>」</td>
+</tr>
+</tbody>
+</table></div>
+<p>每条的 <code>WARNING</code> 都是「明天是最后期限。」（SPECIAL0002 是「授奖仪式就在明天！」）。</p>
+<p><strong>攻略</strong>：
+- <strong>SPECIAL0001 / 0003 是解雇令</strong>，和"非法解雇 TL −50"叠加起来非常痛。提前把人员结构调整好，别临时抱佛脚。
+- <strong>SPECIAL0005 和帮派系统绑定</strong>（<code>SpecialAssignmentGangId = GANG0001</code>，<code>SpecialAssignmentIdForGang = SPECIAL0005</code>）——
+  也就是说<strong>查红面具帮到一定程度会自动触发这条 4 天期限</strong>。
+- <strong>SPECIAL0008 在第 67 天触发、7 天期限</strong>，正好压在连环杀手线（66–80 天）上。换侦探和抓杀手撞车，提前留人。</p>
+<hr />
+<h1 id="sec-51">第十二章 支线任务（SideQuest，32 条）</h1>
+<blockquote>
+<p>基于 <code>SideQuest</code> / <code>SideQuestData</code> IL 与 <code>SideQuestDatabase</code>（32 条）数值库、文本库 <code>SIDE00xx</code> 全量原文核对。</p>
+</blockquote>
+<h2 id="sec-52">12.1 机制总览</h2>
+<ul>
+<li>支线任务 = 市民 / 势力找你"借警察"办私事。在调度界面派 <code>NumCops</code> 名警员前往。</li>
+<li><code>SideQuest::SendOfficers</code> → <code>LabourUnion::ReportIllegalActivity</code>：<strong>派警去做私活会被工会举报为非法活动</strong>（影响队内关系）。</li>
+<li>到达后 <code>OnOfficersArrived</code> 按 <code>SideQuestData</code> 字段结算每名警员的属性，并可能触发个性化极端后果。</li>
+<li>杰克本人拿到 <code>Money</code>（<code>Jack::Earn</code>）。</li>
+</ul>
+<h2 id="sec-53">12.2 属性变化字段含义</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Money</code></td>
+<td>杰克私账进账</td>
+</tr>
+<tr>
+<td><code>Energy</code></td>
+<td>参勤警员精力变化（多为负，值越小越累）</td>
+</tr>
+<tr>
+<td><code>TeamLoyalty</code></td>
+<td>队忠（TL）变化</td>
+</tr>
+<tr>
+<td><code>Professionalism</code></td>
+<td>专业度变化</td>
+</tr>
+<tr>
+<td><code>Drunk</code></td>
+<td>参勤警员是否变醉（<code>AddDrunk</code>）</td>
+</tr>
+<tr>
+<td><code>NumLeave</code></td>
+<td>几名警员顺势请假（<code>LeaveForce</code>，离队 NumLeave 天）</td>
+</tr>
+<tr>
+<td><code>DontComeBack</code></td>
+<td>参勤警员是否永久离职（辞职 / 被开除，不归队）</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="sec-54">12.3 全部 32 个支线任务一览（编号 / 委托人 / 警力 / 报酬 / 后果）</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>委托人</th>
+<th>天</th>
+<th>时间</th>
+<th>分钟</th>
+<th>警力</th>
+<th>报酬$</th>
+<th>精力</th>
+<th>TL</th>
+<th>专业度</th>
+<th>醉酒</th>
+<th>不归</th>
+<th>特殊后果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SIDE0001</td>
+<td>查尔斯·迪尔</td>
+<td>156</td>
+<td>20:10</td>
+<td>40</td>
+<td>6</td>
+<td>6000</td>
+<td>−2</td>
+<td>+10</td>
+<td>0</td>
+<td>-</td>
+<td>-</td>
+<td>精力−2，队忠+10</td>
+</tr>
+<tr>
+<td>SIDE0002</td>
+<td>法布里斯·苏普利特</td>
+<td>24</td>
+<td>13:50</td>
+<td>60</td>
+<td>3</td>
+<td>15000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>-</td>
+<td>1 人离队</td>
+<td>请假1天</td>
+</tr>
+<tr>
+<td>SIDE0003</td>
+<td>德米·格莱尼尔</td>
+<td>9</td>
+<td>15:00</td>
+<td>75</td>
+<td>2</td>
+<td>2000</td>
+<td><strong>+5</strong></td>
+<td><strong>+40</strong></td>
+<td>0</td>
+<td>-</td>
+<td>-</td>
+<td>队忠+40</td>
+</tr>
+<tr>
+<td>SIDE0004</td>
+<td>豪尔赫·蒂恩</td>
+<td>76</td>
+<td>15:20</td>
+<td>40</td>
+<td>4</td>
+<td>8000</td>
+<td>0</td>
+<td>+20</td>
+<td>0</td>
+<td>-</td>
+<td>-</td>
+<td>队忠+20</td>
+</tr>
+<tr>
+<td>SIDE0005</td>
+<td>厄涅斯特·菲茨杰拉德</td>
+<td>5</td>
+<td>13:30</td>
+<td>45</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td><strong>+55</strong></td>
+<td>-</td>
+<td><strong>不归</strong></td>
+<td>专业+55，不归队</td>
+</tr>
+<tr>
+<td>SIDE0006</td>
+<td>田村和希</td>
+<td>4</td>
+<td>16:30</td>
+<td>30</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td><strong>+110</strong></td>
+<td>-</td>
+<td><strong>不归</strong></td>
+<td>专业+110，不归队</td>
+</tr>
+<tr>
+<td>SIDE0007</td>
+<td>艾米·马尔本</td>
+<td>18</td>
+<td>16:10</td>
+<td>40</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td><strong>+50</strong></td>
+<td>0</td>
+<td>-</td>
+<td>-</td>
+<td>队忠+50</td>
+</tr>
+<tr>
+<td>SIDE0008</td>
+<td>山姆·索金</td>
+<td>3</td>
+<td>15:50</td>
+<td>25</td>
+<td>1</td>
+<td>4500</td>
+<td>0</td>
+<td><strong>−10</strong></td>
+<td>0</td>
+<td>-</td>
+<td>1 人离队</td>
+<td>队忠−10，请假1天</td>
+</tr>
+<tr>
+<td>SIDE0009</td>
+<td>南希·弗兰奇</td>
+<td>87</td>
+<td>11:00</td>
+<td>40</td>
+<td>2</td>
+<td>1000</td>
+<td>+2</td>
+<td>0</td>
+<td>0</td>
+<td>醉</td>
+<td>-</td>
+<td>醉酒</td>
+</tr>
+<tr>
+<td>SIDE0010</td>
+<td>程猛</td>
+<td>105</td>
+<td>13:25</td>
+<td>40</td>
+<td>4</td>
+<td><strong>40000</strong></td>
+<td>0</td>
+<td>+20</td>
+<td>0</td>
+<td>-</td>
+<td>1 人离队</td>
+<td>队忠+20，请假1天（偷车走私，有警员被灭口风险）</td>
+</tr>
+<tr>
+<td>SIDE0011</td>
+<td>约瑟夫·欧利维拉</td>
+<td>168</td>
+<td>16:25</td>
+<td>50</td>
+<td>3</td>
+<td>0</td>
+<td>−2</td>
+<td>0</td>
+<td><strong>+150</strong></td>
+<td>-</td>
+<td><strong>不归</strong></td>
+<td>精力−2，专业+150，不归队</td>
+</tr>
+<tr>
+<td>SIDE0012</td>
+<td>艾瑞尔·考耶尔</td>
+<td>77</td>
+<td>17:40</td>
+<td>30</td>
+<td>2</td>
+<td><strong>25000</strong></td>
+<td>0</td>
+<td>−15</td>
+<td><strong>−50</strong></td>
+<td>-</td>
+<td>-</td>
+<td>队忠−15，专业−50（假抢劫，警员羞愤离职）</td>
+</tr>
+<tr>
+<td>SIDE0013</td>
+<td>费南多·里维拉</td>
+<td>161</td>
+<td>15:30</td>
+<td>40</td>
+<td>4</td>
+<td>4000</td>
+<td>0</td>
+<td><strong>−20</strong></td>
+<td>0</td>
+<td>-</td>
+<td><strong>不归</strong></td>
+<td>队忠−20，不归队</td>
+</tr>
+<tr>
+<td>SIDE0014</td>
+<td>亨利·桑德</td>
+<td>10</td>
+<td>14:20</td>
+<td>30</td>
+<td>3</td>
+<td>0</td>
+<td>0</td>
+<td>+5</td>
+<td>0</td>
+<td>-</td>
+<td><strong>不归</strong></td>
+<td>队忠+5，不归队（回赠箱式警车）</td>
+</tr>
+<tr>
+<td>SIDE0015</td>
+<td>乌里荷·比伯</td>
+<td>7</td>
+<td>15:00</td>
+<td>40</td>
+<td>3</td>
+<td>3000</td>
+<td>0</td>
+<td>+5</td>
+<td>0</td>
+<td>-</td>
+<td>-</td>
+<td>队忠+5（一名警员酒瘾×2）</td>
+</tr>
+<tr>
+<td>SIDE0016</td>
+<td>乌里荷·比伯</td>
+<td>14</td>
+<td>19:20</td>
+<td>30</td>
+<td>3</td>
+<td>4000</td>
+<td>0</td>
+<td>+5</td>
+<td>0</td>
+<td>-</td>
+<td><strong>不归</strong></td>
+<td>队忠+5，不归队</td>
+</tr>
+<tr>
+<td>SIDE0017</td>
+<td>菲奥娜·切什拉克医生</td>
+<td>158</td>
+<td>11:10</td>
+<td>60</td>
+<td>4</td>
+<td><strong>80000</strong></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>-</td>
+<td>-</td>
+<td><strong>一名警员试药死亡</strong>（极端）</td>
+</tr>
+<tr>
+<td>SIDE0018</td>
+<td>爱德华·赫齐格</td>
+<td>70</td>
+<td>11:20</td>
+<td>40</td>
+<td>2</td>
+<td>4000</td>
+<td>−1</td>
+<td>0</td>
+<td><strong>+80</strong></td>
+<td>-</td>
+<td>-</td>
+<td>精力−1，专业+80</td>
+</tr>
+<tr>
+<td>SIDE0019</td>
+<td>夏洛特·基斯勒</td>
+<td>165</td>
+<td>18:00</td>
+<td>50</td>
+<td>3</td>
+<td>10000</td>
+<td>0</td>
+<td>−10</td>
+<td>0</td>
+<td>醉</td>
+<td>1 人离队</td>
+<td>队忠−10，醉酒，请假1天</td>
+</tr>
+<tr>
+<td>SIDE0020</td>
+<td>维克托·贾什</td>
+<td>99</td>
+<td>16:10</td>
+<td>25</td>
+<td>3</td>
+<td>3000</td>
+<td>0</td>
+<td><strong>−20</strong></td>
+<td>0</td>
+<td>-</td>
+<td><strong>不归</strong></td>
+<td>队忠−20，不归队（<strong>一名警员蜂蜇过敏致死</strong>）</td>
+</tr>
+<tr>
+<td>SIDE0021</td>
+<td>德莱克·阿伦</td>
+<td>22</td>
+<td>15:10</td>
+<td>40</td>
+<td>1</td>
+<td>3000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>-</td>
+<td><strong>不归</strong></td>
+<td>请假1天，不归队（脱衣舞 / 变态角色，警员怒辞）</td>
+</tr>
+<tr>
+<td>SIDE0022</td>
+<td>德莱克·阿伦</td>
+<td>66</td>
+<td>12:05</td>
+<td>50</td>
+<td>2</td>
+<td>10000</td>
+<td>0</td>
+<td>+20</td>
+<td>0</td>
+<td>-</td>
+<td>-</td>
+<td>队忠+20（<strong>2 名警员被电视台解雇</strong>）</td>
+</tr>
+<tr>
+<td>SIDE0023</td>
+<td>蒂亚戈·鲁纳</td>
+<td>176</td>
+<td>16:00</td>
+<td>40</td>
+<td>2</td>
+<td><strong>20000</strong></td>
+<td>−1</td>
+<td>0</td>
+<td>0</td>
+<td>-</td>
+<td>-</td>
+<td>精力−1（<strong>协助掩盖一名女子的离奇死亡，一名警员辞职</strong>）</td>
+</tr>
+<tr>
+<td>SIDE0024</td>
+<td>肖恩·科泰勒</td>
+<td>82</td>
+<td>12:40</td>
+<td>50</td>
+<td>2</td>
+<td>5000</td>
+<td>−2</td>
+<td>0</td>
+<td>+20</td>
+<td>-</td>
+<td>-</td>
+<td>精力−2，专业+20</td>
+</tr>
+<tr>
+<td>SIDE0025</td>
+<td>罗伯特·德芙林</td>
+<td>62</td>
+<td>17:05</td>
+<td>50</td>
+<td>4</td>
+<td>4000</td>
+<td>+3</td>
+<td>0</td>
+<td>0</td>
+<td>醉</td>
+<td>-</td>
+<td>醉酒（女儿婚礼安保）</td>
+</tr>
+<tr>
+<td>SIDE0026</td>
+<td>克里斯托贝尔·格里马尔德</td>
+<td>176</td>
+<td>14:00</td>
+<td>35</td>
+<td>2</td>
+<td>2000</td>
+<td>0</td>
+<td>+10</td>
+<td>0</td>
+<td>-</td>
+<td>1 人离队</td>
+<td>队忠+10，请假1天（杂志拍摄，有人被签走）</td>
+</tr>
+<tr>
+<td>SIDE0027</td>
+<td>MC·德连夫</td>
+<td>167</td>
+<td>19:05</td>
+<td>40</td>
+<td>3</td>
+<td>3000</td>
+<td>0</td>
+<td>+20</td>
+<td>0</td>
+<td>醉</td>
+<td>1 人离队</td>
+<td>队忠+20，醉酒，请假1天</td>
+</tr>
+<tr>
+<td>SIDE0028</td>
+<td>罗伯特·德芙林</td>
+<td>83</td>
+<td>17:45</td>
+<td>30</td>
+<td>4</td>
+<td>0</td>
+<td>0</td>
+<td>−15</td>
+<td>0</td>
+<td>醉</td>
+<td><strong>不归</strong></td>
+<td>队忠−15，醉酒，不归队（<strong>德芙林捐大笔款，警察局增编</strong>）</td>
+</tr>
+<tr>
+<td>SIDE0029</td>
+<td>安吉拉·佩特</td>
+<td>173</td>
+<td>11:45</td>
+<td>50</td>
+<td>3</td>
+<td>8000</td>
+<td>0</td>
+<td><strong>+30</strong></td>
+<td>0</td>
+<td>-</td>
+<td>-</td>
+<td>队忠+30（明星安保，一名警员专业+600）</td>
+</tr>
+<tr>
+<td>SIDE0030</td>
+<td>保罗·拉萨特</td>
+<td>73</td>
+<td>13:30</td>
+<td>40</td>
+<td>5</td>
+<td>0</td>
+<td>0</td>
+<td>+20</td>
+<td>0</td>
+<td>-</td>
+<td><strong>不归</strong></td>
+<td>队忠+20，不归队（<strong>前2名晋升、后2名送警校</strong>）</td>
+</tr>
+<tr>
+<td>SIDE0031</td>
+<td>佛格斯·斯莱特利</td>
+<td>171</td>
+<td>20:00</td>
+<td>30</td>
+<td>4</td>
+<td>0</td>
+<td>−2</td>
+<td><strong>+40</strong></td>
+<td>0</td>
+<td>醉</td>
+<td>-</td>
+<td>精力−2，队忠+40，醉酒（消防队橄榄球赛）</td>
+</tr>
+<tr>
+<td>SIDE0032</td>
+<td>克莱门坦·巴罗斯</td>
+<td>101</td>
+<td>13:40</td>
+<td>30</td>
+<td>3</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>-</td>
+<td>-（甜食战争）</td>
+<td>无属性变化（糖果厂交易，每日抽成）</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="sec-55">委托原文与结果（32 条）</h2>
+<p>数值见第十二章，这里给的是<strong>每条的委托原文和结果原文</strong>——这游戏最好笑的部分基本都在这儿。
+（少数委托涉及极端情节，我只写机制。）</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>委托人</th>
+<th>委托原文（摘）</th>
+<th>结果原文（摘）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SIDE0001</td>
+<td>查尔斯·迪尔</td>
+<td>「我刚刚拿到一大批烟草……搬运工却要罢工，要我给他们涨工资，我是不会屈服于下三滥的敲诈行为。麻烦派几个身强体壮的人手过来帮忙搬下箱子。」</td>
+<td>「老大，谢谢你给我们找的外快！蒂尔给我们卷了几根好雪茄。」</td>
+</tr>
+<tr>
+<td>SIDE0002</td>
+<td>法布里斯·苏普利特</td>
+<td>「我们正在帮一家竹纤维卫生纸的公司拍电视广告，里面有一个重要的警察角色……我们需要一个真正的专业人士。」</td>
+<td>「拍广告的时候状态相当好，导演也很满意，又给了几个角色。我觉得他可能会直接辞掉局里的工作，下海拍广告。」</td>
+</tr>
+<tr>
+<td>SIDE0003</td>
+<td>德米·格莱尼尔</td>
+<td>「我们店里今天准备安装《超级抹大拉的 3》的老虎机。上一次，一台新机器刚装好没一天，就差点被一个大个子小孩弄坏了。」</td>
+<td>「我们跟他们玩《地狱斗士》，把他们赢得稀里哗啦的！」</td>
+</tr>
+<tr>
+<td>SIDE0004</td>
+<td>豪尔赫·蒂恩</td>
+<td>「我希望在你们城市最壮观的地标——玉米纪念碑附近取景……对警察只有一个要求：不能碰女演员，她不是来卖肉的！」</td>
+<td>「您在电视上根本看不到那么纯的金子！」</td>
+</tr>
+<tr>
+<td>SIDE0005</td>
+<td>厄涅斯特·菲茨杰拉德</td>
+<td>「'黄金野兽射击赛'的主办方今天突然改变了比赛规则。他们不接受单人参赛了，必须团队参见。」</td>
+<td>「我们拿了冠军！那个厄涅斯特真的有两把刷子……他邀请我们出去打猎。」</td>
+</tr>
+<tr>
+<td>SIDE0006</td>
+<td>田村和希</td>
+<td>「我准备开弗里堡第一家武术俱乐部……让我的一个学生和您手下最精悍的警员切磋一下。」</td>
+<td>「我不是很明白他们的规则，所以点数一直算得不是太清楚……我当时得意忘形，把背给拉伤了。」</td>
+</tr>
+<tr>
+<td>SIDE0007</td>
+<td>艾米·马尔本</td>
+<td>「我所有店员都得了流感……他们肯定不介意炸炸面包圈。很简单……我这个店只能刚刚挣够本钱，所以一天门都不能关。」</td>
+<td>「那烤炉旁边简直不是人待的地方。我宁愿躲枪子，也不愿意在那儿来回躲闪四处飞溅的滚油。」</td>
+</tr>
+<tr>
+<td>SIDE0008</td>
+<td>山姆·索金</td>
+<td>「我的保安又塞了一肚子的墨西哥菜……我们需要有个人站在门口，他得能分得清酷炫和杀马特才行。」</td>
+<td>「我辞职了。这一个晚上，我挣的钞票比在这个破地方一个月的还要多久。」</td>
+</tr>
+<tr>
+<td>SIDE0009</td>
+<td>南希·弗兰奇</td>
+<td>「我的洋厨师最近不正经干活。他们往菜里吐吐沫，还加了各种奇怪的东西……麻烦您派两个人过来吓唬吓唬他们。」</td>
+<td>「我们一上来就先用警棍教育了一下……弗兰奇女士高兴得不得了，给我们上了点蟹肉沙拉和日本酒。」</td>
+</tr>
+<tr>
+<td>SIDE0010</td>
+<td>程猛</td>
+<td>「我有四辆豪车需要在港口上船。跟你实话实说了吧，车是偷来的……这次我们要想万无一失，就得让警察坐在驾驶座上。」</td>
+<td>「他不光要砸了这单买卖，还要把所有人都抓起来。我们没办法，只能让他闭上嘴……您懂的。」</td>
+</tr>
+<tr>
+<td>SIDE0011</td>
+<td>约瑟夫·欧利维拉</td>
+<td>「市长办公室又砍我们的预算了……犯人因为伙食质量正在闹事造反。你要是能派几个警察过来做做兼职警卫，那可就帮了我的大忙了。」</td>
+<td>「我们学到了非常非常多有用的技巧，以后在路上遇到那些垃圾可以用。」</td>
+</tr>
+<tr>
+<td>SIDE0012</td>
+<td>艾瑞尔·考耶尔</td>
+<td>「您只需要派两个警察到商店里，假装要阻止抢劫就行了。<strong>我把话说清楚，你们必须让抢劫的人毫发无伤地带着现金离开现场。</strong>」</td>
+<td>「老大，我们在现场当着那么多目击者的面，就和小丑一样。<strong>从今往后，您这些龌龊的事情我们不奉陪了！</strong>」</td>
+</tr>
+<tr>
+<td>SIDE0013</td>
+<td>费南多·里维拉</td>
+<td>「有几个地方的下水道堵了，我们现在真的就是泡在粪水里……<strong>活儿不干净，你的人肯定不愿意干。</strong>」</td>
+<td>「我们当年在警校可不是学扒粪的，下次麻烦您找别人拯救世界吧。我这从头到脚臭得要命。」</td>
+</tr>
+<tr>
+<td>SIDE0014</td>
+<td>亨利·桑德</td>
+<td>「我想给新司机上一堂培训课……<strong>作为回报，我愿意捐一辆箱式警车。</strong>」</td>
+<td>「桑德先生送过来一台全新的箱式警车。一台好车就用来装那些蠢货可真是浪费了！」</td>
+</tr>
+<tr>
+<td>SIDE0015</td>
+<td>乌里荷·比伯</td>
+<td>「我前妻特别怕警察……你们要是能有几个人穿着制服，过去跟她说那些唱片磁带事关一项重大案件的调查，她肯定不论你们要什么，调查令都不看，二话不说，笑眯眯地全交给你们。」</td>
+<td>「比伯先生送了我们一张热纳洛·克莱斯珀的《灵师》！」</td>
+</tr>
+<tr>
+<td>SIDE0016</td>
+<td>乌里荷·比伯</td>
+<td>「那个侦探现在居然直接跑到我家里来，说唱片和磁带是被我抢走的！……您能不能吓唬吓唬这两人？」</td>
+<td>「比伯先生给了我们几张爱尔兰爵士音乐节的门票。」</td>
+</tr>
+<tr>
+<td>SIDE0017</td>
+<td>菲奥娜·切什拉克医生</td>
+<td>「六个月前，恐怖组织同时发射了三颗卫星……我们研发出了一种应对办法……<strong>需要四名警察服用最新的试验药物。这个药目前的不确定性还很大……有八万美元的报酬。</strong>」</td>
+<td>「我们吃了那些药之后特别不舒服……（其中一人）突然吐了起来，然后浑身起满了水泡，倒在地上，就死过去了。」</td>
+</tr>
+<tr>
+<td>SIDE0018</td>
+<td>爱德华·赫齐格</td>
+<td>「我决定自己开一家枪店……<strong>我会给你那些小伙子几把"玩具"，以后工作中肯定用得上。</strong>」</td>
+<td>「让警察干这个也真是莫名其妙，不过我们还干得特起劲……而且，赫齐格先生给我们几把好枪！」</td>
+</tr>
+<tr>
+<td>SIDE0019</td>
+<td>夏洛特·基斯勒</td>
+<td>「<strong>我还是把话说明白点好，他们来了可是要跳脱衣舞的。</strong>那家牛郎店派过来的都是些白痴，我们实在是看腻了。」</td>
+<td>「我们要是喜欢扭屁股，跳钢管舞，当初就不会花那么多时间上警校了。」</td>
+</tr>
+<tr>
+<td>SIDE0020</td>
+<td>维克托·贾什</td>
+<td>「我需要三个壮实的男人帮我把蜂巢从填埋场里捡出来，他们还得不怕蜜蜂蜇才行。」</td>
+<td>「（其中一人）绊倒了，把一个蜂窝摔在了地上……他在去医院的路上死于过敏性休克。」</td>
+</tr>
+<tr>
+<td>SIDE0021</td>
+<td>德莱克·阿伦</td>
+<td>剧组需要一个真警察扮演一个"有问题的警察"角色（剧本设定涉及极端情节，此处不展开）。</td>
+<td>「<strong>博伊德，我日你大爷。你不如拿着那些钱干你妹去吧。老子不干了！</strong>」</td>
+</tr>
+<tr>
+<td>SIDE0022</td>
+<td>德莱克·阿伦</td>
+<td>「试播集需要两名警察和我们一块开车转几个小时……参加拍摄的警察有 300 美元的报酬，您的那部分更丰厚。」</td>
+<td>「我们当时真事儿都说尽了，所以只好现编了几个。有人好像说了点咱们警察不太光彩的事儿，有一些还是关于您个人的。」</td>
+</tr>
+<tr>
+<td>SIDE0023</td>
+<td>蒂亚戈·鲁纳</td>
+<td>大明星的经纪人需要两个人悄悄处理一具尸体（原文涉及违禁品过量，已替换）。</td>
+<td>「杰克，我们把那个小姑娘卷在地毯里，埋掉了。您不想知道具体的细节吧？」</td>
+</tr>
+<tr>
+<td>SIDE0024</td>
+<td>肖恩·科泰勒</td>
+<td>「<strong>派几个最懒最烂的警察过来</strong>，只需要占用他们两三个小时的时间。我的小伙子们在他们旁边就会像格斗士一样。」</td>
+<td>「那些人就像机器人一样，把我们完全碾压。不过我们也学到很多东西。」</td>
+</tr>
+<tr>
+<td>SIDE0025</td>
+<td>罗伯特·德芙林</td>
+<td>「今天是我女儿大喜的日子，我想把所有事情安排得滴水不漏。我在生意场上势力很大，所以也不可能没有敌人。」</td>
+<td>「我们刚开始板着脸，一本正经很严肃，结果那群漂亮姑娘都抢着跟我们合影。」</td>
+</tr>
+<tr>
+<td>SIDE0026</td>
+<td>克里斯托贝尔·格里马尔德</td>
+<td>「我们下一期的《性感职装》准备拍一拍警察。」</td>
+<td>「&lt;某人&gt;表现得特别好，被一家模特公司相中了，当场就签了合同，然后就上了一辆加长轿车。」</td>
+</tr>
+<tr>
+<td>SIDE0027</td>
+<td>MC·德连夫</td>
+<td>「我需要几个警察唱和声，要最粗野的那种。我到时候把钱给你，他们想喝什么喝什么。」</td>
+<td>「我喝多了，调都跑得没影了！……决定让他参与录制整张专辑。」</td>
+</tr>
+<tr>
+<td>SIDE0028</td>
+<td>罗伯特·德芙林</td>
+<td>「<strong>帮我给卖家施加点压力，方便我把价格往下压一压</strong>……帮您增加点预算，够您再招五个新人。」</td>
+<td>「那个有钱人吹胡子瞪眼，让我们滚蛋，别耽误他的终身大计。<strong>事儿可不是这么干的！我们要去酒吧散散心。</strong>」</td>
+</tr>
+<tr>
+<td>SIDE0029</td>
+<td>安吉拉·佩特</td>
+<td>「日本体育明星海老泽佑安即将抵达弗里堡。他的经纪人要求我们提供安保。」</td>
+<td>「海老泽佑安非常实在，待我们像待英雄一样。」</td>
+</tr>
+<tr>
+<td>SIDE0030</td>
+<td>保罗·拉萨特</td>
+<td>「警校的教职员工得了胃肠型流感，一大批新生马上就要入学了，可是我们没有人手。」</td>
+<td>「尤其是&lt;某人1&gt;和&lt;某人2&gt;，简直糟透了。教官甚至硬把他们留了下来，重新接受训练。」</td>
+</tr>
+<tr>
+<td>SIDE0031</td>
+<td>佛格斯·斯莱特利</td>
+<td>「消防员从火中抢救平民的时候，燃烧的房顶砸在了几个兄弟的身上。我们几名最优秀的球员不幸牺牲，所以这次比赛我们没法参加。<strong>除非你找四个人到我们队来。</strong>」</td>
+<td>「假如我出警的时候中弹了，他们这样的人要是能来帮忙，我也会非常欣慰。」</td>
+</tr>
+<tr>
+<td>SIDE0032</td>
+<td>克莱门坦·巴罗斯</td>
+<td>「您听说您爱做交易，那您看这样行不行：<strong>您帮我保住工厂，以后我每天的利润里都有您的提成？</strong>」</td>
+<td>（无结果文本——这条是"甜食战争"长线）</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>读原文的几点发现</strong>：
+1. <strong>SIDE0012 是唯一一条弟兄当场翻脸的</strong>（「您这些龌龊的事情我们不奉陪了！」），对应专业度 −50。
+2. <strong>SIDE0021 是唯一一条弟兄当面骂你</strong>的那条，紧接着 SIDE0022 同一委托人又来找你——是连续剧。
+3. <strong>SIDE0028 有"隐藏正结局"</strong>：<code>SIDE0028_SPECIAL</code> 写明如果他满意，会捐款给你加 5 个岗位。
+4. 文本里有 <code>&lt;RandomSurname&gt;</code> <code>&lt;RandomAsianCop&gt;</code> 这种占位符——运行时替换成你队里真实警员的名字。</p>
+<hr />
+<h2 id="sec-56">12.4 个性化极端后果（IL 实锤）</h2>
+<ul>
+<li><strong>SIDE0017</strong>（试药）：<code>Employee::Kill</code> 直接杀死一名参勤警员（"水泡倒地死过去"）。报酬最高（80000）。</li>
+<li><strong>SIDE0020</strong>（养蜂）：<code>Employee::Kill</code> 一名警员过敏性休克死亡。</li>
+<li><strong>SIDE0022</strong>（电视剧）：<code>CityHall::AddSideQuest22Mission</code> —— 2 名警员被工作室解雇。</li>
+<li><strong>SIDE0023</strong>（掩盖命案）：一名警员 <code>LeaveForce</code> 辞职。</li>
+<li><strong>SIDE0028</strong>（地产商）：<code>CityHall::OnSideQuest28Done</code> —— 德芙林捐款，警察局编制增加（正面宏观后果）。</li>
+<li><strong>SIDE0029</strong>（明星）：一名警员 <code>AddProfessionalism(+600)</code> 且精力清零。</li>
+<li><strong>SIDE0030</strong>（警校）：前 2 名 <code>PromoteCop</code>（晋升），后 2 名 <code>SendToAcademy</code>（送警校进修）。</li>
+</ul>
+<h2 id="sec-57">12.5 委托人请求原文精要</h2>
+<blockquote>
+<p>完整 32 条 <code>NAME</code> / <code>TEXT</code> / <code>RESULT</code> / <code>SPECIAL</code> 原文见文本库 <code>SIDE00xx</code> 与 <code>out/sidequests.txt</code>。下面按编号给出"委托人 + 请求一句话 + 回报一句话"。</p>
+</blockquote>
+<ul>
+<li><strong>SIDE0001 查尔斯·迪尔</strong>：帮搬烟草，"有恩必报"。→ 警员收到雪茄外快。</li>
+<li><strong>SIDE0002 法布里斯·苏普利特</strong>：拍卫生纸广告找"真警察"。→ 有人被导演相中转行。</li>
+<li><strong>SIDE0003 德米·格莱尼尔</strong>：老虎机店防小孩捣乱。→ 警员陪玩电玩大胜。</li>
+<li><strong>SIDE0004 豪尔赫·蒂恩</strong>：玉米纪念碑取景协管人群。→ 称赞"纯金"。</li>
+<li><strong>SIDE0005 厄涅斯特·菲茨杰拉德</strong>：射击赛借两名枪手。→ 夺冠，有人请带薪假（不归队）。</li>
+<li><strong>SIDE0006 田村和希</strong>：武术俱乐部切磋。→ 点数惜败，有人背拉伤请假（不归队）。</li>
+<li><strong>SIDE0007 艾米·马尔本</strong>：面包店缺人炸甜甜圈。→ 抱怨滚油，但管够面包圈（不归队）。</li>
+<li><strong>SIDE0008 山姆·索金</strong>：夜店门口站岗筛选客人。→ 有人当晚辞职下海。</li>
+<li><strong>SIDE0009 南希·弗兰奇</strong>：吓唬胡闹的厨师。→ 警棍教育后厨师规矩了，上了蟹肉沙拉。</li>
+<li><strong>SIDE0010 程猛</strong>：港口帮偷车走私，要警察坐驾驶座。→ 有同事"被灭口"，程先生满意。</li>
+<li><strong>SIDE0011 约瑟夫·欧利维拉</strong>：监狱骚乱借兼职警卫。→ 学到制服技巧（不归队）。</li>
+<li><strong>SIDE0012 艾瑞尔·考耶尔</strong>：假抢劫让警察当托。→ 警员羞愤"不奉陪了"（离职）。</li>
+<li><strong>SIDE0013 费南多·里维拉</strong>：下水道堵了借人修管道。→ 一身粪臭回家（不归队）。</li>
+<li><strong>SIDE0014 亨利·桑德</strong>：陪新司机练车，回赠箱式警车。→ 队忠+5，得新车（不归队）。</li>
+<li><strong>SIDE0015 乌里荷·比伯</strong>：扮调查从前妻那拿回唱片。→ 获赠唱片，一名警员酒瘾翻倍。</li>
+<li><strong>SIDE0016 乌里荷·比伯</strong>：吓走多管闲事的侦探。→ 获赠爵士音乐节门票（不归队）。</li>
+<li><strong>SIDE0017 菲奥娜·切什拉克医生</strong>：试服试验药物换 8 万。→ <strong>一名警员试药死亡</strong>。</li>
+<li><strong>SIDE0018 爱德华·赫齐格</strong>：枪店开业发传单。→ 得几把好枪，专业+80。</li>
+<li><strong>SIDE0019 夏洛特·基斯勒</strong>：聚会上演脱衣舞。→ 有人玩嗨不归队。</li>
+<li><strong>SIDE0020 维克托·贾什</strong>：垃圾场捡蜂巢。→ <strong>一名警员蜂蜇过敏死亡</strong>（不归队）。</li>
+<li><strong>SIDE0021 德莱克·阿伦</strong>：演绑架幼女变态警察。→ 警员怒骂离职。</li>
+<li><strong>SIDE0022 德莱克·阿伦</strong>：跟拍真实警事电视剧。→ <strong>2 名警员被电视台解雇</strong>。</li>
+<li><strong>SIDE0023 蒂亚戈·鲁纳</strong>：帮巨星掩盖一名女子的离奇死亡。→ 一名警员辞职。</li>
+<li><strong>SIDE0024 肖恩·科泰勒</strong>：投资展示会当"反面教材"。→ 学到格斗技巧，专业+20。</li>
+<li><strong>SIDE0025 罗伯特·德芙林</strong>：女儿婚礼安保。→ 合影吃蛋糕，醉酒。</li>
+<li><strong>SIDE0026 克里斯托贝尔·格里马尔德</strong>：警服写真。→ 有人被模特公司签走。</li>
+<li><strong>SIDE0027 MC·德连夫</strong>：录粗野和声。→ 有人被签进专辑。</li>
+<li><strong>SIDE0028 罗伯特·德芙林</strong>：施压压低地价。→ <strong>德芙林捐款，警局增编</strong>。</li>
+<li><strong>SIDE0029 安吉拉·佩特</strong>：日本明星安保。→ 一名警员专业+600，成好友。</li>
+<li><strong>SIDE0030 保罗·拉萨特</strong>：警校开学帮手。→ <strong>前2名晋升、后2名送警校</strong>（不归队）。</li>
+<li><strong>SIDE0031 佛格斯·斯莱特利</strong>：消防队橄榄球赛借人。→ 打平，队忠+40，醉酒。</li>
+<li><strong>SIDE0032 克莱门坦·巴罗斯</strong>：保住糖果厂，每日抽成。→ 无属性变化。</li>
+</ul>
+<blockquote>
+<p>提示：支线任务报酬高但<strong>几乎都消耗队忠 / 精力或导致离职</strong>，且会被工会记为非法活动。低忠诚或人手紧张时慎派；SIDE0017 / SIDE0020 有真实减员风险，务必派可牺牲的警员。</p>
+</blockquote>
+<hr />
+<h1 id="sec-58">第十三章 黑帮（Mafia）核心机制与刺杀触发</h1>
+<blockquote>
+<p>本节全部基于 <code>Assembly-CSharp.dll</code> 反编译（IL）与 <code>GameParametersDatabase</code> 数值库核对，非推测。黑帮对杰克有一条 0–150 的整数<strong>忠诚值（Loyalty）</strong>，几乎所有黑帮互动都围绕它展开。</p>
+</blockquote>
+<h2 id="sec-59">13.1 忠诚值（Loyalty）系统</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>值</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>InitialMafiaLoyalty</code></td>
+<td>100</td>
+<td>游戏开始时的忠诚</td>
+</tr>
+<tr>
+<td><code>MaxMafiaLoyalty</code></td>
+<td>150</td>
+<td>忠诚上限</td>
+</tr>
+<tr>
+<td><code>MafiaLoyaltyIfRefuse</code></td>
+<td>50</td>
+<td>拒绝为黑帮干活时，忠诚被直接设成 50（<code>Mafia::OnJackAcceptedToWorkForMafia</code> 的 else 分支）</td>
+</tr>
+<tr>
+<td><code>MafiaDissatisfactionThreshold</code></td>
+<td>25</td>
+<td>忠诚低于此值 → 黑帮"不满"（dissatisfied）</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><code>Mafia::OnJackAcceptedToWorkForMafia(true)</code>：接受为黑帮工作（剧情选择），不改变当前忠诚值。</li>
+<li><code>Mafia::OnJackAcceptedToWorkForMafia(false)</code>：拒绝 → 忠诚直接设成 <code>MafiaLoyaltyIfRefuse = 50</code>。</li>
+</ul>
+<h2 id="sec-60">13.2 黑帮任务（MafiaAssignment）成败</h2>
+<p>黑帮每天会派任务（犯罪任务 / 调查任务），成败改忠诚：</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>任务类型</th>
+<th>成功奖励</th>
+<th>失败惩罚</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>犯罪任务（IsCrimeAssignment）</td>
+<td><code>MafiaCrimeAssignmentLoyaltyReward = +10</code></td>
+<td><code>MafiaCrimeAssignmentLoyaltyPenalty = -30</code>（× multiplier，四舍五入）</td>
+</tr>
+<tr>
+<td>调查任务（Investigation）</td>
+<td><code>MafiaInvestigationAssignmentLoyaltyReward = +20</code></td>
+<td><code>MafiaInvestigationAssignmentLoyaltyPenalty = -50</code>（× multiplier）</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>成功时杰克还能拿到 <code>Reward</code>（= <code>OriginalReward × multiplier</code>，见 <code>MafiaAssignment::get_Reward</code> → <code>Jack::Earn</code>）。</li>
+<li>失败时 <code>Backlog::SetMessageProgress(3)</code> 标记任务失败。</li>
+<li><code>multiplier</code> 来自 <code>Initialize</code>：老黑帮任务默认 0.5（惩罚/奖励减半），且 <code>ShouldShowUp</code> 有 50% 概率不出现（<code>Random.Range(0,100) &lt; 50</code>）；沙盒模式或昏迷日之后不触发此随机。</li>
+</ul>
+<blockquote>
+<p>结论：<strong>调查任务失败最伤忠诚（−50）</strong>，犯罪任务失败 −30；成功则调查 +20 &gt; 犯罪 +10。连续搞砸调查任务会把忠诚快速压穿 25 的红线。</p>
+</blockquote>
+<h2 id="sec-61">13.3 赃物（Loot）买卖</h2>
+<p>黑帮会给你赃物去卖（<code>Mafia::GiveLootToSell</code>）：</p>
+<ul>
+<li>卖掉 → 忠诚 <code>+MafiaLootSaleLoyaltyBonus = +20</code>，但同时会向工会（<code>LabourUnion::ReportIllegalActivity</code>）举报你非法活动。</li>
+<li>超过 <code>MafiaLootNoSaleCountDown = 14</code> 天没卖 → 忠诚 <code>MafiaLootNoSaleLoyaltyPenalty = -10</code>，并触发不满。</li>
+</ul>
+<h2 id="sec-62">13.4 不满（Dissatisfaction）与警告</h2>
+<p><code>Mafia::StartTheDay</code> 中：若忠诚 &lt; <code>MafiaDissatisfactionThreshold(25)</code> → <code>MafiaIsDissatisfied = true</code>，随即：</p>
+<ul>
+<li><code>ShowDissatisfactionMessage</code>（黑帮不满警告信）</li>
+<li><code>AddCrimeTraps</code>（往城市里埋犯罪陷阱）</li>
+<li><code>AddCrimeAssignments</code>（追加犯罪任务）</li>
+</ul>
+<blockquote>
+<p>这相当于"黄牌"：忠诚跌破 25 就开始给你使绊子（陷阱+强制犯罪任务）。</p>
+</blockquote>
+<h2 id="sec-63">13.5 刺杀触发：三大条件（IL 验证）</h2>
+<p>刺杀标志 <code>MafiaWantsToKillJack</code> 在 <code>Mafia::InitializeNewDay</code> 里先重置为 false，再按以下条件置 true（<strong>且黑帮未被消灭 <code>IsEliminated</code> 时才会真刺杀</strong>）：</p>
+<p><strong>条件一：忠诚归零（老黑帮的"最后通牒"）</strong></p>
+<ul>
+<li>每日初始化：若忠诚 != 0 → 直接跳过刺杀分支。</li>
+<li>若忠诚 == 0 且<strong>已给过最后警告</strong>（<code>GaveLastWarning</code> 为真）→ <code>set_MafiaWantsToKillJack(true)</code>。</li>
+<li>若忠诚 == 0 但<strong>还没给过警告</strong> → 置 <code>GaveLastWarning=true</code>、不满=false，并把忠诚抬到 <code>DissatisfactionThreshold − 1 = 24</code>（给你一次缓冲）。</li>
+<li>所以：<strong>把老黑帮忠诚压到 0 两次（或长期维持 0），就会被下定杀心。</strong></li>
+</ul>
+<p><strong>条件二：黑帮火并连输</strong></p>
+<ul>
+<li>若正处于火并（<code>WarsOngoing</code>）且 <code>ConsecutiveDaysLowerPointsForOldMafia &gt;= 3</code>（连续 ≥3 天点数落后）→ <code>set_MafiaWantsToKillJack(true)</code>。</li>
+<li>火并从第 <code>MafiaWarsStartDay = 13</code> 天开始，持续 <code>MafiaWarsDuration = 15</code> 天。</li>
+</ul>
+<p><strong>条件三：调查黑帮引发杀机</strong></p>
+<ul>
+<li>若忠诚 &lt; <code>MafiaSuspicionThreshold = 45</code> 且 <code>JackIsInvestigatingMafia</code> 为真 → 每日 <code>InvestigationKillChance += MafiaSuspicionKillChanceEachDay(3)</code>，随后 <code>Random(0,100) &lt; InvestigationKillChance</code> 命中即刺杀。</li>
+<li>即：低忠诚状态下硬查黑帮，每天约 +3% 累积刺杀概率。</li>
+</ul>
+<h2 id="sec-64">13.6 刺杀发生与解除</h2>
+<ul>
+<li><strong>发生</strong>：<code>DayStartScreen::GoToWorkInternal</code>（上班出门）中，若 <code>MafiaWantsToKillJack &amp;&amp; !IsEliminated</code> → 触发 <code>GameOverDeathMessage</code>，结局文案「<strong>杰克已死。</strong>」</li>
+<li><strong>解除（消灭黑帮）</strong>：<code>Mafia::Eliminate</code> 把 <code>IsEliminated=true</code>（记录 <code>DayEliminated</code>）。调用点：</li>
+<li><code>Gang::Close</code> —— 端掉黑帮（完成调查 / 逮捕头目）</li>
+<li><code>ShiftWindow::DoStorySceneAfterDismiss</code> —— 特定剧情节点</li>
+<li>黑帮被消灭后，<code>InitializeNewDay</code> / <code>StartTheDay</code> 开头 <code>if(IsEliminated) return</code>，刺杀与不满逻辑全部失效。</li>
+</ul>
+<blockquote>
+<p>实战建议：想避免被做掉，优先<strong>把忠诚维持在 25 以上</strong>（别让调查任务连续失败）；要么尽早<strong>端掉黑帮</strong>一劳永逸；硬查黑帮时务必把忠诚顶过 45。</p>
+</blockquote>
+<hr />
+<h2 id="sec-65">13.7 黑帮任务报酬表（23 条剧本任务）【数值】</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>报酬</th>
+<th>出现次数</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>500</td>
+<td>1</td>
+<td>MAFIAJOB0023</td>
+</tr>
+<tr>
+<td>1000</td>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td>2000</td>
+<td>6</td>
+<td>最常见档</td>
+</tr>
+<tr>
+<td>3000</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>4000</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>5000</td>
+<td>3</td>
+<td>含 1 条调查类（INVEST0014）</td>
+</tr>
+<tr>
+<td>6000</td>
+<td>3</td>
+<td>含 1 条调查类（INVEST0024）</td>
+</tr>
+<tr>
+<td>7000</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>8000</td>
+<td>1</td>
+<td>最高，MAFIAJOB0003（CRIME0045，9:40 开始）</td>
+</tr>
+</tbody>
+</table></div>
+<p>沙盒模式：每周 2 条，每条 1000–4000，每周递增 1 条。</p>
+<h2 id="sec-66">13.8 黑帮能买的服务</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>服务</th>
+<th>价格</th>
+<th>效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>犯罪陷阱</td>
+<td><strong>1000</strong></td>
+<td>持续 30 小时，最多 3 名警员</td>
+</tr>
+<tr>
+<td>调查陷阱</td>
+<td><strong>1500</strong></td>
+<td>最多 1 名警员</td>
+</tr>
+<tr>
+<td>威胁</td>
+<td><strong>35000</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="sec-67">13.9 黑帮战争（第 13 天开始，持续 15 天）</h2>
+<ul>
+<li>新黑帮要赢需要 <strong>15</strong> 分。</li>
+<li>你站队：<strong>支持新黑帮</strong> → 战后新黑帮初始忠诚 <strong>100</strong>；<strong>不支持</strong> → 只有 <strong>20</strong>。</li>
+<li>数据库里有 <strong>485 个战斗点</strong>（地点 / 日 / 时间 / 40 分钟 / 需要 1–3 名警员）。</li>
+<li>文本库里另有 <strong>60 段火并剧情文本</strong>（WAR0001–0060），每一段都是桑德家族打电话来求援，见第十五章（黑帮火并）。</li>
+<li>第 29 天有一个专门的黑帮调查任务（<code>MafiaInvestigationDay</code>）。</li>
+</ul>
+<h2 id="sec-68">13.10 黑帮派差原文（SEND0035–0048）【原文】</h2>
+<p>SEND 派差一共 48 条，前 34 条是市政厅的杂活，<strong>第 35–48 条是黑帮打来的</strong>，语气完全不一样——一开口就是「杰克」：</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>原文</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SEND0035</td>
+<td>杰克，有个白痴欠债不还，还说他有警察罩着。我们该让他看看警察是跟谁一伙的了。</td>
+</tr>
+<tr>
+<td>SEND0036</td>
+<td>杰克，几个黑帮的黑人混混砸了我们的一家店。我们现在有点招架不住了，能不能帮帮忙？</td>
+</tr>
+<tr>
+<td>SEND0037</td>
+<td>杰克，我们马上要进一批酒，但是听说新的生意伙伴比较强硬。为了保险起见，我们需要你派两个伙计过来。</td>
+</tr>
+<tr>
+<td>SEND0039</td>
+<td>杰克，我们准备开个派对，想找你帮忙看看场子。让我这些伙计们乐呵乐呵，喝喝小酒。跟你那些手下的说声，别碰枪。</td>
+</tr>
+<tr>
+<td>SEND0040</td>
+<td>杰克，我们一个伙计偷了一大批货，钻进仓库了，不知道藏在哪里。我们没时间跟他玩捉迷藏，想找你们专业人士稍微帮帮忙。</td>
+</tr>
+<tr>
+<td>SEND0041</td>
+<td>我们餐厅里有几个王八蛋喝醉了，在这里胡搅蛮缠，得让警察教教他们规矩。</td>
+</tr>
+<tr>
+<td>SEND0042</td>
+<td>杰克，港口的安保把我们的卡车截住了，说什么也不让我们过去。我们不想闹出来什么动静，快派几个伙计过来处理一下。</td>
+</tr>
+<tr>
+<td>SEND0043</td>
+<td>杰克，我们准备跟海外的几个生意伙伴见个面，需要带两个警察过去。这样，外国友人才能明白一切尽在我们掌握之中。</td>
+</tr>
+<tr>
+<td>SEND0044</td>
+<td>杰克，几个亡命徒把我们的仓库给烧了。派两个警察过来控制一下局面，我们要把没烧着的东西转移走。</td>
+</tr>
+<tr>
+<td>SEND0045</td>
+<td>杰克，我们今天准备安排一场葬礼。不能有一点动静，我们要尊重死者。三个伙计应该就够了。</td>
+</tr>
+<tr>
+<td>SEND0047</td>
+<td>我们在附近发现一个地下加工点（原文为违禁品加工相关）。跟你的小伙子们说，悄悄把那地方端了，跟那帮渣渣说，这里不可以这样做事。</td>
+</tr>
+<tr>
+<td>SEND0048</td>
+<td>杰克，那帮该死的车手又在外面支帐篷了。派几个警察把他们吓唬走，别让他们再在我们的地盘上转悠了。</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>SEND0038、SEND0046 原文尺度较大（涉性暴力 / 自杀），我只保留机制：都是"派警察去现场稳住局面"，奖励与惩罚按普通派差算。</p>
+</blockquote>
+<hr />
+<h1 id="sec-69">第十四章 帮派悬赏与审讯</h1>
+<h2 id="sec-70">14.1 帮派悬赏【数值】</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>帮派</th>
+<th>成员悬赏（从老大往下）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GANG0001 红面具帮</td>
+<td>20000 / 5000 / 2000</td>
+</tr>
+<tr>
+<td>GANG0002 阿塔拉殡仪馆</td>
+<td>35000 / 14000 / 9000（<strong>可审讯</strong>）</td>
+</tr>
+<tr>
+<td>GANG0003 无钥帮</td>
+<td><strong>45000</strong> / 21000 / 7500 / 4000</td>
+</tr>
+</tbody>
+</table></div>
+<p>抓一个帮派老大最多 45000，比大多数支线都值。</p>
+<h2 id="sec-71">14.2 帮派成员档案（GANG 原文）【原文】</h2>
+<p><code>GANG</code> 一共 13 个槽位，每个帮派有 <code>NAME</code> / <code>MEMBER1-5</code> / <code>ADDITIONAL</code>（背景）/ <code>MEDICAL</code>（体检）/ <code>CONFESSION</code>（口供）。</p>
+<p><strong>GANG0001 红面具帮</strong> —— 成员：杨锦 / 何宁 / 林冠吟</p>
+<p><strong>GANG0002 阿塔拉殡仪馆</strong> —— 成员：费迪里卡·拉戴尔萨 / 旦提·甘比诺 / 布鲁诺·萨维尼</p>
+<blockquote>
+<p><strong>背景</strong>：孩童时代，布鲁诺·萨维尼就展露出游泳天赋……一天晚上游泳课结束后，几个女孩子把他锁在橱柜里，让他在那里孤身待了一整晚。从那时起，他便不断恳求心理学专家帮他克服对黑暗和密闭空间的恐惧。在家里，他也时常遭受暴力对待。
+<strong>体检</strong>：罹患高声恐怖症。曾因电烧伤入院治疗，从此就对电非常抵触。
+<strong>口供</strong>：好吧，唉，我什么都说！是旦提·甘比诺。<strong>我就从他那儿拿货。</strong>我只是按照他说的做而已！</p>
+</blockquote>
+<p><strong>GANG0003 无钥帮</strong> —— 成员：胡安·卡米洛·萨拉斯 / 斯图亚特·哈耶斯 / 妮娜·瓦尔 / 坦纳·斯考特</p>
+<blockquote>
+<p><strong>背景</strong>：坦纳·斯考特家境贫寒。父亲是一名卡车司机，很少在家。母亲则是一个笨手笨脚的服务员……坦纳热爱汽车，梦想成为一名 F1 赛车手。为了离梦寐以求的汽车更近一步，他在洗车场找了一份工作，并在这里结识了时髦的女会计妮娜·瓦尔。
+<strong>体检</strong>：十岁时，在结冰的湖面上溜冰，不幸掉进了水里。他差点淹死……患上慢性皮肤病，对温度变化也极为敏感。
+<strong>口供</strong>：有一次，我看到妮娜在偷一辆跑车。她向我保证，到我满 18 岁那天，就教会我偷汽车的所有窍门。</p>
+</blockquote>
+<p><strong>GANG0004 教会</strong> —— 成员：主教 / 约瑟夫·科斯戴罗 / 艾伦·休伯</p>
+<blockquote>
+<p><strong>背景</strong>：八岁时，因父亲长达三年的性虐待，他和母亲一同离开了这个家……28 岁，艾伦成为一名司祭。期间，他曾组织了一次名为"违禁品：撒旦之路"的游行，引起巨大骚动，以大规模逮捕告终。
+<strong>口供</strong>：晚上，约瑟夫·科斯戴罗悄悄把货带入教会并藏好。我把知道的全都告诉你！</p>
+</blockquote>
+<p><strong>GANG0005 瓦加</strong> —— 成员：维科斯·瓦加 / 安德叶·瓦加 / 大卫·瓦思切斯 / 萨缪尔·布塔曼迭 / 康诺尔·奥图</p>
+<blockquote>
+<p><strong>背景</strong>：他出生于……八年级便退了学，干上街头拳击这一行当。没过多久，他就凭借非法斗殴过上了不错的生活。18 岁时，他已因寻衅滋事被逮捕十次……康诺尔·奥图常去妓院，但他到底去那里做什么就不得而知了。来自东欧的一名妓女在一次突击检查中被捕，她交代道："那个苏格兰人对女孩子不感兴趣，但喜欢约见一个牙买加黑人。"
+<strong>体检</strong>：身体强健有力。他的唯一病史是慢性哮喘。
+<strong>口供</strong>：萨缪尔·布塔曼迭可不是什么信徒。瓦加的妓院招募偷渡来的东欧女性，他也参与其中。<strong>他就是个婊子养的懦夫，根本不知道"忠诚"两个字怎么写。</strong></p>
+</blockquote>
+<p><strong>GANG0006 桑德家族</strong> —— 成员：克里斯托弗·G·桑德 / 奥松·桑德 / 马丁·桑德 / 乔治·桑德 / 亨利·桑德</p>
+<blockquote>
+<p><strong>背景</strong>：亨利·桑德想成为一名足球运动员，虽然在校队表现良好，但是由于心脏衰弱，无法成为一名专业运动员……49 岁时，他心脏病发作，甚至在临床上已宣告死亡。现在靠着胸腔里的起搏器生活。
+<strong>体检</strong>：他的心脏瓣膜有先天缺陷。医生强烈建议他避免进行任何高强度消耗体力活动。
+<strong>口供</strong>：我几乎可以断定，乔治·桑德盗取了一些古董枪支，并侵吞了桑德家族本来用于采购的资金。</p>
+</blockquote>
+<p>其他有名字的空壳帮派：<strong>GANG0007 雪中勇士帮派</strong>（加利特·霍尔 / 彼得·莫菲 / 玛格丽·朗普 / 鲍勃·法伯）、
+<strong>GANG0008 异教徒</strong>（莫瑞·乔基 / 凯斯特·阿索尔 / 弗雷泽·罗里）、<strong>GANG0013 骨肉帮</strong>（高健 / 曾琳 / 徐盛）。</p>
+<blockquote>
+<p><strong>玩法关联</strong>：<code>MEDICAL</code>（体检）字段在刑讯机制里是有用的——
+「他的心脏瓣膜有先天缺陷」意味着亨利·桑德<strong>拷不得</strong>，拷出问题就是 −60 CHL 那档。</p>
+</blockquote>
+<h2 id="sec-72">14.3 审讯问答（INTERQ，52 组）【原文】</h2>
+<p>审讯是"一句话戳中对方弱点"的小游戏。库里 52 组 <code>QUESTION</code> / <code>ANSWER</code>（问→对方的反应）。
+<strong>问对了对方就崩，问错了对方就骂你</strong>。摘录：</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>你问</th>
+<th>对方答</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0001</td>
+<td>你替谁出货？</td>
+<td>我自己！蠢猪！</td>
+</tr>
+<tr>
+<td>0002</td>
+<td>你为谁工作？</td>
+<td>我就是自己的老板！蠢猪！</td>
+</tr>
+<tr>
+<td>0003</td>
+<td>我也想要一头秀发。你平时会做特殊护理吗？</td>
+<td>你听好，我已经有女朋友了，你不是我的菜。我们今天就是为了说这个的？</td>
+</tr>
+<tr>
+<td>0004</td>
+<td>我们已经知道，你和旦提·甘比诺一伙儿。他为你做事，还是你听命于他？</td>
+<td>呃，我……我头回听到这个名字。</td>
+</tr>
+<tr>
+<td>0005</td>
+<td>你还是别绕圈子了……你母亲对这里发生的一切很是失望。她刚刚打电话给警察局，几度哽咽。</td>
+<td>我妈妈？你们这些混蛋不要在这里胡搅蛮缠！</td>
+</tr>
+<tr>
+<td>0008</td>
+<td>你在撒谎！旦提·甘比诺曾经多次把你从这里保释出去。你要是连这个都不承认，就真是个十足的傻子了。我们可都记录在册呢。</td>
+<td><strong>唉，好吧。我把你想知道的都告诉你。</strong></td>
+</tr>
+<tr>
+<td>0009</td>
+<td>你在撒谎！这个信封里装着几张监控摄像头拍摄的照片，你从旦提·甘比诺手中拿货。</td>
+<td>说够了没有！现在离拘留所开饭时间还有 15 分钟。我可不想错过。</td>
+</tr>
+<tr>
+<td>0010</td>
+<td>你在撒谎！我没法证明，但我就是知道。三里地外的骗子都逃不出我的法眼。</td>
+<td>说够了没有！……（同一句）</td>
+</tr>
+<tr>
+<td>0012</td>
+<td>为什么要偷运动跑车？想体验一次赛车手的感觉？</td>
+<td>总有一天你会在 F1 大奖赛上看到我！</td>
+</tr>
+<tr>
+<td>0016</td>
+<td>你妈妈当时正在饭店里工作，放下手上的活儿就冲过来了……你并不想你母亲再次被火烧吧？</td>
+<td><strong>放过我妈妈！求你了！</strong></td>
+</tr>
+<tr>
+<td>0017</td>
+<td>我们从学校杂志上找到一个切入点。好像妮娜·瓦尔是你教师发展日那天邀请的伙伴？</td>
+<td><strong>好吧，我全都告诉你。</strong></td>
+</tr>
+<tr>
+<td>0019</td>
+<td>认罪吧。否则，你会陷入一个又黑又深的洞中无法自拔，这可和你小时候到处乱跑掉进的什么坑里不同，这次你别想爬出来！</td>
+<td>去你妈的！</td>
+</tr>
+<tr>
+<td>0022</td>
+<td>我个人非常虔诚，但是讨厌这些老一套。你不是恋童癖，对么？</td>
+<td>苍天不容啊！上帝可以看到一切……我可以走了吗？</td>
+</tr>
+<tr>
+<td>0026</td>
+<td>你想聊点儿什么？也许你可以说点儿我们都爱听的，还可能不坐监狱呢……</td>
+<td>嗯，我有罪，我会向上帝忏悔。但你不需要我。教堂发生的一切更加恐怖……</td>
+</tr>
+<tr>
+<td>0028</td>
+<td>让我们一起祈祷吧！</td>
+<td>感谢你！但是现在我想一个人静静。</td>
+</tr>
+<tr>
+<td>0032</td>
+<td>你的女儿参加了《吉赛尔》首次公演，我看到她了。她真美。</td>
+<td>是的，我和我妻子都为玛丽·安而感到自豪。</td>
+</tr>
+<tr>
+<td>0033</td>
+<td>我知道你为黑手党做事。要么帮我，要么就在监狱里度过余生。</td>
+<td>什么黑手党？我只是个司机。<strong>叫我的律师过来说话。</strong></td>
+</tr>
+<tr>
+<td>0035</td>
+<td>亨利，想想你的家庭。要是你为女儿复仇坐了监狱，会发生什么？她连医药费都没人付。</td>
+<td>别吵我。那些人，与其说是医生，还不如叫他们吸血鬼。</td>
+</tr>
+<tr>
+<td>0039</td>
+<td>你的心脏可是受不了牢狱之苦，你之前已经死过一回了。</td>
+<td>别担心，我又不是没吃过牢饭。我知道怎么才能活下来。</td>
+</tr>
+<tr>
+<td>0042</td>
+<td>嗯，你要么坦白我们想知道的事情，要么就进监狱和强奸犯一起呆着去吧……</td>
+<td>你以为这样可以吓到我吗？胡说八道！</td>
+</tr>
+<tr>
+<td>0043</td>
+<td>你还盯着我看？死基佬！真恶心！</td>
+<td>说话小心点儿！你个废物！</td>
+</tr>
+<tr>
+<td>0048</td>
+<td>乌努斯的兄弟……</td>
+<td>瑟吉好像嘴巴很大？所以我们从来不相信他。所有大事都不让他插手。</td>
+</tr>
+<tr>
+<td>0051</td>
+<td>布塔曼迭是一位好公民。他是警察的得力助手。</td>
+<td>好公民？嗯，多亏了他，弗里堡每个月都能多出几个新妓女……<strong>他可不是什么信徒。</strong></td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>规律</strong>：凡是<strong>戳中具体人名 + 具体证据</strong>（0008 的保释记录、0017 的学校杂志、0009 的监控照片）
+的就接近招供；凡是<strong>空口威胁</strong>（0010「我就是知道」、0042「和强奸犯关一起」）的就被怼回去。
+0033 之后桑德家族那条线的人<strong>一律"叫我的律师"</strong>——他们有律师，普通威胁无效，只能从家庭入手（0035）。</p>
+</blockquote>
+<hr />
+<h1 id="sec-73">第十五章 黑帮火并（WAR，60 场）</h1>
+<p>第 13 天开战、持续 15 天。数据库里有 <strong>485 个战斗点</strong>，文本库里有 <strong>60 段求援文本</strong>（WAR0001–0060）。
+全部是桑德家族打来电话，语气从"帮忙"到"把人往死里整"都有：</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>原文</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WAR0001</td>
+<td>瓦加煽动了一些小混混，在理发厅袭击了我们家族的一名成员。我们已经派人去了……<strong>你可以派人共襄盛举，不过派来的人可别扯我们后腿。</strong></td>
+</tr>
+<tr>
+<td>WAR0002</td>
+<td>桑德先生的侄子往窗外看，发现瓦加的人在砸他的车。看来需要有人去提醒他们，那是犯法的。</td>
+</tr>
+<tr>
+<td>WAR0004</td>
+<td>我们的一次小规模送货被几个该死的小混混拦截了。成箱成箱的毛巾、餐巾、厨具，本该送到庄园，现在却散在大路上，跟杂耍现场似的。<strong>我们当然不至于为了些毛巾就光火，但还是要给这些小混混一点教训。</strong></td>
+</tr>
+<tr>
+<td>WAR0005</td>
+<td>我们家族的一名成员正在餐厅里，与秘密情人共进晚餐……于是瓦加的一名探子就成功将手榴弹投进了餐厅。<strong>这件事最好还是由警方出面。当然，是私下出面。</strong></td>
+</tr>
+<tr>
+<td>WAR0006</td>
+<td>有个叫安娜的好姑娘……她刚刚下班回家，发现房子着火了。放火的混蛋还站在那儿，欣赏他们的"杰作"。<strong>如果有人敲开他们的脑壳、把他们丢进火里，不是很妙吗？</strong></td>
+</tr>
+<tr>
+<td>WAR0007</td>
+<td>我们日夜保护桑德家族的主要律师，对他孩子的保护更是加倍严密……<strong>瓦加手下的小混混已经将他们绑走了。这些孩子都以化名生活，我们不知道瓦加如何找到他们的。</strong></td>
+</tr>
+<tr>
+<td>WAR0009</td>
+<td>桑德先生有老友来访，他们打算去骑马。但就在刚才，乡村俱乐部的老板打来电话……<strong>听起来好像有几个小混混打死了桑德先生的马。</strong></td>
+</tr>
+<tr>
+<td>WAR0011</td>
+<td>我们需要支援。有些小混混来搅我们的牌局，但我们绝不会让他们大摇大摆地带着钱走。<strong>双方目前僵持不下。</strong></td>
+</tr>
+<tr>
+<td>WAR0013</td>
+<td>桑德先生的冰球队正在准备一场重要赛事。训练期间，冰上运动场对外关闭……<strong>有些穿奇装异服的人闯进场地，爬上了看台。</strong></td>
+</tr>
+<tr>
+<td>WAR0014</td>
+<td>我们刚刚从邻市找了 8 位侍女，但是她们乘坐的大巴被瓦加的手下拦截了。<strong>教训他们一下，让他们知道哪怕是我们的侍女，也不可以随意戏弄。</strong></td>
+</tr>
+<tr>
+<td>WAR0015</td>
+<td>有位年轻的银行家，最近帮我们赚了一大笔钱。刚刚，他的妻子哭着打来电话，说有些兔崽子在车库堵住了她丈夫……<strong>威胁要点火烧死。</strong></td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>从文本看，60 场里有相当比例是<strong>"桑德家的人被绑 / 被烧 / 被堵"</strong>——你的警察本质上是去当救火队。
+每场战斗点的参数是：地点 / 日 / 时间 / 40 分钟 / 需要 1–3 名警员。</p>
+</blockquote>
+<hr />
+<h1 id="sec-74">第十六章 听证会与特殊事件 EVENT</h1>
+<blockquote>
+<p>本章涉及的内容在原作里是具体的族裔 / 性别 / 性向议题。
+按发布要求，<strong>具体的群体名称已统一替换为「某群体 / 该群体」，机制与数值一字未改</strong>。</p>
+</blockquote>
+<h2 id="sec-75">16.1 听证会的整体结构</h2>
+<p><code>HearingDatabase</code> 共 <strong>30 题</strong>、<strong>6 个事件</strong>（EVENT0001–0006）。每个事件 <strong>5–6 题</strong>
+（EVENT0002 是 6 题，其余 5 题），其中<strong>最后一题是"关键证词"</strong>（<code>IsKey = true</code>），吃满额惩罚。</p>
+<p><code>EVENT0007</code> 存在但内容为空（占位）。</p>
+<h2 id="sec-76">16.2 六大事件（原文，群体名已替换）</h2>
+<p>每个事件有 9 个文本槽：<code>TITLE</code> 标题 / <code>CIP</code> 现场通报 / <code>ORDER</code> 市长的命令 / <code>QUEST</code> 你要回答的问题 / <code>OPTION1-2</code> 是或否 / <code>ADVISER</code> 顾问的建议 / <code>HEARING</code> 传票 / <code>TOTEM_MAFIA</code> / <code>TOTEM_OFFICER</code> 两条"栽赃脱身"方案。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>事件</th>
+<th>标题</th>
+<th>市长命令摘要</th>
+<th>顾问怎么说</th>
+<th>栽赃方案 A</th>
+<th>栽赃方案 B</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EVENT0001</td>
+<td>平权群体集会</td>
+<td>约 50 人在公园聚集，命令你"警棍和催泪弹都用上，有必要的话枪也用上"</td>
+<td>「检察长是名女性，她好像支持这群人。我们最好谨慎一点，<strong>造一些证据</strong>。」</td>
+<td>伪造一封黑手党的信，假装他们以你家人安全要挟你</td>
+<td>伪造一段警员通话录音，让他说厌恶女性</td>
+</tr>
+<tr>
+<td>EVENT0002</td>
+<td>某族裔集会</td>
+<td>约 100 人包围市政府大楼，要求你"消除隐患"</td>
+<td>「市长擅自曲解了法律……我们最好给自己找条后路。」</td>
+<td>在留言机里加一段黑手党留言</td>
+<td>在某个警员抽屉里放极端排外言论的日记得</td>
+</tr>
+<tr>
+<td>EVENT0003</td>
+<td>某性向群体集会</td>
+<td>150 人聚集在学校周围要求校方对话</td>
+<td>「解雇这几个老师确实合法合规……我有几个主意，可以帮你保护好自己。」</td>
+<td>伪造一封带教会印戳的信</td>
+<td>伪造一段警车闲聊录音</td>
+</tr>
+<tr>
+<td>EVENT0004</td>
+<td>小型企业集会</td>
+<td>近 80 名企业主包围市政府</td>
+<td>「市长是在帮他几个大企业的朋友……最后<strong>背锅的那个人就是你</strong>。」</td>
+<td>找人证明黑手党出钱雇人挑事，再把那个警员灭口</td>
+<td>向某警员追发大企业股份</td>
+</tr>
+<tr>
+<td>EVENT0005</td>
+<td>残疾退伍军人集会</td>
+<td>约 100 名老兵请来记者，要求重新考虑待遇</td>
+<td>（无顾问文本）</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>EVENT0006</td>
+<td>老年人集会</td>
+<td>数百名老年人包围工盟大楼，"政府抢劫，天理不容！"</td>
+<td>（无顾问文本）</td>
+<td>—</td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>统一传票文本</strong>（6 个事件一字不差）：</p>
+<blockquote>
+<p>市检察院有理由认为你应对今天的集会活动时严重越权。我们将传唤你接受正式讯问。</p>
+</blockquote>
+<p><strong>统一问题</strong>：<code>是否暴力镇压集会活动？</code>　选项只有两个：<strong>是 / 否</strong>。</p>
+<p><strong>市长的命令原文（EVENT0006 为例）</strong>：</p>
+<blockquote>
+<p>由于经济形势严峻，我们为节省政府开支，被迫采取了一系列削减养老金的措施。我们不能为了照顾几个生活不能自理的老懒鬼，耽误了市政府的其他工作……必要情况下，你可以使用武力。</p>
+</blockquote>
+<h2 id="sec-77">16.3 每个事件长什么样</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TITLE</code></td>
+<td>事件名（如「女权抗议活动」）</td>
+</tr>
+<tr>
+<td><code>ORDER</code></td>
+<td>上级 / 市长下的命令原文（通常是「镇压，必要时动武」）</td>
+</tr>
+<tr>
+<td><code>CIP</code></td>
+<td>现场实况（多少人在抗议、喊什么）</td>
+</tr>
+<tr>
+<td><code>ADVISER</code></td>
+<td>参谋给你的私下建议（往往提醒你「会吃官司，最好留后路」）</td>
+</tr>
+<tr>
+<td><code>HEARING</code></td>
+<td>检察院的听证会传唤通知</td>
+</tr>
+<tr>
+<td><code>QUEST</code></td>
+<td>问题原文，固定是「是否暴力镇压抗议活动？」</td>
+</tr>
+<tr>
+<td><code>OPTION1 / OPTION2</code></td>
+<td>「是」/「否」</td>
+</tr>
+<tr>
+<td><code>TOTEM_OFFICER</code></td>
+<td>甩锅方案 A：伪造证据构陷某警员</td>
+</tr>
+<tr>
+<td><code>TOTEM_MAFIA</code></td>
+<td>甩锅方案 B：伪造黑帮信函把责任推给黑帮</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="sec-78">16.4 选择的真实后果（来自 <code>SpecialEventData</code>）</h2>
+<p>每个事件都有一组数值（已解包，6 个真实事件如下）：</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>事件</th>
+<th>触发日</th>
+<th>地点</th>
+<th>所需警力</th>
+<th>SWAT</th>
+<th>拒命令 CHL (<code>CiPDenyCHL</code>)</th>
+<th>抗命 CHL (<code>QuestDisobeyCHL</code>)</th>
+<th>构陷警员价</th>
+<th>构陷黑帮价</th>
+<th>听证日</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EVENT0001 女权抗议</td>
+<td>9</td>
+<td>LOC0016</td>
+<td>4</td>
+<td>要</td>
+<td>−120</td>
+<td>−100</td>
+<td>¥9,500</td>
+<td>¥15,000</td>
+<td>11</td>
+</tr>
+<tr>
+<td>EVENT0002 黑人抗议</td>
+<td>26</td>
+<td>LOC0085</td>
+<td>4</td>
+<td>要</td>
+<td>−120</td>
+<td>−100</td>
+<td>¥12,700</td>
+<td>¥21,000</td>
+<td>28</td>
+</tr>
+<tr>
+<td>EVENT0003 性少数抗议</td>
+<td>61</td>
+<td>LOC0043</td>
+<td>4</td>
+<td>要</td>
+<td>−120</td>
+<td>−100</td>
+<td>¥15,000</td>
+<td>¥25,000</td>
+<td>63</td>
+</tr>
+<tr>
+<td>EVENT0004 小企业抗议</td>
+<td>102</td>
+<td>LOC0085</td>
+<td>4</td>
+<td>要</td>
+<td>−120</td>
+<td>−100</td>
+<td>¥20,000</td>
+<td>¥30,000</td>
+<td>104</td>
+</tr>
+<tr>
+<td>EVENT0005 退伍军人</td>
+<td>163</td>
+<td>LOC3026</td>
+<td>4</td>
+<td>要</td>
+<td>−120</td>
+<td>−100</td>
+<td>—（无）</td>
+<td>—（无）</td>
+<td>164</td>
+</tr>
+<tr>
+<td>EVENT0006 老年人抗议</td>
+<td>159</td>
+<td>LOC0067</td>
+<td>4</td>
+<td>要</td>
+<td>−120</td>
+<td>−100</td>
+<td>—（无）</td>
+<td>—（无）</td>
+<td>160</td>
+</tr>
+</tbody>
+</table></div>
+<p>后果规则（已反编译确认逻辑）：</p>
+<ul>
+<li><strong>选「否」（不镇压 / 抗命）</strong> → 立刻扣 <code>QuestDisobeyCHL = −100</code> 市政厅忠诚。</li>
+<li><strong>直接拒绝上级命令（CIP 那条线）</strong> → 扣 <code>CiPDenyCHL = −120</code>。</li>
+<li><strong>选「是」（镇压）</strong> → 不扣上面两项，但会在 <code>HearingDay</code>（事件后约 2 天）触发<strong>听证会</strong>；听证会上若被定罪，后果严重（轻则忠诚暴跌，重则走第十九章（入狱结局）的入狱线）。</li>
+<li><strong>甩锅（TOTEM）</strong>：花 <code>构陷警员价</code>（¥9,500–20,000）或 <code>构陷黑帮价</code>（¥15,000–30,000）伪造证据，把责任转嫁出去，规避自己的听证会风险。价码随事件序号递增。</li>
+</ul>
+<blockquote>
+<p>所有 6 起事件都强制要 <strong>4 名警力 + SWAT</strong>。价码从第 1 起的 9,500 / 15,000 一路涨到第 4 起的 20,000 / 30,000；第 5、6 起（退伍军人 / 老年人）没有给出构陷价，只能硬扛或认栽。</p>
+</blockquote>
+<h2 id="sec-79">16.5 六起事件完整原文</h2>
+<p><strong>EVENT0001 · 女权抗议活动</strong>（第 9 天）
+- ORDER：几个月前，弗里堡出现了一个未登记的女权组织。他们计划于今天举行第一次抗议活动。据我们所知，该组织背后有外部势力支持，他们的目的是渗入市政府的重要职位。抗议活动可能引发更加严重的问题，我们有必要让他们知道这里谁说话才算数。警棍和催泪弹都用上，有必要的话枪也用上。让他们亲身体会一下恐吓是什么滋味。
+- CIP：约 50 名女性聚集在公园，高呼："我们要成功！"
+- ADVISER：杰克，我们遇到一个麻烦。弗里堡的检察长是名女性，她好像支持这群女权主义者。你可能遇到一些严重的法律问题。我们最好谨慎一点，造一些证据，免得你以后遭到指控。
+- HEARING：市检察院有理由认为你应对今天的女权抗议活动时严重越权。我们将传唤你接受正式讯问。
+- TOTEM_OFFICER：我们可以伪造一段警员的通话录音，他在里面说他厌恶女性，恨不得立刻"就把她们的脸打得稀巴烂。"
+- TOTEM_MAFIA：我们可以伪造一封黑手党的信，假装他们在信中说这个女权组织妨碍了他们的生意，以你家人的人身安全要挟你暴力镇压此次抗议活动。</p>
+<p><strong>EVENT0002 · 黑人抗议</strong>（第 26 天）
+- ORDER：联邦法律禁止在政府建筑周边聚众游行抗议。黑人准备今天在市政府大楼门前举行抗议活动。这个活动直接对罗杰斯市长的人身安全造成隐患。无论采取什么必要措施，都一定要消除这个隐患。
+- CIP：约 100 名黑人已将市政府大楼包围，高呼："我们需要关注！"
+- ADVISER：杰克，罗杰斯市长擅自曲解了法律。事实上，根据联邦法律规定，政府建筑，包括市长办公室附近都可以聚众活动，只要不采取暴力手段就可以。我们最好给自己找条后路。
+- HEARING：市检察院有理由认为你应对今天的抗议活动时严重越权。我们将传唤你接受正式讯问。
+- TOTEM_OFFICER：我们可以在某个警员的抽屉里放一些不和谐的东西，比如含有隔离主义言论的日记或者其他极端主义的文字。我们甚至可以说他曾经试图向同事散播怀特·卡米拉的书籍。
+- TOTEM_MAFIA：我们可以在杰克家的留言机里添加黑手党的留言，假装黑帮以其家人的人身安全要挟他下令攻击抗议人群。</p>
+<p><strong>EVENT0003 · 性少数群体抗议活动</strong>（第 61 天）
+- ORDER：多年来，性少数群体组织一直嚷嚷要保障同性恋人群的权益，对我们造成了很大的困扰。最近都比较太平，但是三名高中老师因向青少年非法宣传同性恋遭到解雇。三人向学生散发有关性少数群体的手册，让他们学会容忍。三人被解雇合规合法，活动人士现在却聚集在校外，大声抗议示威。孩子们去学校不是去了解男人怎么亲嘴的，更不是去学他们那些幺蛾子的。这些人都需要好好收拾收拾，让他们下次闹事之前先想想清楚。
+- CIP：一百五十名同性恋人士已聚集在学校周围，要求校方出面谈话。校长拒绝对话，并将自己反锁在办公室中。
+- ADVISER：杰克，地方的法律虽然不合情理，但是解雇这几个老师确实合法合规。不过，只要没有人安全受到威胁，抗议人群也有权集会，表达他们的诉求。我有几个主意，如果出了什么乱子，可以帮你保护好自己。
+- HEARING：市检察院有理由认为你应对今天的抗议活动时严重越权。我们将传唤你接受正式讯问。
+- TOTEM_OFFICER：我们可以伪造一段警车里的闲聊录音，一个参与镇压的警员多么多么厌恶同性恋。他聊到这三个教师被开除的事情时说："要是能把他们全都关进毒气室就更好了。"
+- TOTEM_MAFIA：我们可以伪造一封带有教会印戳的信，假装你几年前去过一次忏悔室，列出来一些你当时说出来的秘密。（我们会把这封信公布出来，这样检察院就不会被其他不准确的信息误导了）然后，我们会在信里加上主教的一段附言，要求你"严惩这些变态"，不然就公布你的那些罪恶。</p>
+<p><strong>EVENT0004 · 小型企业抗议活动</strong>（第 102 天）
+- ORDER：去年，我们积极打击未登记的经营活动和钻法律漏洞的灰色企业。我们出台了更加严格的规定，提高经营门槛，尽量防止仿冒商贩租用办公场所，向我市进口商品。当然，他们立刻表示极度不满，并威胁称要在市政府大楼下举行抗议活动。我们必须教训教训这些寄生虫，让他们知道遵纪守法的重要性。必要情况下，你可以使用武力。
+- CIP：近 80 名小型企业的负责人和代表已包围市政府大楼，高喊："罗杰斯扼杀企业发展！"
+- ADVISER：杰克，市长是在帮他几个大企业的朋友，他的这些做法不合法，基本上就是要摧毁城市的小型企业。他的很多提议违反联邦法律，如果警方动用武力，最后背锅的那个人就是你。你最好给自己留好后路，以免事态恶化。
+- HEARING：市检察院有理由认为你应对今天的抗议活动时严重越权。我们将传唤你接受正式讯问。
+- TOTEM_OFFICER：我们可以向某个警员追发那些大企业的部分股份。这样一来，这名警员就好像是镇压抗议游行的幕后黑手。
+- TOTEM_MAFIA：我们可以找人证明他和一群身份不明的人士接受黑手党的报酬，替他们破坏和平的抗议游行活动。是他们带来了武器，是他们引起的冲突，是他们用石头砸窗户。很明显，黑手党希望扩大他们在大型企业的影响力。当然，我们要想办法把那个警员灭口......</p>
+<p><strong>EVENT0005 · 退伍军人抗议活动</strong>（第 163 天）
+- ORDER：市财政局因为没有获得联邦政府的补贴，无力继续为退伍军人支付安装假肢所需的高昂费用。未能接受假肢手术的残疾军人通过不明渠道获知这一消息，已与本地新闻媒体联手，计划举办一场全程直播的新闻节目。他们不管如何在电视上叽歪也不可能长出来新腿。我们得教训教训他们，让他们知道他们不会因为残疾就能受到特殊对待。你想抢谁的拐杖，把谁按在地上，放手做，不要有顾虑。
+- CIP：约一百名残疾退伍军人聚集在老兵疗养院外。他们在现场邀请了多名新闻记者，并敦促官方重新考虑他们的待遇问题。
+- HEARING：市检察院有理由认为你应对今天的抗议活动时严重越权。我们将传唤你接受正式讯问。
+- （无 ADVISER / 无 TOTEM 甩锅方案）</p>
+<p><strong>EVENT0006 · 老年人抗议活动</strong>（第 159 天）
+- ORDER：由于经济形势严峻，我们为节省政府开支，被迫采取了一系列削减养老金的措施。我们不能为了照顾几个生活不能自理的老懒鬼，耽误了市政府的其他工作。每天都有几十个退休人员找到我们，扬言要举行抗议示威活动。一大群老年人要是集会游行的话，后果可能会比较严重，毕竟这些人的身体状况都不好。我们千万不能让这种事情发生，这些抗议人士都得给送回疗养院。必要情况下，你可以使用武力。
+- CIP：数百名老年人已将工盟大楼包围，他们所持标语均写有"政府抢劫，天理不容！"抗议示威活动目前和平进行，未出现冲突事件。
+- HEARING：市检察院有理由认为你应对今天的抗议活动时严重越权。我们将传唤你接受正式讯问。
+- （无 ADVISER / 无 TOTEM 甩锅方案）</p>
+<blockquote>
+<p>这 6 起事件贯穿全游戏（第 9 → 163 天），是除了主线剧情外最密集的「道德抉择 + 后果」段落。EVENT0007 是空占位，游戏里未启用。</p>
+</blockquote>
+<hr />
+<h2 id="sec-80">16.6 六个关键证词（认罪的代价）【数值】</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>关键题</th>
+<th>事件</th>
+<th>ML</th>
+<th><strong>CHL</strong></th>
+<th>TL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HEAR0005</td>
+<td>EVENT0001</td>
+<td>−50</td>
+<td><strong>−150</strong></td>
+<td>−50</td>
+</tr>
+<tr>
+<td>HEAR0011</td>
+<td>EVENT0002</td>
+<td>−50</td>
+<td><strong>−450</strong></td>
+<td>−50</td>
+</tr>
+<tr>
+<td>HEAR0015</td>
+<td>EVENT0003</td>
+<td>0</td>
+<td><strong>−450</strong></td>
+<td>−50</td>
+</tr>
+<tr>
+<td>HEAR0020</td>
+<td>EVENT0004</td>
+<td>−50</td>
+<td><strong>−450</strong></td>
+<td>−50</td>
+</tr>
+<tr>
+<td>HEAR0025</td>
+<td>EVENT0005</td>
+<td>0</td>
+<td><strong>−450</strong></td>
+<td>0</td>
+</tr>
+<tr>
+<td>HEAR0030</td>
+<td>EVENT0006</td>
+<td>0</td>
+<td><strong>−450</strong></td>
+<td>0</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>CHL −450 意味着忠诚条直接被打穿</strong>（上限才 150）。
+<strong>攻略：听证会上绝对不要认罪、不要背叛自己人。</strong> 这是整个游戏里最大的单点 CHL 惩罚。</p>
+<h2 id="sec-81">16.7 关键证词的四个选项原文【原文】</h2>
+<p>六道关键题的结构完全一样——"是你下的令吗"，四个选项分别是<strong>认了 / 赖黑帮 / 赖市政府 / 赖警员</strong>：</p>
+<p><strong>HEAR0005（EVENT0001）</strong></p>
+<blockquote>
+<p>① 是的。「没错，是我的命令。」
+② 这要怪黑手党。「某一犯罪团伙曾恐吓我的家庭，我别无他法。」
+③ 这要怪市政府。「市长曾直接向我下达一道书面命令。我别无选择，只能照办。」
+④ 这要怪警员。「是现场指挥官下的命令，和我没有关系……我们只听到了本次案件之后的录音。」</p>
+</blockquote>
+<p><strong>HEAR0011（EVENT0002）</strong></p>
+<blockquote>
+<p>②「某个黑手党老大给我家打来电话，要求武力镇压。不然我的家人就会遭殃。」
+④「我们在一位警员的储物柜里发现极端排外主义的出版物，还有一本日记……是这位警员煽动他的同事。」</p>
+</blockquote>
+<p><strong>HEAR0015（EVENT0003）</strong></p>
+<blockquote>
+<p>②「教堂曾派代表找我，胁迫我们'用暴力镇压邪恶'。如果不照办，他们会泄露我的忏悔内容。」
+④「通过监听巡逻车的通话录音，我们了解到煽动镇压的警员是一名恐同人士。」</p>
+</blockquote>
+<p><strong>HEAR0020（EVENT0004）</strong></p>
+<blockquote>
+<p>②「一名暴乱分子来找我们，承认是黑手党下的命令。」
+④「一份内部调查发现，此次不幸事件的起因是个人私利。」</p>
+</blockquote>
+<p><strong>HEAR0025 / HEAR0030（EVENT0005 / 0006）</strong>——只有两个有效选项：</p>
+<blockquote>
+<p>① 是的。「是我下令疏散集会人群。」
+③ 这要怪市政府。「市长曾直接向我下达一道书面命令。」</p>
+<p><strong>注意</strong>：赖别人（②③④）在数据库里<strong>同样标记为 IsKey=true 且同样吃满额惩罚</strong>——
+因为只要你在关键题上做出"承认指挥链"的表态，惩罚就触发。真正的解法是<strong>前面几题铺垫好，别让自己走到被问这一步</strong>。</p>
+</blockquote>
+<h2 id="sec-82">16.8 非关键题原文（24 题，全部 0 惩罚）【原文】</h2>
+<p>这些题<strong>没有任何数值后果</strong>，纯粹是角色扮演和剧情氛围——但答得离谱会在后面的新闻里被引用。</p>
+<p><strong>EVENT0001（5 题）</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>题</th>
+<th>检察官问</th>
+<th>选项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HEAR0001</td>
+<td>博伊德先生，你为什么派遣警员镇压该群体集会活动？</td>
+<td>① 职责所在。② 该群体构成潜在威胁。③ 我们接到了噪音扰民投诉。④ 无可奉告。（内部事务，法庭上再说）</td>
+</tr>
+<tr>
+<td>HEAR0002</td>
+<td>在你看来，参与者是否对他人构成实质威胁？</td>
+<td>① 当然。② 当然没有。③ 这很难说。④ 我不知道。</td>
+</tr>
+<tr>
+<td>HEAR0003</td>
+<td>博伊德先生，你结婚了吗？</td>
+<td>① 是的。② 是的，但我和妻子分居。③ 为什么？④ <strong>关你屁事。</strong></td>
+</tr>
+<tr>
+<td>HEAR0004</td>
+<td>你个人对女性有什么看法？</td>
+<td>① 值得尊敬。② 非常糟糕。③ 和男人没什么不同。④ 这么问不太好吧。</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>EVENT0002（5 题）</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>题</th>
+<th>检察官问</th>
+<th>选项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HEAR0006</td>
+<td>你对民权运动有什么看法？</td>
+<td>① 我支持。② 强烈谴责。③ 我的看法和你没有关系。</td>
+</tr>
+<tr>
+<td>HEAR0007</td>
+<td>你为什么向一场常规的拉力赛派遣警员？</td>
+<td>① 职责所在。② 我们接到了噪音扰民投诉。③ 市政府周围不允许集会。</td>
+</tr>
+<tr>
+<td>HEAR0008</td>
+<td>你认为参与者的行为对他人是否构成威胁？</td>
+<td>① 当然了。「许多参与者带着棒球棍……我无法将其定义为一次和平集会。」② 当然没有。③ 这很难说。</td>
+</tr>
+<tr>
+<td>HEAR0009</td>
+<td>你认为弗里堡爆发这么多起市民运动的原因是什么？</td>
+<td>① 在于新一代人。② 在于激进舆论的引导。③ 我没什么好说的。</td>
+</tr>
+<tr>
+<td>HEAR0010</td>
+<td>博伊德先生，你有那方面的朋友吗？</td>
+<td>① 有。「我有一些朋友。其中一位还是联邦调查局工作人员。」② 没有。「我没有朋友，只有同事。」③ 我没有任何朋友。</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>EVENT0003（4 题）</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>题</th>
+<th>检察官问</th>
+<th>选项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HEAR0012</td>
+<td>你如何看待性取向不同的人？</td>
+<td>① 没什么特别的。② 我不知道。③ 没有意义。④ 这不正常。（原文此处有更激烈的表述，已省略）</td>
+</tr>
+<tr>
+<td>HEAR0013</td>
+<td>就我们所知，你年轻时曾与一名该群体人士斗殴，导致对方入院治疗。</td>
+<td>① 我不记得了。② 只是一次斗殴而已。③ （原文激烈表述，已省略）</td>
+</tr>
+<tr>
+<td>HEAR0014</td>
+<td>你为什么派遣警员镇压该群体集会活动？</td>
+<td>① 职责所在。② 我们接到了噪音扰民投诉。③ 我不记得了。</td>
+</tr>
+<tr>
+<td>HEAR0015</td>
+<td><strong>关键题</strong>（见 16.7）</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>EVENT0004（5 题）</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>题</th>
+<th>检察官问</th>
+<th>选项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HEAR0016</td>
+<td>你为什么派遣警员镇压小企业集会活动？</td>
+<td>① 职责所在。② 为了公共安全。③ 为了避免伤亡。</td>
+</tr>
+<tr>
+<td>HEAR0017</td>
+<td>你认为这次和平游行会对人们的安全带来风险吗？</td>
+<td>① 是的。「据我们所知，有些抗议者持有武器。」② 不无可能。③ 不见得吧。「我认为热狗摊主和花店店主不会参与暴乱。」</td>
+</tr>
+<tr>
+<td>HEAR0018</td>
+<td>你或者你的家人是否曾以个人名义参与经商？</td>
+<td>① 是的。② 我不知道。③ 没有。</td>
+</tr>
+<tr>
+<td>HEAR0019</td>
+<td>镇压集会涉及你的个人私利吗？</td>
+<td>① 没有。② 是的。③ 无可奉告。</td>
+</tr>
+<tr>
+<td>HEAR0020</td>
+<td><strong>关键题</strong>（见 16.7）</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>EVENT0005（5 题）</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>题</th>
+<th>检察官问</th>
+<th>选项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HEAR0021</td>
+<td>你对残疾老兵有什么看法？</td>
+<td>① 深表尊重。② 我热爱和平。「每一位老兵都在提醒我，军事行动毫无意义。」③ 我不喜欢他们。「是他们自己选择了走这条路，现在政府却不得不掏钱养活他们。」</td>
+</tr>
+<tr>
+<td>HEAR0022</td>
+<td>你为什么向老兵集会活动派遣警员？</td>
+<td>① 职责所在。② 我们接到了噪音扰民投诉。③ 人民的生命受到威胁。</td>
+</tr>
+<tr>
+<td>HEAR0023</td>
+<td>你认为这些残疾人是否对公众造成威胁？</td>
+<td>① 没有。② 是的。「事实上，我们从一名参与者身上搜出了一把枪。」③ 谁知道呢？</td>
+</tr>
+<tr>
+<td>HEAR0024</td>
+<td>你是否支持市政府停止采购人造假肢？</td>
+<td>① 我支持。② 这很难说。③ 我不支持。</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>EVENT0006（5 题）</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>题</th>
+<th>检察官问</th>
+<th>选项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HEAR0026</td>
+<td>你对老年人有什么看法？</td>
+<td>① 他们很棒。② 不错。③ 不怎么样。「他们是社会的负担，做不出任何有用的事情……」</td>
+</tr>
+<tr>
+<td>HEAR0027</td>
+<td>你马上就要退休了。因此，你对退休人员也许感触颇深吧？</td>
+<td>① 我哪里都不去。② 你这话是什么意思？③ 没什么不可能的事。</td>
+</tr>
+<tr>
+<td>HEAR0028</td>
+<td>你为什么派遣警员镇压老年人集会活动？</td>
+<td>① 职责所在。② 人民的生命受到威胁。③ 关键在于预防动乱发生。</td>
+</tr>
+<tr>
+<td>HEAR0029</td>
+<td>你真的认为那些老年人构成一定威胁了吗？</td>
+<td>① 没有。② 不无可能。③ 是的。</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="sec-83">16.9 听证会的通用打法</h2>
+<ol>
+<li><strong>前四题随便答</strong>，0 惩罚，纯氛围。想扮演硬汉就选最冲的那个（HEAR0003 的「关你屁事」）。</li>
+<li><strong>第五题（关键题）才是雷</strong>。数据库里 ML/CHL/TL 三列全部写在关键题上。</li>
+<li><strong>真正决定你会不会吃 −450 的是前面的事件选择</strong>——你在 EVENT 里选了"是"（暴力镇压），才会走到听证会。</li>
+<li>顾问（ADVISER）在每个有顾问的事件里<strong>都明说了要你留后路 / 造证据</strong>——这就是"TOTEM"两个栽赃方案的来源。</li>
+</ol>
+<hr />
+<h1 id="sec-84">第十七章 连环杀手（第 66–80 天）</h1>
+<h2 id="sec-85">17.1 数值【数值】</h2>
+<ul>
+<li>期限 <strong>80 天</strong>，从 66 天开始。</li>
+<li><strong>成功 +175000</strong>，参与侦探 <strong>+25</strong> 专业度。</li>
+<li><strong>失败 −70000 且薪水 −80%</strong>。</li>
+<li>数据库里有每起谋杀的地点、证据位置列表和<strong>正确的证据帧编号</strong>（<code>RightFrameIndex</code> / <code>RightLocationIndex</code>）。
+  例：MURDER1 在 LOCATION0096，正确帧是第 1 帧，证据地点 4 个，正确位置是第 1 个。</li>
+</ul>
+<h2 id="sec-86">17.2 五起谋杀 + 杀手来信（MURDER 原文）【原文】</h2>
+<p>每起案件有 4 个文本槽：<code>TITLE</code> / <code>TEXT</code>（新闻）/ <code>CLUE</code>（线索提示）/ <code>MESSAGE</code>（杀手给 Jack 的信）。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>新闻（TEXT）</th>
+<th>线索（CLUE）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MURDER1</td>
+<td>市政府 21 岁实习生艾莉森·贝尔于家中惨遭杀害。</td>
+<td>"牙医"可能将有关艾莉森·贝尔谋杀案的证据藏在了这里。</td>
+</tr>
+<tr>
+<td>MURDER2</td>
+<td>飓风脱衣舞俱乐部 25 岁的脱衣舞者帕梅拉·考克斯于家中惨遭杀害。</td>
+<td>"牙医"可能将有关帕梅拉·考克斯谋杀案的证据藏在了这里。</td>
+</tr>
+<tr>
+<td>MURDER3</td>
+<td>原市长秘书茱蒂丝·皮尔斯，现年 33 岁，于某汽车旅馆客房内惨遭杀害。</td>
+<td>"牙医"可能将有关茱蒂丝·皮尔斯谋杀案的证据藏在了这里。</td>
+</tr>
+<tr>
+<td>MURDER4</td>
+<td>八爪鱼饭店 40 岁经理维罗妮卡·拉尔森于家中惨遭杀害。</td>
+<td>"牙医"可能将有关维罗妮卡·拉尔森谋杀案的证据藏在了这里。</td>
+</tr>
+<tr>
+<td>MURDER5</td>
+<td>市政府 45 岁公务员玛莉亚·卡米拉·索利斯于家中惨遭杀害。</td>
+<td>"牙医"可能将有关莉亚·卡米拉·索利斯谋杀案的证据藏在了这里。</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>杀手给 Jack 的五封信（原文）</strong>：</p>
+<blockquote>
+<p><strong>第 1 封</strong>：嗨，杰克！"牙医"这个外号，我是一点都不喜欢，估计你也不怎么喜欢。不过，就先这么叫我吧，咱们言归正传。仔仔细细好好看看我给你的这张明信片，你在上面能发现一个地方，我在那边藏了点东西。跟着线索走，千万不要撒手。我帮你抓我自己，肯定不是无缘无故的事情。不过，<strong>你要是敢把这条线索透露给联邦调查局，就别想抓到我了，不信咱们走着瞧。还有，抓紧时间。24 小时之内找不到这个地方，我就毁了所有证据，一走了之。</strong></p>
+<p><strong>第 2 封</strong>：杰克，很高兴你没有让我失望，没有违反游戏规则。目前为止，联邦调查局都是在做无用功，而你，你现在正一步一步沿着我给你指的路往前走。真相就在前方！迈向真理的感觉怎么样？<strong>上次害死了你的一个警探，实在不好意思。我当时太激动了，迫不及待想要试试自己的新陷阱。我保证，下不为例！</strong></p>
+<p><strong>第 3 封</strong>：杰克，我刚看了你的新闻发布会，精神很好啊！我压根就没想到你马上就要退休了，也可能马上就要没命了。</p>
+<p><strong>第 4 封</strong>：杰克，你抓到我的可能性，跟小孩手里融化的冰激凌一样，越来越小了。<strong>这张明信片是限量版的，千万可别弄脏了！</strong></p>
+<p><strong>第 5 封</strong>：杰克，好花不常开，好景不常在。弗里堡的天气越来越冷了，我的事儿也都办完了。你能够用来抓我的时间越来越少了。<strong>我跟你保证，咱俩要是能见一次面的话，我一定在你那可爱的小秃脑袋上亲一口。</strong></p>
+</blockquote>
+<p><strong>攻略要点</strong>：
+1. <strong>每封信都对应一个 24 小时硬期限</strong>——明信片上的地点要在当天找出来，否则证据销毁。
+2. <strong>不要交给联邦调查局</strong>，这是杀手明说的条件（对应记者会 PRESS0017 的选项②）。
+3. <strong>每错过一起死一个警探</strong>（第 2 封信里他承认了）。
+4. 五名受害者全部与市政府 / 市长圈子有关（实习生、市长秘书、公务员……）——所以 PRESS0019 的"市长与受害者有染"传闻不是空穴来风。</p>
+<hr />
+<h1 id="sec-87">第十八章 终局（第 165–178 天）</h1>
+<h2 id="sec-88">18.1 数值【数值】</h2>
+<ul>
+<li><strong>Kendrick 活着需要 8 次成功，死了需要 10 次</strong> —— 保住他更省力。</li>
+<li>数据里每个终局步骤有 <code>Plan</code>、<code>LocationId</code>、<code>Day</code>、<code>NumDetectives</code>（1–4 名侦探）。</li>
+<li>第 178 天是 Vizor 评分和终局的双重截止。</li>
+</ul>
+<h2 id="sec-89">18.2 终局人物证词（CLIMAX，33 人）【原文】</h2>
+<p>终局是"策划一次突击"，你要先盘问一圈知情者拼出建筑弱点。库里 <strong>33 个人物</strong>，
+分两组：<strong>CLIMAX0001–0017 = 沙菲餐厅 / 屠宰场线</strong>，<strong>CLIMAX1001–1016 = 市政府线</strong>。</p>
+<p>每条有 <code>NAME</code> / <code>SHORT</code> / <code>DESC</code>（身份）/ <code>INFO</code>（证词）。下面是最有价值的几条——<strong>每一条都直接对应一个可攻击的弱点</strong>：</p>
+<h3 id="sec-90">沙菲餐厅 / 屠宰场线</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>人</th>
+<th>身份</th>
+<th>证词要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>艾玛·布什拜（挤奶女工）</td>
+<td>奶牛场</td>
+<td>「有天晚上，一群醉汉进来游荡，还在墙角下刨了个洞！他们后来竟然说是为了寻宝！……<strong>只有我和沙菲先生有钥匙。</strong>」</td>
+</tr>
+<tr>
+<td>伊万·博耶科夫（工人）</td>
+<td>奶牛场</td>
+<td>「老大沙菲把他爸留给他的金子藏在奶牛场了，就埋在墙角……<strong>我们没找到金子，还招来了保安。</strong>我们挖的洞有点过火，墙都斜了。」</td>
+</tr>
+<tr>
+<td>克里斯托弗·雷耶斯（奶牛场帮手）</td>
+<td>20 年工龄</td>
+<td>「<strong>水塔的承重部分经过修复和加固，楼梯和上部结构却没有动过</strong>……爬上去就相当于自杀！……<strong>梯子现在还没人修。</strong>」</td>
+</tr>
+<tr>
+<td>图乌勒·古斯塔夫松（前仓管员）</td>
+<td>10 年工龄</td>
+<td>「我至今搞不清楚那条露天货棚通往老总办公室的地下通道……<strong>通道很窄，一次只能勉强过一个人。防卫也不怎么样。</strong>」</td>
+</tr>
+<tr>
+<td>路德·朗沃斯（小偷）</td>
+<td>抢过沙菲餐厅</td>
+<td>「<strong>餐厅的两扇大门都敞开着，不过一楼不会放什么贵重的东西。</strong>我蹑手蹑脚上了二楼……突然两眼一黑！<strong>根本就不是独眼警卫！</strong>」</td>
+</tr>
+<tr>
+<td>穆尼尔·亨德里克斯（前保安）</td>
+<td>丹麦特种部队退休</td>
+<td>「<strong>屠宰场前门和餐厅的两个入口都有武装把守，根本没法进去。</strong>」</td>
+</tr>
+<tr>
+<td>克洛艾·里奇（前服务员）</td>
+<td>沙菲餐厅</td>
+<td>「<strong>门口的台阶，你得像沼泽里的苍鹭一样抬起腿，不然就得摔跤。门廊也太窄了</strong>……有个女服务员想试试，最后把餐盘上的东西全打翻在地。」</td>
+</tr>
+<tr>
+<td>昆蒂诺·曼奇尼（玻璃工）</td>
+<td>—</td>
+<td>「他们让我把正门处的几扇窗户换成防弹玻璃……<strong>只有爆炸才能击穿这些玻璃！</strong>」</td>
+</tr>
+<tr>
+<td>伊芙琳·米勒（焊工）</td>
+<td>屠宰场</td>
+<td>「他们让我给餐厅二楼的窗户装上护栏……<strong>货卡在海关了</strong>（所以护栏还没装）。」</td>
+</tr>
+<tr>
+<td>迈克尔·克劳德（前工程师）</td>
+<td>绿宝石屏障公司</td>
+<td>「<strong>最后一堵墙出现了问题……"加强版"墙面只是多了一层石膏板而已。至少煤气线路改道了。如果发生爆炸，整栋建筑都会灰飞烟灭。只剩一个大坑。</strong>我们交付客户的是配备一扇木门的高科技安全建筑。」</td>
+</tr>
+<tr>
+<td>罗伯特·惠廷汉姆（军事顾问）</td>
+<td>前海豹突击队</td>
+<td>「主楼配备重型门，墙也经过加固，但我建议在内部安排至少 12 名武装安保人员……<strong>如果有人想入侵，只需配上一个稍有作战经验的指挥，三人即可瞬间攻入。</strong>」</td>
+</tr>
+<tr>
+<td>拉扎勒斯·卡捷恩（巫师）</td>
+<td>第五代</td>
+<td>「<strong>墙里砌着一个人！</strong>他祈求任何听到呼救的人能够施加援手。」（彩蛋线）</td>
+</tr>
+<tr>
+<td>丹尼斯·霍尔（马夫）</td>
+<td>耶稣降临第 13 教堂</td>
+<td>「<strong>墙开始忽隐忽现，甚至慢慢消失</strong>……真的可以穿墙而过！」（彩蛋线）</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="sec-91">市政府线</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>人</th>
+<th>身份</th>
+<th>证词要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>艾德里安·庞内斯鸠（工程师）</td>
+<td>—</td>
+<td>「<strong>除了我没人知道从某个下水道口进去，能找到一堵摇摇晃晃的墙。推倒它，眼前就是市政府地下档案室，这里几乎没有任何防守。</strong>」</td>
+</tr>
+<tr>
+<td>理查德·休斯（前守夜人）</td>
+<td>23 年</td>
+<td>「<strong>后门根本没配保安。所有的保安都安排在装有金属探测器的大楼正门</strong>……后门大而重，极其坚固，但只需恰当的工具就可以拆卸下来。这里通向整座大楼的任何地方。」</td>
+</tr>
+<tr>
+<td>安吉拉·佩恩（前门卫助理）</td>
+<td>—</td>
+<td>「罗杰斯大发雷霆……"<strong>没有我的书面同意，以后任何人都不能上屋顶！</strong>"他想把办公室换到大楼另一边去……最终还是没搬。」</td>
+</tr>
+<tr>
+<td>拉里·库克（窗户清洁公司经理）</td>
+<td>—</td>
+<td>「<strong>他另设了一个办公室，在两间办公室穿梭工作。现在我们如果想吓到他，就得需要两名玻璃清洁工了！</strong>哈哈！」</td>
+</tr>
+<tr>
+<td>米切尔·豪威（退伍狙击兵）</td>
+<td>—</td>
+<td>「<strong>单打独斗的狙击手埋伏在教堂或者法院的屋顶上更好。这要看行动目标是谁。</strong>」</td>
+</tr>
+<tr>
+<td>格斯·范德沃特（退休法官）</td>
+<td>—</td>
+<td>「法院屋顶上就蹲守着一名步枪手……从那时起，我总是说：'<strong>执行重要任务时，一定要带个同伴，万一第一枪失手了呢！</strong>'」</td>
+</tr>
+<tr>
+<td>塔玛拉·埃德尔斯坦（美术馆总监）</td>
+<td>—</td>
+<td>「<strong>建筑材料是给市长侄子的……他想在美术馆屋顶上造一个瞭望台</strong>」（屋顶被占了）</td>
+</tr>
+<tr>
+<td>塔拉·哈什（中学心理医生）</td>
+<td>—</td>
+<td>「<strong>有个学生踩到屋顶上塌掉的一块，就跌进去了！</strong>……<strong>但恰恰这间屋子才是你们应该调查的东西！</strong>」</td>
+</tr>
+<tr>
+<td>托马斯·加德纳（资深管理员）</td>
+<td>—</td>
+<td>「<strong>有能力的指挥官带几个打手就可以攻破后门，潜入大楼里的任何房间，所以整个中心安保系统毫无用处。</strong>」</td>
+</tr>
+<tr>
+<td>马瑞克·路扎尔（门卫）</td>
+<td>—</td>
+<td>「<strong>就算我这样做了也依旧没人会注意，因为大楼的那一部分"正在修葺"。</strong>」</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>攻略读法</strong>：
+- 终局的每一条 <code>INFO</code> 都在告诉你一个<strong>可选项</strong>：后门 / 下水道 / 屋顶 / 爆炸 / 狙击点。
+- <strong>同一条线索被 2–3 个人重复提到 = 那就是正解</strong>（市政府线里"后门"被休斯、加德纳、瑞秋·基斯三个人提到；沙菲线里"墙"被工人、工程师、巫师三个人提到）。
+- 雇侦探去盘问这些人 = <code>NumDetectives</code> 那几个槽位，<strong>最多同时派 4 名</strong>。</p>
+<h3 id="sec-92">16.3 终局布阵答案表（16 个槽位 · 已解出）</h3>
+<p>终局不是「选对选项」那么简单，而是一套<strong>布阵小游戏</strong>：你要往槽位里塞正确的作战单位，正确槽位数达到阈值才算赢。数据里每个槽位都有唯一正解（来自 <code>ClimaxAssaultDatabase</code>，共 28 条记录：市政厅方案 12 槽 + 屠宰场方案 16 槽）。</p>
+<p>单位枚举：<code>1=队长 2=突击 3=破门 4=狙击 5=水攻 6=装甲</code>。</p>
+<p><strong>方案 A：市政厅（CityHall，12 个槽位）</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>槽位</th>
+<th>正确单位配置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>水攻 ×2</td>
+</tr>
+<tr>
+<td>2</td>
+<td>（空槽，不能放人）</td>
+</tr>
+<tr>
+<td>3</td>
+<td>队长 ×1 + 突击 ×1 + 破门 ×1</td>
+</tr>
+<tr>
+<td>4</td>
+<td>突击 ×2</td>
+</tr>
+<tr>
+<td>5</td>
+<td>（空槽）</td>
+</tr>
+<tr>
+<td>6</td>
+<td>狙击 ×2</td>
+</tr>
+<tr>
+<td>7</td>
+<td>（空槽）</td>
+</tr>
+<tr>
+<td>8</td>
+<td>狙击 ×1</td>
+</tr>
+<tr>
+<td>9</td>
+<td>破门 ×1 + 突击 ×1</td>
+</tr>
+<tr>
+<td>10</td>
+<td>（空槽）</td>
+</tr>
+<tr>
+<td>11</td>
+<td>（空槽）</td>
+</tr>
+<tr>
+<td>12</td>
+<td>（空槽）</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>方案 B：屠宰场 / 沙菲（SlaughterHouse，16 个槽位）</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>槽位</th>
+<th>正确单位配置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>狙击 ×2</td>
+</tr>
+<tr>
+<td>2</td>
+<td>破门 ×1 + 突击 ×1</td>
+</tr>
+<tr>
+<td>3</td>
+<td>破门 ×1 + 突击 ×1</td>
+</tr>
+<tr>
+<td>4</td>
+<td>（空槽）</td>
+</tr>
+<tr>
+<td>5</td>
+<td>（空槽）</td>
+</tr>
+<tr>
+<td>6</td>
+<td>破门 ×1</td>
+</tr>
+<tr>
+<td>7</td>
+<td>突击 ×1</td>
+</tr>
+<tr>
+<td>8</td>
+<td>（空槽）</td>
+</tr>
+<tr>
+<td>9</td>
+<td>（空槽）</td>
+</tr>
+<tr>
+<td>10</td>
+<td>队长 ×1 + 突击 ×2</td>
+</tr>
+<tr>
+<td>11</td>
+<td>（空槽）</td>
+</tr>
+<tr>
+<td>12</td>
+<td>（空槽）</td>
+</tr>
+<tr>
+<td>13</td>
+<td>（空槽）</td>
+</tr>
+<tr>
+<td>14</td>
+<td>（空槽）</td>
+</tr>
+<tr>
+<td>15</td>
+<td>装甲 ×1</td>
+</tr>
+<tr>
+<td>16</td>
+<td>（空槽）</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>打法</strong>：把每个槽位按要求塞满对应单位即可。空槽千万别放人（放错反而扣分）。正确槽位数 ≥ 阈值就赢。</p>
+</blockquote>
+<h3 id="sec-93">16.4 终局胜负判定（阈值 8 / 10）</h3>
+<p><code>ClimaxEvent::CalculateResults</code> 的逻辑：数「正确槽位数」，跟阈值比大小决定 <code>Won</code>。</p>
+<ul>
+<li><strong>接受黑帮招安</strong>（<code>Mafia.JackAcceptedToWorkForMafia == true</code>）→ 阈值 = <code>ClimaxNumToSucceedKendrickAlive = 8</code>。</li>
+<li><strong>没接受黑帮招安</strong> → 阈值 = <code>ClimaxNumToSucceedKendrickDead = 10</code>。</li>
+</ul>
+<blockquote>
+<p>也就是：跟黑帮勾搭上，终局布阵只需对 8 个槽位；不勾搭，要对 10 个。黑帮线反而更轻松——这是游戏一个反直觉的设计。</p>
+</blockquote>
+<hr />
+<h1 id="sec-94">第十九章 失败与成功结局全解</h1>
+<p>这游戏有 <strong>3 条失败结局 + 2 条成功结局</strong>。前面章节散着提过，这里集中把「<strong>怎么作死才能触发</strong>」讲透。判定逻辑全部来自 IL 反编译，已验证。</p>
+<h2 id="sec-95">19.1 入狱结局（"你已入狱。"）</h2>
+<p>触发入口在 <code>Jack::Arrest</code>，共有 <strong>3 条路径</strong>，对应 <code>ArrestReason</code> 1 / 2 / 3：</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>路径</th>
+<th>触发条件（来自 IL 反编译）</th>
+<th>ArrestReason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A · 警告信累积</td>
+<td><code>StartTheDay</code> 里 <code>OutstandingWarnings &gt; 0</code> → 走 <code>DoWarningPenalty</code>；当 <code>WarningsReceived &gt;= 3</code>（收到第 3 封警告信）时直接逮捕</td>
+<td>1</td>
+</tr>
+<tr>
+<td>B · 监视下被捕</td>
+<td><code>Jack::ArrestUnderScrutiny</code>：处于「被监视」状态时触发</td>
+<td>2</td>
+</tr>
+<tr>
+<td>C · 心理测试失败</td>
+<td><code>StartTheDay</code> → <code>DoPsychoTest</code>，测试没过 → 逮捕</td>
+<td>3</td>
+</tr>
+</tbody>
+</table></div>
+<p>逮捕时的画面文本：
+- 标题 <code>ArrestMessageTitle</code> = <strong>"不明来客"</strong>
+- 正文 <code>ArrestMessageText</code> = <strong>"博伊德局长，有几位先生让您从办公室出来一下。他们好像带了枪。"</strong>
+- 结局屏 <code>GameOverJailMessage</code> = <strong>"你已入狱。"</strong></p>
+<blockquote>
+<p><strong>怎么达成</strong>：最稳的是路径 A——连续作死惹警告，攒到 3 封警告信必进局子。路径 C 走第 7 / 8 / 9 天的心理测试故意答错也行。</p>
+</blockquote>
+<h2 id="sec-96">19.2 死亡结局（"杰克已死。"）</h2>
+<p>触发在 <code>DayStartScreen::GoToWorkInternal</code>，核心判断：</p>
+<pre><code>if (!Mafia.IsEliminated &amp;&amp; Mafia.MafiaWantsToKillJack) {
+    加载 SVARGAS / SSANDS 场景（取决于是否 NewMafia 线）
+    → 触发 GameOverDeathMessage + &quot;JackDied&quot; 统计
+}
+</code></pre>
+<p>也就是：<strong>你把黑帮彻底得罪、黑帮又没在剧情里被消灭，上班出门那一刻就被做掉。</strong></p>
+<ul>
+<li>结局屏 <code>GameOverDeathMessage</code> = <strong>"杰克已死。"</strong></li>
+</ul>
+<blockquote>
+<p><strong>怎么达成</strong>：在黑帮战争（第 13 天起）或日常任务里反复拒绝 / 搞砸黑帮需求，把 <code>MafiaWantsToKillJack</code> 顶成 true，且别把黑帮彻底剿灭，然后正常「去上班」即可。</p>
+</blockquote>
+<h2 id="sec-97">19.3 袭击失败结局（"袭击失败"）</h2>
+<p>终局布阵（见第十八章（终局布阵答案表））正确槽位数 <strong>没达到阈值</strong>（接受黑帮招安需 8、否则需 10）→ <code>Won = false</code>。</p>
+<ul>
+<li>结局屏 <code>AssaultGameOverMessage</code> = <strong>"袭击失败"</strong></li>
+</ul>
+<blockquote>
+<p>这不是「游戏结束」，而是终局分支里的失败演出；对照的是下面两个成功结局。</p>
+</blockquote>
+<h2 id="sec-98">19.4 两条成功结局（对照）</h2>
+<p><code>LastDayManager::ShowMessages</code> 按 <code>Climax.AssaultPlan</code> 分流：</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>选择</th>
+<th>结局</th>
+<th>来信人</th>
+<th>标题</th>
+<th>来信要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>执行了袭击计划（<code>AssaultPlan == true</code>）</td>
+<td><strong>沙菲结局</strong></td>
+<td>沙菲（<code>ChaffeeSenderName</code>）</td>
+<td>到此为止</td>
+<td>沙菲说「我的游戏刚开始，您的游戏要结束了」，塞给你一包钱让你卷铺盖走人</td>
+</tr>
+<tr>
+<td>没执行袭击（跟市长妥协）</td>
+<td><strong>罗杰斯结局</strong></td>
+<td>罗杰斯市长（<code>RogersSenderName</code>）</td>
+<td>到此为止</td>
+<td>罗杰斯给你退休函，「明天别来警察局了」</td>
+</tr>
+</tbody>
+</table></div>
+<p>成功结局全文（中文原文）：
+- <strong>沙菲来信</strong>：「博伊德局长，从我们第一天见面，我脑袋里就对你打了很多个问号。我当时就在想：'我们的想法有可能达成一致吗？'我不知道我的很多计划和目标你是不是赞同……但是，我知道你是一个聪明人。到今天，我基本上可以肯定，你这个聪明人已经明白我没办法兑现之前的所有承诺。博伊德局长，我的游戏刚刚开始，不过您的游戏马上就要结束了。明天，保安要是把您从楼里轰出来，我觉得这就有点不太好看了。你我都是明白人，我建议您今天太阳下山的时候就收拾好东西走人。至于咱们说好的另外一件事情，我肯定不会让您空着手走的。那个包里的钱足够您过完下半辈子。」
+- <strong>罗杰斯来信</strong>：「杰克，我估计你一整天都在想：'罗杰斯是不是玩我呢？他既然轻而易举就能干掉我了，之前说的话还会算数吗？'我猜你傍晚的时候自己就知道答案了。信封里是你最后的退休函。明天别再来警察局了，我跟他们说过了，不允许你进楼。杰克，这半年过得可不容易啊。你我现在都能稍微松口气了。」</p>
+<hr />
+<h1 id="sec-99">第二十章 沙盒模式</h1>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>项</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>初始每天呼叫数</td>
+<td><strong>4</strong></td>
+</tr>
+<tr>
+<td>初始槽位</td>
+<td><strong>12</strong></td>
+</tr>
+<tr>
+<td>每 7 天增长</td>
+<td>+1 呼叫、+3 槽位</td>
+</tr>
+<tr>
+<td>呼叫上限</td>
+<td><strong>15</strong></td>
+</tr>
+<tr>
+<td>单次呼叫时长</td>
+<td>10 – 40 分钟</td>
+</tr>
+<tr>
+<td>初始 JP</td>
+<td><strong>150</strong>，每 10 天 +10%</td>
+</tr>
+<tr>
+<td>假警报概率</td>
+<td>20%</td>
+</tr>
+<tr>
+<td>文字问答概率</td>
+<td>20%</td>
+</tr>
+<tr>
+<td>掉落赃物概率</td>
+<td>10%</td>
+</tr>
+<tr>
+<td>需要支援概率</td>
+<td>10%</td>
+</tr>
+<tr>
+<td>初始警员每班 JP</td>
+<td>1000（14 槽）</td>
+</tr>
+<tr>
+<td>初始侦探每班 JP</td>
+<td>400（6 槽）</td>
+</tr>
+<tr>
+<td>黑帮任务</td>
+<td>每周 2 条，1000–4000，每周 +1 条</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>射击小游戏</strong>：命中 +100，连击 +500，脱靶 −100，<strong>误伤人质 −200</strong>，60 秒 10 发子弹。
+<strong>德州扑克</strong>：最低注 100，上限 5000。</p>
+<p>沙盒专用文本：<code>SandboxStartMessage</code>（2 条）、<code>SandboxPokerLostMessage</code>（2 条）。</p>
+<hr />
+<h1 id="sec-100">第二十一章 剧情时间线 &amp; 关键 deadline</h1>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>天</th>
+<th>事件</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2 / 3 / 4</td>
+<td>引导 / 警局界面 / 调查解锁</td>
+<td>SPECIAL0001 在第 4 天触发（2 天期限）</td>
+</tr>
+<tr>
+<td>5</td>
+<td>帮派、市政厅解锁；<strong>忠诚开始变动</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>7</strong></td>
+<td><strong>黑帮找上门（忠诚 100 或 50 的抉择）</strong></td>
+<td>最重要的早期抉择</td>
+</tr>
+<tr>
+<td>7 / 8 / 9</td>
+<td>心理测试：通知 / 测试 / 出结果</td>
+<td>最低分 5，服从期最后一天 31</td>
+</tr>
+<tr>
+<td>9</td>
+<td>死魂灵（吃空饷）解锁</td>
+<td></td>
+</tr>
+<tr>
+<td>10</td>
+<td>囚车解锁（第 24 天正式送你）；SPECIAL0002（3 天）</td>
+<td></td>
+</tr>
+<tr>
+<td>14</td>
+<td>SIDE0016（人不归）</td>
+<td></td>
+</tr>
+<tr>
+<td>15</td>
+<td>SPECIAL0006 雇佣女警（3 天）</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>13</strong></td>
+<td><strong>黑帮战争开始，持续 15 天</strong></td>
+<td>新黑帮需 15 分；60 段火并文本</td>
+</tr>
+<tr>
+<td>19</td>
+<td>SPECIAL0004 雇佣亚裔警察（3 天）</td>
+<td></td>
+</tr>
+<tr>
+<td>24</td>
+<td>SPECIAL0003 解雇老年警察（2 天）；囚车送达</td>
+<td></td>
+</tr>
+<tr>
+<td>29</td>
+<td>黑帮专门调查任务</td>
+<td></td>
+</tr>
+<tr>
+<td>30 – 55</td>
+<td>Jack 昏迷</td>
+<td>这段时间警局自动运行</td>
+</tr>
+<tr>
+<td><strong>58</strong></td>
+<td><strong>遇袭后的记者会</strong>（PRESS0033–0038）</td>
+<td>三个选项全负</td>
+</tr>
+<tr>
+<td>57</td>
+<td>购物日</td>
+<td></td>
+</tr>
+<tr>
+<td>62 – 65</td>
+<td>疯医生（奖励 <strong>16000</strong>）</td>
+<td></td>
+</tr>
+<tr>
+<td>63 – 178</td>
+<td>Vizor 电视台评分（市政厅/黑帮/警局三档 30/60/100）</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>66 – 80</strong></td>
+<td><strong>连环杀手：破案 +175000，失败 −70000 且薪水 −80%</strong></td>
+<td>参与侦探 +25 XP；杀手 5 封信</td>
+</tr>
+<tr>
+<td>67</td>
+<td>SPECIAL0008 更换警探（7 天）</td>
+<td>和连环案撞车</td>
+</tr>
+<tr>
+<td>70</td>
+<td>SIDE0018（专业度 +80）</td>
+<td></td>
+</tr>
+<tr>
+<td>73</td>
+<td>SIDE0030（TL +20，5 人）</td>
+<td></td>
+</tr>
+<tr>
+<td>76 / 77</td>
+<td>SIDE0004（8000）/ SIDE0012（25000 但专业度 −50）</td>
+<td></td>
+</tr>
+<tr>
+<td>82 – 87</td>
+<td>SIDE0024 / SIDE0028 / SIDE0009</td>
+<td></td>
+</tr>
+<tr>
+<td>84 – 89</td>
+<td>Atticus 势力</td>
+<td></td>
+</tr>
+<tr>
+<td>87</td>
+<td>SPECIAL0007 送警员回警校（2 天）</td>
+<td></td>
+</tr>
+<tr>
+<td>92 – 98</td>
+<td>教会</td>
+<td></td>
+</tr>
+<tr>
+<td>95</td>
+<td>免费酒水的酒吧（饮酒 ×3）</td>
+<td>小心全员醉酒</td>
+</tr>
+<tr>
+<td>99 – 105</td>
+<td>SIDE0020 / SIDE0010（<strong>40000</strong>）/ 第二次停电开始</td>
+<td></td>
+</tr>
+<tr>
+<td>101</td>
+<td>SIDE0032 甜食战争</td>
+<td></td>
+</tr>
+<tr>
+<td>105 – 154</td>
+<td>第二次停电</td>
+<td></td>
+</tr>
+<tr>
+<td>156</td>
+<td>政治斗争开始；健康提示</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>157</strong></td>
+<td><strong>进入终局日程</strong>（11:00 起，145 秒）</td>
+<td></td>
+</tr>
+<tr>
+<td>157 – 160</td>
+<td>工会</td>
+<td></td>
+</tr>
+<tr>
+<td>158</td>
+<td><strong>SIDE0017 = 80000</strong>（全游戏最大一笔钱）</td>
+<td></td>
+</tr>
+<tr>
+<td>161 / 165</td>
+<td>SIDE0013 / SIDE0019</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>165 – 178</strong></td>
+<td><strong>终局（Climax）</strong></td>
+<td>Kendrick 活着需 <strong>8</strong> 次成功，死了需 <strong>10</strong> 次</td>
+</tr>
+<tr>
+<td>167 / 168 / 171 / 173 / 176</td>
+<td>各支线（详见第十二章）</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>180</strong></td>
+<td>通关</td>
+<td></td>
+</tr>
+<tr>
+<td>11 月 1 日起</td>
+<td>下雪、圣诞灯</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h1 id="sec-101">附录 A：数值速查总表</h1>
+<h2 id="sec-102">A.1 出警相关</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>犯罪 SRM 范围</td>
+<td>90% – 130%</td>
+</tr>
+<tr>
+<td>调查 SRM 范围</td>
+<td>80% – 150%</td>
+</tr>
+<tr>
+<td>文字问答 SRM 影响</td>
+<td><strong>±35%</strong></td>
+</tr>
+<tr>
+<td>现场处置问答触发率</td>
+<td>20%</td>
+</tr>
+<tr>
+<td>SWAT JP</td>
+<td>200</td>
+</tr>
+<tr>
+<td>SWAT SRM</td>
+<td>+20%</td>
+</tr>
+<tr>
+<td>囚车 JP</td>
+<td>×2</td>
+</tr>
+<tr>
+<td>犯罪警告 / 紧急</td>
+<td>20 秒 / 10 秒</td>
+</tr>
+<tr>
+<td>出警耗时</td>
+<td>10 / 15 / 20 秒</td>
+</tr>
+<tr>
+<td>现场执行</td>
+<td>3 秒</td>
+</tr>
+<tr>
+<td>调查逮捕期限</td>
+<td>4 天</td>
+</tr>
+<tr>
+<td>无线索失败率</td>
+<td>33%</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="sec-103">A.2 警员相关</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>初始警员 / 侦探槽</td>
+<td>16 / 6</td>
+</tr>
+<tr>
+<td>初始警徽</td>
+<td>2</td>
+</tr>
+<tr>
+<td>候选人刷新</td>
+<td>5 天（5 警员 + 3 侦探）</td>
+</tr>
+<tr>
+<td>日薪（0/1/2/3 徽）</td>
+<td>200 / 250 / 300 / 350</td>
+</tr>
+<tr>
+<td>加班费</td>
+<td>20 / 25 / 30 / 35</td>
+</tr>
+<tr>
+<td>旷工惩罚</td>
+<td>工资 −100、加班 −30</td>
+</tr>
+<tr>
+<td>发薪周期</td>
+<td>5 天</td>
+</tr>
+<tr>
+<td>Jack 周薪</td>
+<td>1200</td>
+</tr>
+<tr>
+<td>开局存款</td>
+<td>2400</td>
+</tr>
+<tr>
+<td>线人薪水</td>
+<td>500 / 天</td>
+</tr>
+<tr>
+<td>精力警戒线</td>
+<td>≤ 2</td>
+</tr>
+<tr>
+<td>专业度下限</td>
+<td>5</td>
+</tr>
+<tr>
+<td>晋升专业度加成</td>
+<td>+50（3 徽再 +50）</td>
+</tr>
+<tr>
+<td>心理测试天 / 最低分 / 服从期</td>
+<td>7-8-9 / 5 / 第 31 天</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="sec-104">A.3 忠诚条</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TL 初始 / 上限</td>
+<td>100 / 150</td>
+</tr>
+<tr>
+<td>TL 阈值</td>
+<td>50 告密警告、40 投诉1、20 投诉2</td>
+</tr>
+<tr>
+<td>TL 过低 JP 惩罚</td>
+<td>−20%</td>
+</tr>
+<tr>
+<td>TL 极低薪水惩罚</td>
+<td>−50% / −90%</td>
+</tr>
+<tr>
+<td>CHL 初始 / 上限</td>
+<td>100 / 150</td>
+</tr>
+<tr>
+<td>CHL 犯罪基准</td>
+<td>+5（逃跑 ×−3、平民死亡 ×−5）</td>
+</tr>
+<tr>
+<td>CHL 调查完成</td>
+<td>+20</td>
+</tr>
+<tr>
+<td>CHL 请求间隔</td>
+<td>5 天</td>
+</tr>
+<tr>
+<td>CHL 查账罚款</td>
+<td>−25%</td>
+</tr>
+<tr>
+<td>ML 初始 / 上限 / 拒绝合作</td>
+<td>100 / 150 / <strong>50</strong></td>
+</tr>
+<tr>
+<td>ML 不满线</td>
+<td>25</td>
+</tr>
+<tr>
+<td>ML 赃物未售倒计时</td>
+<td>14 天</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h1 id="sec-105">附录 B：数据可信度说明</h1>
+<p>分三档，别混着看：</p>
+<ol>
+<li><strong>【已验证】</strong> — 请假（批准/拒绝）、黑帮忠诚（开局抉择/任务失败）、工资结算这几处，
+   我把 DLL 里对应方法反汇编出来，逐条 IL 指令确认了加减、乘数、分支条件。<strong>这部分是硬的。</strong></li>
+<li><strong>【数值】</strong> — 其余数值从 ScriptableObject 二进制按 Unity 序列化规则解出，
+   <code>GameParametersDatabase</code> 共 331 个字段，<strong>字节消费 1764/1764 完全对齐</strong>，字段顺序与类型全部正确，数值可信；
+   但"这个字段具体在哪一步被用"没有逐个追踪，语义按字段名 + 上下文判断。</li>
+<li><strong>明确未验证</strong> —
+   - <code>SendCopAssignmentDatabase</code> 的 <code>Penalty</code>（−5/−15/−20）：数量级与 CHL 变化一致、
+     与钱的数量级（几百上千）不符，我判断是拒绝市政厅派差的 CHL 惩罚，但<strong>没追 IL</strong>，不敢打包票。
+   - <code>SpecialAssignmentDatabase</code> 的 <code>Reward +30 / Penalty −50</code>：同样按 CHL 理解，未追 IL。
+   - <code>CrimeDatabase</code> 900 条犯罪只解出第 1 条（<code>Loot</code> 是嵌套结构），<strong>逐条犯罪清单没拿到</strong>——
+     只确认了结构（CRIME0001：第 10 天 8:20，LOC0001，得分档 600/525/450/375/300/225，类型"4-10a"，
+     持续 25 分钟，最多 1 人，是假警报）。不过<strong>犯罪文本（DESC/REPORT）我通过文本库全部拿到了</strong>。</li>
+</ol>
+<hr />
+<h1 id="sec-106">附录 C：解出来的东西清单</h1>
+<h2 id="sec-107">C.1 数值数据库（26 个，来自 resources.assets）</h2>
+<p>ChurchDatabase（教会）· ClimaxDatabase（终局）· ClimaxAssaultDatabase · CrimeDatabase（900 条犯罪）
+· <strong>DayOffReasonDatabase</strong>（43 条请假理由）· <strong>EmployeeDatabase</strong>（314 名警员）
+· <strong>GameParametersDatabase</strong>（331 个全局参数）· GangDatabase（13 个帮派）· GangInterrogationDatabase
+· GangTortureDatabase · <strong>HearingDatabase</strong>（30 项听证会）· InYourFaceDatabase
+· <strong>InvestigationDatabase</strong>（调查链）· LabourUnionDatabase（工会）· LocationDatabase（202 个地点）
+· <strong>LootDatabase</strong>（11 种赃物）· <strong>MafiaAssignmentDatabase</strong>（23 个任务）· <strong>MafiaWarsDatabase</strong>（485 个战斗点）
+· NewspaperDatabase（报纸）· <strong>PressConferenceDatabase</strong>（38 场记者会）· PsychoTestDatabase（10 题）
+· RGIDatabase · <strong>SendCopAssignmentDatabase</strong>（市政派差）· SerialKillerDatabase（连环杀手）
+· <strong>SideQuestDatabase</strong>（32 条支线）· <strong>SpecialAssignmentDatabase</strong> · TextDatabase（全文本 8 语言 7.6 MB）
+· WeatherDatabase（天气）</p>
+<h2 id="sec-108">C.2 文本库（10236 条 × 8 语言，中文 = 第 6 列）</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>前缀</th>
+<th>条数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CRIME</td>
+<td>900 条 / 1800 key</td>
+<td>剧本犯罪（DESC + REPORT）</td>
+</tr>
+<tr>
+<td>SCENE</td>
+<td>1684</td>
+<td>Jack 的内心独白与剧情对白</td>
+</tr>
+<tr>
+<td>INVEST</td>
+<td>65 条 / 1366 key</td>
+<td>调查链（证词 / 嫌疑人 / 线索）</td>
+</tr>
+<tr>
+<td>QUEST</td>
+<td><strong>190 场 / 307 步 / 1228 key</strong></td>
+<td>现场处置问答（DESC / RIGHT / WRONG / NEUTRAL）</td>
+</tr>
+<tr>
+<td>COP</td>
+<td>241</td>
+<td>警员姓名（名 + 姓）</td>
+</tr>
+<tr>
+<td>NEWS</td>
+<td>419</td>
+<td>报纸标题</td>
+</tr>
+<tr>
+<td>PRESS</td>
+<td>38</td>
+<td>记者会</td>
+</tr>
+<tr>
+<td>HEAR</td>
+<td>30</td>
+<td>听证会</td>
+</tr>
+<tr>
+<td>LOCATION</td>
+<td>202</td>
+<td>地点名</td>
+</tr>
+<tr>
+<td>VINYL</td>
+<td>49</td>
+<td>唱片（艺术家 / 曲名 / 乐评）</td>
+</tr>
+<tr>
+<td>DET</td>
+<td>73</td>
+<td>侦探姓名</td>
+</tr>
+<tr>
+<td>SIDE</td>
+<td>32</td>
+<td>支线（NAME / TEXT / RESULT / SPECIAL）</td>
+</tr>
+<tr>
+<td>CLIMAX</td>
+<td>33</td>
+<td>终局人物证词</td>
+</tr>
+<tr>
+<td>GANG</td>
+<td>13</td>
+<td>帮派档案（背景 / 体检 / 口供）</td>
+</tr>
+<tr>
+<td>INTERQ</td>
+<td>52</td>
+<td>审讯问答</td>
+</tr>
+<tr>
+<td>RGI</td>
+<td>5 组 / 90 key</td>
+<td>证据帧图像池</td>
+</tr>
+<tr>
+<td>EVENT</td>
+<td>7（6 条有内容）</td>
+<td>听证会事件</td>
+</tr>
+<tr>
+<td>WAR</td>
+<td>60</td>
+<td>黑帮火并求援</td>
+</tr>
+<tr>
+<td>SEND</td>
+<td>48</td>
+<td>派差（34 市政 + 14 黑帮）</td>
+</tr>
+<tr>
+<td>SPECIAL</td>
+<td>15（8 条有内容）</td>
+<td>特殊指派</td>
+</tr>
+<tr>
+<td>REASON</td>
+<td>43</td>
+<td>请假理由</td>
+</tr>
+<tr>
+<td>PSYCHO</td>
+<td>10</td>
+<td>心理测试</td>
+</tr>
+<tr>
+<td>MURDER</td>
+<td>5</td>
+<td>连环杀手来信</td>
+</tr>
+<tr>
+<td>LOOT</td>
+<td>11</td>
+<td>赃物名</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h1 id="sec-109">附录 D：彩蛋 &amp; 杂项</h1>
+<p><strong>唱片（VINYL，49 张）</strong>：全部是公有领域古典乐，Jack 的乐评一律是同一句话：</p>
+<blockquote>
+<p>「有什么好说的？！经典就是经典！」</p>
+</blockquote>
+<p>例：肯尼斯·J·奥尔福德《波基上校进行曲》、贝多芬《第六弦乐四重奏》《科里奥兰序曲》、
+博凯里尼《C 大调五重奏》、鲍罗丁《第一弦乐四重奏》、肖邦《大提琴奏鸣曲》《第二钢琴协奏曲》。
+第一张的说明是：「我不知道你喜欢什么音乐，就挑了一些你这个年龄段的人爱听的曲子。」</p>
+<p><strong>地点（LOCATION，202 个）</strong>：城郊（出现频率最高的填坑名）、凯文之音酒吧、最后一场电影剧院、
+港口仓库、玉米纪念碑、狄俄尼索斯金手指酒品店、法院、弗里堡银行、真彩酒店、欲望公园、
+索福克勒斯戏剧院、月光足球场、克里斯托弗·G·桑德的冰上运动场、投币法则 2000 游戏机厅、
+八爪鱼饭店、卢比诺维奇赌场、糖果梦甜品店、现代美术馆、阿提库斯大楼、加油站……</p>
+<p><strong>报纸标题（NEWS，419 条）</strong>抽样：</p>
+<blockquote>
+<p>罗杰斯市长是色情狂？／《马克大乱斗 2》在弗里堡的上映时间，将提前全球首映一天／
+文化部门主管坐拥意大利别墅／城市道路清洁度提高 20%／罗杰斯市长："本市不排斥极端排外分子"／
+市政府福利：所有工作人员均可"公车私用"／玉米纪念碑将于夏末拆除／城市犯罪率飙升 31%／
+弗里堡出现小药贩／市政府容不下某族裔雇员？市长表示"是个意外"／为庆市长生日，市财政部拨款 9 万</p>
+</blockquote>
+<p><strong>开场独白（SCENE0002–0014，原文）</strong>——这游戏的文风基本就这几段定了调：</p>
+<blockquote>
+<p>我小时候睡觉前，父亲有时会告诉我，如果我闭上眼睛，很久不睁开，魔鬼就都会被赶走了。
+昨天，我满 60 岁了，依然听我父亲的……
+弗里堡有太多阴魂不散的妖魔鬼怪，要想摆脱他们，我随时随地都得装瞎。
+不过，需要付出些许代价：明天的报纸上会原原本本刊登发布会的详情。姑且称之为传道士的苦修吧。
+可现在，我头一次害怕自己心里会浮现的答案。……最可怕的是：我知道自己必须采取行动，但他娘的完全不知道自己会干到什么程度。
+我可能缺点一大堆，但绝对不是一个可以预测的人。</p>
+</blockquote>
+<p><strong>第 37–39 段是市长登场</strong>：</p>
+<blockquote>
+<p>粗鲁无礼、傲慢自大、不请自来的罗杰斯市长。
+白色凉鞋、白色袜子、白色短裤、白色马球衫，再加上虚伪的笑容，活像一只饥肠辘辘的大白鲨。</p>
+</blockquote>
+<p><strong>其他</strong>：
+- <code>PoliticalView</code> 只有 2 个值（政治观点是个二值开关，每天 5% 概率翻转）。
+- <code>PokerPlayerName</code> 4 个、<code>SerialKillerWitnessName</code> 5 个——都是固定名字池。
+- 请假理由 0015–0018 是《海神的最后诱惑》四连梗，是本作最著名的彩蛋。
+- 警员里有"弗朗西斯·伯奇"和"弗朗西斯·小伯奇"（COP0005 / COP0017）——父子梗。</p>
+<hr />
+<p><strong>衍生数据文件</strong>（解包产物，都在 <code>out/</code>）：
+<code>gp.txt</code>（331 参数全表）· <code>reason_cn.txt</code>（请假理由中文）· <code>sidequests.txt</code>（支线数值全表）
+· <code>press.txt</code>（记者会数值）· <code>press_full.txt</code>（记者会原文 + 数值）
+· <code>text_all.json</code>（10236 条 × 8 语言全文）· <code>text_groups.txt</code>（按前缀分组的中文文本）
+· <code>parsed_db.txt</code>（26 个数据库全字段）· <code>il_dump*.txt</code>（IL 反汇编）</p>
+  </main>
+</div>
+
+<button id="toTop" title="回到顶部">↑</button>
+<button id="menuBtn">目录</button>
+
+<script>
+(function(){
+  var f=document.getElementById('tocFilter');
+  var links=[].slice.call(document.querySelectorAll('#toc a'));
+  f.addEventListener('input',function(){
+    var q=this.value.trim().toLowerCase();
+    links.forEach(function(a){
+      a.classList.toggle('hide', q!=='' && a.textContent.toLowerCase().indexOf(q)===-1);
+    });
+  });
+  var tt=document.getElementById('toTop');
+  tt.onclick=function(){window.scrollTo({top:0,behavior:'smooth'});};
+  window.addEventListener('scroll',function(){
+    tt.style.display = window.scrollY>500 ? 'block':'none';
+  });
+  var side=document.getElementById('side');
+  var mb=document.getElementById('menuBtn');
+  mb.onclick=function(){side.classList.toggle('open');};
+  document.addEventListener('click',function(e){
+    if(window.innerWidth<=980 && side.classList.contains('open')
+       && !side.contains(e.target) && e.target!==mb){side.classList.remove('open');}
+  });
+  links.forEach(function(a){
+    a.addEventListener('click',function(){ if(window.innerWidth<=980) side.classList.remove('open'); });
+  });
+})();
+</script>
+</body>
+</html>
